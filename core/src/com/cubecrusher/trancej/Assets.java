@@ -5,26 +5,37 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Assets {
-    public static Music archetype, chaozFantasy, fireAura, fireFly, lightSpeed, uD, mainMenu, blip1, blip2, gameOver;
+    public static Music archetype, chaozFantasy, fireAura, fireFly, lightSpeed, uD, mainMenu, mcombat2, mcombatSacrifice, mcombatNexus, mcombat65, mcombat7, blip1, blip2, gameOver;
     public static BitmapFont gui, guiSmall, gui2, gui2Small;
 
     public static void load(){
-        archetype = Gdx.audio.newMusic(Gdx.files.internal("audio/AZ8T.mp3")); //160bpm
+        archetype = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/AZ8T.ogg")); //160bpm
         archetype.setLooping(true);
-        chaozFantasy = Gdx.audio.newMusic(Gdx.files.internal("audio/CF-B.mp3")); //108bpm
+        chaozFantasy = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/CF-B.ogg")); //108bpm
         chaozFantasy.setLooping(true);
-        fireAura = Gdx.audio.newMusic(Gdx.files.internal("audio/FA.mp3")); //180bpm
+        fireAura = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/FA.ogg")); //180bpm
         fireAura.setLooping(true);
-        fireFly = Gdx.audio.newMusic(Gdx.files.internal("audio/FF-PRMX.mp3")); //140bpm
+        fireFly = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/FF-PRMX.ogg")); //140bpm
         fireFly.setLooping(true);
-        mainMenu = Gdx.audio.newMusic(Gdx.files.internal("audio/mainmenushort.mp3"));
+        mainMenu = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/mainmenushort.ogg"));
         mainMenu.setLooping(true);
-        uD = Gdx.audio.newMusic(Gdx.files.internal("audio/UD.mp3")); //140bpm
+        uD = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/UD.ogg")); //140bpm
         uD.setLooping(true);
-        lightSpeed = Gdx.audio.newMusic(Gdx.files.internal("audio/ATSOL.mp3")); //160bpm
-        blip1 = Gdx.audio.newMusic(Gdx.files.internal("audio/select.mp3"));
-        blip2 = Gdx.audio.newMusic(Gdx.files.internal("audio/transition.mp3"));
-        gameOver = Gdx.audio.newMusic(Gdx.files.internal("audio/terminated.mp3"));
+        lightSpeed = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/ATSOL.ogg")); //160bpm
+        lightSpeed.setLooping(true);
+        mcombat2 = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/Madness_Combat_2.ogg")); //
+        mcombat2.setLooping(true);
+        mcombatSacrifice = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/Madness_Combat_Sacrifice.ogg")); // shop
+        mcombatSacrifice.setLooping(true);
+        mcombatNexus = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/Madness_Combat_ProjectNexus.ogg")); //
+        mcombatNexus.setLooping(true);
+        mcombat65 = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/Madness_Combat_6.5.ogg")); //
+        mcombat65.setLooping(true);
+        mcombat7 = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/Madness_Combat_7.ogg")); //
+        mcombat7.setLooping(true);
+        blip1 = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/select.ogg"));
+        blip2 = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/transition.ogg"));
+        gameOver = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/terminated.ogg"));
         gui = new BitmapFont(Gdx.files.internal("fonts/gui.fnt"),Gdx.files.internal("fonts/gui.png"),false);
         guiSmall = new BitmapFont(Gdx.files.internal("fonts/gui_small.fnt"),Gdx.files.internal("fonts/gui_small.png"),false);
         gui2 = new BitmapFont(Gdx.files.internal("fonts/gui2.fnt"),Gdx.files.internal("fonts/gui2.png"),false);
@@ -52,6 +63,10 @@ public class Assets {
         Assets.stopMusic(Assets.fireFly);
         Assets.stopMusic(Assets.chaozFantasy);
         Assets.stopMusic(Assets.lightSpeed);
+        Assets.stopMusic(Assets.mcombat2);
+        Assets.stopMusic(Assets.mcombat7);
+        Assets.stopMusic(Assets.mcombatNexus);
+        Assets.stopMusic(Assets.mcombat65);
     }
 
     public static void stopAllMusic(){
@@ -62,6 +77,10 @@ public class Assets {
         Assets.stopMusic(Assets.fireFly);
         Assets.stopMusic(Assets.chaozFantasy);
         Assets.stopMusic(Assets.lightSpeed);
+        Assets.stopMusic(Assets.mcombat2);
+        Assets.stopMusic(Assets.mcombat7);
+        Assets.stopMusic(Assets.mcombatNexus);
+        Assets.stopMusic(Assets.mcombat65);
     }
 }
 

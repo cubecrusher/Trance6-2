@@ -1,6 +1,7 @@
 package com.cubecrusher.trancej;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class EndScreen extends ScreenAdapter {
-    public static float time, best;
+    public static float time;
     public static int plays;
     public static boolean newBest = false;
     private OrthographicCamera camera;
@@ -130,6 +131,10 @@ public class EndScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            Gdx.input.setCatchKey(Input.Keys.BACK,true);
+            TrJr.INSTANCE.setScreen(new MainScreen(camera));
+        }
         update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -139,7 +144,7 @@ public class EndScreen extends ScreenAdapter {
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
             if (spritey2 > TrJr.INSTANCE.getScrH() / 3.5f * 2) {
-                Assets.gui.draw(batch, "Time: " + time, TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
+                Assets.guiSmall.draw(batch, "Time: " + time, TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
 
                 stage.act(Gdx.graphics.getDeltaTime());
                 stage.draw();
@@ -148,21 +153,15 @@ public class EndScreen extends ScreenAdapter {
             if (spritey2 > TrJr.INSTANCE.getScrH() / 4f * 2) {
                     Assets.gui.draw(batch, "Time: " + time, TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 300);
                     if (!newBest) {
-                        Assets.guiSmall.draw(batch, "Best: " + best, TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                        Assets.guiSmall.draw(batch, "Best: " + settings.getHighScore(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
                         Assets.guiSmall.draw(batch, mockery, TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
                     }
                     else Assets.guiSmall.draw(batch, "(!!!) New highscore!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                    Assets.guiSmall.draw(batch, "Plays: "+plays,TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 150);
                     stage.act(Gdx.graphics.getDeltaTime());
                     stage.draw();
                 }
             }
         batch.end();
-    }
-
-    @Override
-    public void pause(){
-
     }
 
     @Override

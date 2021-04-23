@@ -30,10 +30,6 @@ public class MainScreen extends ScreenAdapter {
     private Settings settings;
     Vector3 touchpt = new Vector3();
 
-    //private Player player;
-    //private Obstacle obstacle;
-
-
     public MainScreen(OrthographicCamera camera){
         this.settings = new Settings();
         this.camera = camera;
@@ -68,15 +64,8 @@ public class MainScreen extends ScreenAdapter {
 
             stage = new Stage(new ScreenViewport());
 
-            if (TrJr.INSTANCE.getScrW()>=1080) {
-                opttexture = new Texture(Gdx.files.internal("textures/new/options.png"));
-                opttexturer = new TextureRegion(opttexture);
-                opttexturerd = new TextureRegionDrawable(opttexturer);
-                optbutton = new ImageButton(opttexturerd);
-                stage.addActor(optbutton);
-            }
-
             stage.addActor(playbutton);
+            stage.addActor(optbutton);
             stage.addActor(scorebutton);
             stage.addActor(exitbutton);
             Gdx.input.setInputProcessor(stage);
@@ -97,10 +86,10 @@ public class MainScreen extends ScreenAdapter {
                 exitbutton.setPosition(width - 250, TrJr.INSTANCE.getScrH()/24f);
             }
             else {
-                optbutton.setPosition(0, TrJr.INSTANCE.getScrH() / 12f);
+                optbutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f);
                 optbutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
 
-                scorebutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f); //*2.5f
+                scorebutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f * 2.5f);
                 scorebutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
 
                 exitbutton.setPosition(width - TrJr.INSTANCE.getScrW()/4f+20, TrJr.INSTANCE.getScrH()/12f);
@@ -116,7 +105,6 @@ public class MainScreen extends ScreenAdapter {
                 }
             });
 
-            if (TrJr.INSTANCE.getScrW()>=1080) {
             optbutton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -125,8 +113,6 @@ public class MainScreen extends ScreenAdapter {
                     TrJr.INSTANCE.setScreen(new OptionsScreen(camera));
                 }
             });
-            }
-
 
             scorebutton.addListener(new ChangeListener() {
                 @Override
@@ -139,6 +125,7 @@ public class MainScreen extends ScreenAdapter {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     Gdx.app.exit();
+                    System.exit(0);
                 }
             });
 

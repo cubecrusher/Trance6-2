@@ -37,7 +37,7 @@ public class Obstacle4 {
         this.gameScreen = gameScreen;
         this.polygon = new Polygon(vertices);
         this.speed = 1;
-        this.velocity = 10;
+        this.velocity = TrJr.INSTANCE.getScrH()/120f;
         this.shapeRenderer = new ShapeRenderer();
     }
 

@@ -10,9 +10,8 @@ public class Settings {
     private boolean fpsOn;
     private boolean speedOn;
     private boolean launch;
-    private String highScore;
+    private float highScore;
     private int character, money, plays;
-    private float totaltime;
 
     public Settings(){
         prefs = Gdx.app.getPreferences("TranceConfig");
@@ -21,10 +20,9 @@ public class Settings {
         fpsOn = prefs.getBoolean("fps",false);
         speedOn = prefs.getBoolean("speed",false);
         launch = prefs.getBoolean("launch",true);
-        highScore = prefs.getString("highscore","0.00");
+        highScore = prefs.getFloat("highscore",0);
         character = prefs.getInteger("character",0);
         money = prefs.getInteger("money",0);
-        totaltime = prefs.getFloat("time",0f);
         plays = prefs.getInteger("plays",0);
     }
 
@@ -64,12 +62,12 @@ public class Settings {
         return speedOn;
     }
 
-    public void setHighScore(String highScore){
+    public void setHighScore(float highScore){
         this.highScore=highScore;
-        prefs.putString("highscore",highScore);
+        prefs.putFloat("highscore",highScore);
         prefs.flush();
     }
-    public String getHighScore(){
+    public float getHighScore(){
         return highScore;
     }
 
