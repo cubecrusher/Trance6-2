@@ -101,19 +101,13 @@ public class GameScreen extends ScreenAdapter {
                 musicN = 3;
             }
             else if (rng<=0.5 && rng>0.4) {
-                Assets.mcombat2.play();
+                Assets.lightSpeed.play();
                 bpm = 140;
                 musicDur = 198;
                 musicN = 3;
             }
             else if (rng<=0.6 && rng>0.5) {
                 Assets.mcombat65.play();
-                bpm = 140;
-                musicDur = 198;
-                musicN = 3;
-            }
-            else if (rng<=0.7 && rng>0.6) {
-                Assets.mcombatNexus.play();
                 bpm = 140;
                 musicDur = 198;
                 musicN = 3;
@@ -131,7 +125,7 @@ public class GameScreen extends ScreenAdapter {
                 musicN = 4;
             }
             else {
-                Assets.lightSpeed.play();
+                Assets.mcombat2.play();
                 bpm = 160;
                 musicDur = 253;
                 musicN = 5;
@@ -271,7 +265,6 @@ public class GameScreen extends ScreenAdapter {
                 if (settings.isSoundOn()) Assets.playSound(Assets.gameOver);
                 if (player.nn > 6000) {
                     settings.setPlays(plays);
-                    EndScreen.plays = settings.getPlays();
                     EndScreen.time = strDouble;
                     if (playTime > this.highScoreg) {
                         settings.setHighScore(strDouble);

@@ -117,7 +117,9 @@ public class MainScreen extends ScreenAdapter {
             scorebutton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    if (settings.isSoundOn()) Assets.playSound(Assets.blip2);
+                    if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
+                    Gdx.input.setInputProcessor(null);
+                    TrJr.INSTANCE.setScreen(new StatsScreen(camera));
                 }
             });
 

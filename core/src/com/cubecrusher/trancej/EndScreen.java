@@ -19,7 +19,6 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class EndScreen extends ScreenAdapter {
     public static float time;
-    public static int plays;
     public static boolean newBest = false;
     private OrthographicCamera camera;
     protected GameScreen gameScreen;

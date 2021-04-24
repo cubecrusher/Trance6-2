@@ -10,7 +10,7 @@ public class Settings {
     private boolean fpsOn;
     private boolean speedOn;
     private boolean launch;
-    private float highScore;
+    private float highScore, totalTime;
     private int character, money, plays;
 
     public Settings(){
@@ -24,6 +24,7 @@ public class Settings {
         character = prefs.getInteger("character",0);
         money = prefs.getInteger("money",0);
         plays = prefs.getInteger("plays",0);
+        totalTime = prefs.getFloat("total",0);
     }
 
     public void setSound(boolean soundOn){
@@ -105,5 +106,14 @@ public class Settings {
     }
     public boolean getLaunch(){
         return launch;
+    }
+
+    public void setTotal(float totalTime){
+        this.totalTime=totalTime;
+        prefs.putFloat("total",totalTime);
+        prefs.flush();
+    }
+    public float getTotal(){
+        return highScore;
     }
 }
