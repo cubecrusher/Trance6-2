@@ -4,3 +4,5 @@ You can expect a finished project sometime in May.
 Have fun!
 
 P.S. _**I do NOT accept contributions.**_
+
+P.P.S. For the love of god, **don't** steal this. I'm trusting you on this, so please. 
