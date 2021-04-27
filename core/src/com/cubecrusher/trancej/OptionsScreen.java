@@ -3,12 +3,14 @@ package com.cubecrusher.trancej;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
@@ -29,12 +31,14 @@ public class OptionsScreen extends ScreenAdapter {
     private TextureRegion soundtexturer, musictexturer, backtexturer, fpstexturer;
     private TextureRegionDrawable soundtexturerd, musictexturerd, backtexturerd, fpstexturerd;
     private ImageButton soundbutton, musicbutton, backbutton, fpsbutton;
+    private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private Sprite optionstext;
     private World world;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private int spritey = 0;
+    int n = 0;
 
     //private Player player;
     //private Obstacle obstacle;
@@ -44,6 +48,7 @@ public class OptionsScreen extends ScreenAdapter {
         this.camera = camera;
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
         this.batch = new SpriteBatch();
+        this.shapeRenderer = new ShapeRenderer();
         this.world = new World(new Vector2(0,0),false);
         this.settings = new Settings();
     }
@@ -136,8 +141,16 @@ public class OptionsScreen extends ScreenAdapter {
         update();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if (n<=2) {
+            shapeRenderer.setAutoShapeType(true);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.rect(0, 0, width, height);
+            shapeRenderer.end();
+            n++;
+        }
         batch.begin();
-        optionstext.setPosition(TrJr.INSTANCE.getScrW()/2f-234, TrJr.INSTANCE.getScrH()-spritey);
+        optionstext.setPosition(TrJr.INSTANCE.getScrW()/2f-234, TrJr.INSTANCE.getScrH()-TrJr.INSTANCE.getScrH()/4.5f);
         optionstext.draw(batch);
         if (TrJr.INSTANCE.getScrW()<1080) {
             if (settings.isSoundOn())

@@ -3,11 +3,13 @@ package com.cubecrusher.trancej;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,10 +25,12 @@ public class TutorialScreen extends ScreenAdapter {
     private TextureRegion playtexturer;
     private TextureRegionDrawable playtexturerd;
     private ImageButton playbutton;
+    private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
+    int n=0;
 
 
     public TutorialScreen(OrthographicCamera camera){
@@ -34,6 +38,7 @@ public class TutorialScreen extends ScreenAdapter {
         this.camera = camera;
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
         this.gameScreen = new GameScreen(camera);
+        this.shapeRenderer = new ShapeRenderer();
         this.batch = new SpriteBatch();
     }
 
@@ -87,6 +92,14 @@ public class TutorialScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+        if (n<=2) {
+            shapeRenderer.setAutoShapeType(true);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.rect(0, 0, width, height);
+            shapeRenderer.end();
+            n++;
+        }
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
                 Assets.guiSmall.draw(batch, "In this game, you dodge.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);

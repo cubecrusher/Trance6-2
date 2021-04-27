@@ -23,23 +23,34 @@ import obj.*;
 public class GameScreen extends ScreenAdapter {
     protected OrthographicCamera camerag;
     private SpriteBatch batch;
-    private Stage stage;
     private ShapeRenderer shapeRenderer;
     private Settings settings;
-    private EndScreen endScreen;
 
     protected Player player;
     protected Obstacle obstacle;
     protected Obstacle2 obstacle2;
     protected Obstacle3 obstacle3;
     protected Obstacle4 obstacle4;
+    protected PatternMidStraight patternMidStraight;
+    protected PatternSides patternSides;
+    protected PatternSlideL patternSlideL;
+    protected PatternSlideR patternSlideR;
+    protected PatternTriStraight patternTriStraight;
+    protected PatternDiStraight patternDiStraight;
+    protected PatternMiddle patternMiddle;
+    protected PatternZigzagL patternZigzagL;
+    protected PatternZigzagR patternZigzagR;
+    protected PatternDoubleSlide patternDoubleSlide;
 
-    private final int width = Gdx.graphics.getWidth();
-    private final int height = Gdx.graphics.getHeight();
+    private final int width = TrJr.INSTANCE.getScrW();
+    private final int height = TrJr.INSTANCE.getScrH();
     private final double rng = Math.random();
+    private double prng = 0;
 
     protected float playTime = 0.00f;
     protected float highScore = 0.00f;
+    protected float totalTime;
+    public float velocity;
     public Float highScoreg;
     public Float strDouble;
 
@@ -49,25 +60,32 @@ public class GameScreen extends ScreenAdapter {
     protected int musicN;
 
     public boolean hasCollided;
-    protected int n, money, plays;
+    protected int n, plays;
+    protected int pattern;
+    protected boolean isOut;
 
 
     public GameScreen(OrthographicCamera camera){
         this.camerag = camera;
         this.settings = new Settings();
-        this.camerag.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.camerag.position.set(new Vector3(width/2f, height/2f,0));
         this.batch = new SpriteBatch();
         this.n = 1;
+        this.pattern = (int)(Math.random()*10);
         this.player = new Player(this);
         this.hasCollided = false;
-        this.obstacle = new Obstacle(this);
-        this.obstacle2 = new Obstacle2(this);
-        this.obstacle3 = new Obstacle3(this);
-        this.obstacle4 = new Obstacle4(this);
+        this.velocity = TrJr.INSTANCE.getScrH()/120f;
+        this.isOut = false;
+        this.patternMiddle = new PatternMiddle(this);
+        this.patternMidStraight = new PatternMidStraight(this);
+        this.patternSides = new PatternSides(this);
+        this.patternSlideL = new PatternSlideL(this);
+        this.patternTriStraight = new PatternTriStraight(this);
+        this.patternDiStraight = new PatternDiStraight(this);
         this.shapeRenderer = new ShapeRenderer();
         this.highScoreg = settings.getHighScore();
-        this.money = settings.getMoney();
         this.plays = settings.getPlays();
+        this.totalTime = settings.getTotal();
     }
 
     // Play music, add "Back" functionalities
@@ -101,19 +119,19 @@ public class GameScreen extends ScreenAdapter {
                 musicN = 3;
             }
             else if (rng<=0.5 && rng>0.4) {
-                Assets.lightSpeed.play();
+                Assets.dogHouse.play();
                 bpm = 140;
                 musicDur = 198;
                 musicN = 3;
             }
             else if (rng<=0.6 && rng>0.5) {
-                Assets.mcombat65.play();
+                Assets.tireDmg.play();
                 bpm = 140;
                 musicDur = 198;
                 musicN = 3;
             }
             else if (rng<=0.8 && rng>0.7) {
-                Assets.mcombat7.play();
+                Assets.shinyTech.play();
                 bpm = 160;
                 musicDur = 218;
                 musicN = 4;
@@ -125,7 +143,7 @@ public class GameScreen extends ScreenAdapter {
                 musicN = 4;
             }
             else {
-                Assets.mcombat2.play();
+                Assets.harmfatal.play();
                 bpm = 160;
                 musicDur = 253;
                 musicN = 5;
@@ -137,12 +155,43 @@ public class GameScreen extends ScreenAdapter {
     public void update(){
         batch.setProjectionMatrix(camerag.combined);
             this.player.update();
-            this.obstacle.update();
-            this.obstacle2.update();
-            this.obstacle3.update();
-            this.obstacle4.update();
+            checkOut();
             this.camerag.update();
-            if (Intersector.intersectPolygons(player.polygon, obstacle.polygon, null) || Intersector.intersectPolygons(player.polygon, obstacle2.polygon, null) || Intersector.intersectPolygons(player.polygon, obstacle3.polygon, null) || Intersector.intersectPolygons(player.polygon, obstacle4.polygon, null))
+         switch (pattern) {
+            case 1:
+                patternSlideL.update();
+                break;
+
+            case 2:
+                patternSides.update();
+                break;
+
+            case 3:
+                patternDiStraight.update();
+                break;
+
+            case 4:
+                patternMiddle.update();
+                break;
+
+            case 5:
+                patternTriStraight.update();
+                break;
+
+            case 6:
+                patternMidStraight.update();
+                break;
+        }
+            if     (Intersector.intersectPolygons(player.polygon, patternMidStraight.polygon, null) ||
+                    Intersector.intersectPolygons(player.polygon, patternTriStraight.polygonL, null) ||
+                    Intersector.intersectPolygons(player.polygon, patternTriStraight.polygonR, null) ||
+                    Intersector.intersectPolygons(player.polygon, patternDiStraight.polygonL, null) ||
+                    Intersector.intersectPolygons(player.polygon, patternDiStraight.polygonM, null) ||
+                    Intersector.intersectPolygons(player.polygon, patternDiStraight.polygonR, null) ||
+                    Intersector.intersectPolygons(player.polygon, patternSides.polygonL, null) ||
+                    Intersector.intersectPolygons(player.polygon, patternSides.polygonR, null) ||
+                    Intersector.intersectPolygons(player.polygon, patternMiddle.polygon, null) ||
+                    Intersector.intersectPolygons(player.polygon, patternMiddle.polygon, null))
                 hasCollided = true;
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             Gdx.input.setCatchKey(Input.Keys.BACK,true);
@@ -151,13 +200,14 @@ public class GameScreen extends ScreenAdapter {
                 shapeRenderer.setAutoShapeType(true);
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                 shapeRenderer.setColor(Color.WHITE);
-                shapeRenderer.rect(0, 0, TrJr.INSTANCE.getScrW(), TrJr.INSTANCE.getScrH());
+                shapeRenderer.rect(0, 0, width, height);
                 shapeRenderer.end();
                 n++;
             }
             Assets.stopAllGameMusic();
             TrJr.INSTANCE.setScreen(new MainScreen(camerag));
         }
+        velocity+=0.005;
     }
 
     // Render everything
@@ -174,42 +224,65 @@ public class GameScreen extends ScreenAdapter {
                 Gdx.gl.glClearColor(0, 0, 0, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-                this.obstacle.velocity += 0.005;
-                this.obstacle2.velocity += 0.005;
-                this.obstacle3.velocity += 0.005;
-                this.obstacle4.velocity += 0.005;
+                this.patternDiStraight.velocity = velocity;
+                this.patternTriStraight.velocity = velocity;
+                this.patternMiddle.velocity = velocity;
+                this.patternMidStraight.velocity = velocity;
+                this.patternSlideL.velocity = velocity;
+                this.patternSides.velocity = velocity;
 
-                String velocityg = String.format("%.0f", obstacle.velocity * Gdx.graphics.getFramesPerSecond());
+                String velocityg = String.format("%.0f", velocity * Gdx.graphics.getFramesPerSecond());
 
-                this.obstacle.render();
-                this.obstacle2.render();
-                this.obstacle3.render();
-                this.obstacle4.render();
                 this.player.render();
+                 switch (pattern) {
+                    case 1:
+                        patternSlideL.render();
+                        break;
+
+                    case 2:
+                        patternSides.render();
+                        break;
+
+                    case 3:
+                        patternDiStraight.render();
+                        break;
+
+                    case 4:
+                        patternMiddle.render();
+                        break;
+
+                    case 5:
+                        patternTriStraight.render();
+                        break;
+
+                    case 6:
+                        patternMidStraight.render();
+                        break;
+                }
 
                 if (playTime <= 0.075) {
                     shapeRenderer.setAutoShapeType(true);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(Color.WHITE);
-                    shapeRenderer.rect(0, 0, TrJr.INSTANCE.getScrW(), TrJr.INSTANCE.getScrH());
+                    shapeRenderer.rect(0, 0, width, height);
                     shapeRenderer.end();
                 }
                 if (playTime <= 4.8) {
                     shapeRenderer.setAutoShapeType(true);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(Color.BLACK);
-                    shapeRenderer.rect(2, TrJr.INSTANCE.getScrH() / 2f - 10 - 2, TrJr.INSTANCE.getScrW(), 10);
+                    shapeRenderer.rect(2, height / 2f - 10 - 2, width, 10);
                     shapeRenderer.setColor(Color.WHITE);
-                    shapeRenderer.rect(0, TrJr.INSTANCE.getScrH() / 2f - 10, TrJr.INSTANCE.getScrW(), 10);
+                    shapeRenderer.rect(0, height / 2f - 10, width, 10);
                     shapeRenderer.end();
                 } else {
                     if (player.oob) {
                         shapeRenderer.setAutoShapeType(true);
                         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                         shapeRenderer.setColor(Color.BLACK);
-                        shapeRenderer.rect(2, TrJr.INSTANCE.getScrH() / 2f - 10 - 2, TrJr.INSTANCE.getScrW(), 10);
+                        shapeRenderer.rect(2, height / 2f - 10 - 2, width, 10);
                         shapeRenderer.setColor(Color.WHITE);
-                        shapeRenderer.rect(0, TrJr.INSTANCE.getScrH() / 2f - 10, TrJr.INSTANCE.getScrW(), 10);
+                        shapeRenderer.rect(0, height / 2f - 10, width, 10);
                         shapeRenderer.end();
                     }
                 }
@@ -241,8 +314,8 @@ public class GameScreen extends ScreenAdapter {
                 }
 
                 if (playTime <= 4.8) {
-                    Assets.gui2Small.draw(batch, "Control area", 22, TrJr.INSTANCE.getScrH() / 2f - 2 + 40);
-                    Assets.guiSmall.draw(batch, "Control area", 20, TrJr.INSTANCE.getScrH() / 2f + 40);
+                    Assets.gui2Small.draw(batch, "Control area", 22, height / 2f - 2 + 40);
+                    Assets.guiSmall.draw(batch, "Control area", 20, height / 2f + 40);
                 }
 
                 if (settings.isFpsOn()) {
@@ -255,8 +328,8 @@ public class GameScreen extends ScreenAdapter {
                     Assets.guiSmall.draw(batch, "V: " + velocityg, 80, height - 230);
                 }
                 if (player.oob && playTime > 4.8) {
-                    Assets.gui2Small.draw(batch, "Move down", 22, TrJr.INSTANCE.getScrH() / 2f - 2 + 40);
-                    Assets.guiSmall.draw(batch, "Move down", 20, TrJr.INSTANCE.getScrH() / 2f + 40);
+                    Assets.gui2Small.draw(batch, "Move down", 22, height / 2f - 2 + 40);
+                    Assets.guiSmall.draw(batch, "Move down", 20, height / 2f + 40);
                 }
                 batch.end();
             } else {
@@ -266,12 +339,92 @@ public class GameScreen extends ScreenAdapter {
                 if (player.nn > 6000) {
                     settings.setPlays(plays);
                     EndScreen.time = strDouble;
+                    totalTime+=strDouble;
+                    settings.setTotal(totalTime);
                     if (playTime > this.highScoreg) {
                         settings.setHighScore(strDouble);
                         EndScreen.newBest = true;
                     }
                     TrJr.INSTANCE.setScreen(new EndScreen(camerag));
                 }
+            }
+    }
+
+    public void checkOut() {
+
+        if (pattern==1) {
+            patternSlideL.update();
+            patternSlideL.render();
+            if (patternSlideL.isOut) {
+                this.isOut = true;
+                pattern = (int) (Math.random() * 10);
+            }
+        }
+        if (pattern==2) {
+            patternSides.update();
+            patternSides.render();
+            if (patternSides.isOut) {
+                this.isOut = true;
+                pattern = (int) (Math.random() * 10);
+            }
+        }
+        if (pattern==3) {
+            patternDiStraight.update();
+            patternDiStraight.render();
+            if (patternDiStraight.isOut) {
+                this.isOut = true;
+                pattern = (int) (Math.random() * 10);
+            }
+        }
+        if (pattern==4) {
+            patternMiddle.update();
+            patternMiddle.render();
+            if (patternMiddle.isOut) {
+                this.isOut = true;
+                pattern = (int) (Math.random() * 10);
+            }
+        }
+        if (pattern==5) {
+            patternTriStraight.update();
+            patternTriStraight.render();
+            if (patternTriStraight.isOut) {
+                this.isOut = true;
+                pattern = (int) (Math.random() * 10);
+            }
+        }
+        if (pattern==6) {
+            patternMidStraight.update();
+            patternMidStraight.render();
+            if (patternMidStraight.isOut) {
+                this.isOut = true;
+                pattern = (int) (Math.random() * 10);
+            }
+        }
+        else {
+            patternMidStraight.update();
+            patternMidStraight.render();
+            if (patternMidStraight.isOut) {
+                this.isOut = true;
+                pattern = (int) (Math.random() * 10);
+            }
+        }
+
+
+            if (this.isOut) {
+                patternSlideL.resetPos();
+                patternSides.resetPos();
+                patternDiStraight.resetPos();
+                patternMiddle.resetPos();
+                patternTriStraight.resetPos();
+                patternMidStraight.resetPos();
+
+                patternSlideL.isOut = false;
+                patternSides.isOut = false;
+                patternDiStraight.isOut  = false;
+                patternMiddle.isOut = false;
+                patternTriStraight.isOut = false;
+                patternMidStraight.isOut = false;
+                isOut = false;
             }
     }
 }

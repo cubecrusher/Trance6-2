@@ -2,12 +2,14 @@ package com.cubecrusher.trancej;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -23,16 +25,19 @@ public class MainScreen extends ScreenAdapter {
     private TextureRegionDrawable playtexturerd, opttexturerd, scoretexturerd, exittexturerd;
     private ImageButton playbutton, optbutton, scorebutton, exitbutton;
     private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
     private Sprite gamelogos;
     private boolean launch;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
     Vector3 touchpt = new Vector3();
+    int n=0;
 
     public MainScreen(OrthographicCamera camera){
         this.settings = new Settings();
         this.camera = camera;
+        this.shapeRenderer = new ShapeRenderer();
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
         this.batch = new SpriteBatch();
         this.launch = settings.getLaunch();
@@ -143,6 +148,14 @@ public class MainScreen extends ScreenAdapter {
         update();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if (n<=2) {
+            shapeRenderer.setAutoShapeType(true);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.rect(0, 0, width, height);
+            shapeRenderer.end();
+            n++;
+        }
         batch.begin();
         if (TrJr.INSTANCE.getScrW()<1080) gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()/6f*3.5f);
         else {

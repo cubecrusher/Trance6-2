@@ -30,8 +30,8 @@ public class EndScreen extends ScreenAdapter {
     private Sprite gameovers;
     private String mockery;
     private double mockeryd = Math.random();
-    private int height = Gdx.graphics.getHeight();
-    private int width = Gdx.graphics.getWidth();
+    private int height = TrJr.INSTANCE.getScrH();
+    private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
     private int spritey = 0, spritey2 = 0;
 
@@ -39,7 +39,7 @@ public class EndScreen extends ScreenAdapter {
     public EndScreen(OrthographicCamera camera){
         this.settings = new Settings();
         this.camera = camera;
-        this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.camera.position.set(new Vector3(width/2f, height/2f,0));
         this.gameScreen = new GameScreen(camera);
         this.batch = new SpriteBatch();
         if (mockeryd<=0.1) mockery = "(!) That's a bruh moment";
@@ -81,12 +81,12 @@ public class EndScreen extends ScreenAdapter {
     public void show(){
         create();
         playbutton.setPosition(0, height / 2f - 100);
-        playbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
-        if (TrJr.INSTANCE.getScrW()>=1080) {
-            backbutton.setPosition(0, TrJr.INSTANCE.getScrH() / 24f);
+        playbutton.setSize(width-80,height/12f);
+        if (width>=1080) {
+            backbutton.setPosition(0, height / 24f);
         } else {
-            backbutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f);
-            backbutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
+            backbutton.setPosition(-20, height / 12f);
+            backbutton.setSize(width / 4f, height / 12f);
         }
 
         playbutton.addListener(new ChangeListener() {
@@ -114,17 +114,17 @@ public class EndScreen extends ScreenAdapter {
         batch.setProjectionMatrix(camera.combined);
         this.camera.update();
         if (TrJr.INSTANCE.getScrW()<1080) {
-            if (spritey < TrJr.INSTANCE.getScrH() / 3.5f) {
+            if (spritey < height / 3.5f) {
                 spritey += 25;
                 spritey2 += 25;
             }
-            if (spritey2 < TrJr.INSTANCE.getScrH() / 3.5f * 2) spritey2 += 25;
+            if (spritey2 < height / 3.5f * 2) spritey2 += 25;
         } else {
-            if (spritey < TrJr.INSTANCE.getScrH() / 4f) {
+            if (spritey < height / 4f) {
                 spritey += 25;
                 spritey2 += 25;
             }
-            if (spritey2 < TrJr.INSTANCE.getScrH() / 4f * 2) spritey2 += 25;
+            if (spritey2 < height / 4f * 2) spritey2 += 25;
         }
     }
 
@@ -138,24 +138,24 @@ public class EndScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        gameovers.setPosition(TrJr.INSTANCE.getScrW() / 2f - 193, TrJr.INSTANCE.getScrH() - spritey);
+        gameovers.setPosition(width / 2f - 193, height - spritey);
         gameovers.draw(batch);
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
             if (spritey2 > TrJr.INSTANCE.getScrH() / 3.5f * 2) {
-                Assets.guiSmall.draw(batch, "Time: " + time, TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
+                Assets.guiSmall.draw(batch, "Time: " + time, width / 20f, height / 2f + 75);
 
                 stage.act(Gdx.graphics.getDeltaTime());
                 stage.draw();
             }
         } else {
-            if (spritey2 > TrJr.INSTANCE.getScrH() / 4f * 2) {
-                    Assets.gui.draw(batch, "Time: " + time, TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 300);
+            if (spritey2 > height / 4f * 2) {
+                    Assets.gui.draw(batch, "Time: " + time, width / 20f, height / 2f + 300);
                     if (!newBest) {
-                        Assets.guiSmall.draw(batch, "Best: " + settings.getHighScore(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                        Assets.guiSmall.draw(batch, mockery, TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
+                        Assets.guiSmall.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 2f + 225);
+                        Assets.guiSmall.draw(batch, mockery, width / 20f, height / 2f + 175);
                     }
-                    else Assets.guiSmall.draw(batch, "(!!!) New highscore!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                    else Assets.guiSmall.draw(batch, "(!!!) New highscore!", width / 20f, height / 2f + 225);
                     stage.act(Gdx.graphics.getDeltaTime());
                     stage.draw();
                 }

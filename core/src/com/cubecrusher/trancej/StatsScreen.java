@@ -3,12 +3,14 @@ package com.cubecrusher.trancej;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -27,16 +29,18 @@ public class StatsScreen extends ScreenAdapter {
     private TextureRegionDrawable backtexturerd;
     private ImageButton backbutton;
     private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
     private Sprite stats;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
-    private int spritey = 0, spritey2 = 0;
+    private int n = 0;
 
 
     public StatsScreen(OrthographicCamera camera){
         this.settings = new Settings();
         this.camera = camera;
+        this.shapeRenderer = new ShapeRenderer();
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
         this.batch = new SpriteBatch();
     }
@@ -80,19 +84,6 @@ public class StatsScreen extends ScreenAdapter {
     public void update(){
         batch.setProjectionMatrix(camera.combined);
         this.camera.update();
-        if (width<1080) {
-            if (spritey < TrJr.INSTANCE.getScrH() / 3.5f) {
-                spritey += 25;
-                spritey2 += 25;
-            }
-            if (spritey2 < TrJr.INSTANCE.getScrH() / 3.5f * 2) spritey2 += 25;
-        } else {
-            if (spritey < TrJr.INSTANCE.getScrH() / 4f) {
-                spritey += 25;
-                spritey2 += 25;
-            }
-            if (spritey2 < TrJr.INSTANCE.getScrH() / 4f * 2) spritey2 += 25;
-        }
     }
 
     @Override
@@ -105,19 +96,27 @@ public class StatsScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        stats.setPosition(width / 2f - 193, height - spritey);
+        if (n<=2) {
+            shapeRenderer.setAutoShapeType(true);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.rect(0, 0, width, height);
+            shapeRenderer.end();
+            n++;
+        }
+        stats.setPosition(width / 2f - 193, height - TrJr.INSTANCE.getScrH() / 4.5f);
         stats.draw(batch);
 
         if (width < 1080) {
-            if (spritey2 > height / 3.5f * 2) {
                 Assets.guiSmall.draw(batch, "Plays: " + settings.getPlays(), width / 20f, height / 3f * 2);
                 Assets.guiSmall.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 3f * 2 - 45);
-            }
+                Assets.guiSmall.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 90);
+                Assets.guiSmall.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 135);
         } else {
-            if (spritey2 > height / 4f * 2) {
                 Assets.guiSmall.draw(batch, "Plays: " + settings.getPlays(), width / 20f, height / 3f * 2);
                 Assets.guiSmall.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 3f * 2 - 50);
-            }
+                Assets.guiSmall.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 100);
+                Assets.guiSmall.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 150);
         }
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());

@@ -114,6 +114,6 @@ public class Settings {
         prefs.flush();
     }
     public float getTotal(){
-        return highScore;
+        return totalTime;
     }
 }
