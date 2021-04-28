@@ -31,16 +31,6 @@ public class GameScreen extends ScreenAdapter {
     protected Obstacle2 obstacle2;
     protected Obstacle3 obstacle3;
     protected Obstacle4 obstacle4;
-    protected PatternMidStraight patternMidStraight;
-    protected PatternSides patternSides;
-    protected PatternSlideL patternSlideL;
-    protected PatternSlideR patternSlideR;
-    protected PatternTriStraight patternTriStraight;
-    protected PatternDiStraight patternDiStraight;
-    protected PatternMiddle patternMiddle;
-    protected PatternZigzagL patternZigzagL;
-    protected PatternZigzagR patternZigzagR;
-    protected PatternDoubleSlide patternDoubleSlide;
 
     private final int width = TrJr.INSTANCE.getScrW();
     private final int height = TrJr.INSTANCE.getScrH();
@@ -73,15 +63,13 @@ public class GameScreen extends ScreenAdapter {
         this.n = 1;
         this.pattern = (int)(Math.random()*10);
         this.player = new Player(this);
+        this.obstacle = new Obstacle(this);
+        this.obstacle2 = new Obstacle2(this);
+        this.obstacle3 = new Obstacle3(this);
+        this.obstacle4 = new Obstacle4(this);
         this.hasCollided = false;
         this.velocity = TrJr.INSTANCE.getScrH()/120f;
         this.isOut = false;
-        this.patternMiddle = new PatternMiddle(this);
-        this.patternMidStraight = new PatternMidStraight(this);
-        this.patternSides = new PatternSides(this);
-        this.patternSlideL = new PatternSlideL(this);
-        this.patternTriStraight = new PatternTriStraight(this);
-        this.patternDiStraight = new PatternDiStraight(this);
         this.shapeRenderer = new ShapeRenderer();
         this.highScoreg = settings.getHighScore();
         this.plays = settings.getPlays();
@@ -119,31 +107,31 @@ public class GameScreen extends ScreenAdapter {
                 musicN = 3;
             }
             else if (rng<=0.5 && rng>0.4) {
-                Assets.dogHouse.play();
-                bpm = 140;
-                musicDur = 198;
-                musicN = 3;
-            }
-            else if (rng<=0.6 && rng>0.5) {
                 Assets.tireDmg.play();
                 bpm = 140;
                 musicDur = 198;
                 musicN = 3;
             }
-            else if (rng<=0.8 && rng>0.7) {
+            else if (rng<=0.6 && rng>0.5) {
                 Assets.shinyTech.play();
-                bpm = 160;
-                musicDur = 218;
-                musicN = 4;
+                bpm = 140;
+                musicDur = 198;
+                musicN = 3;
             }
-            else if (rng<=0.9 && rng>0.8) {
+            else if (rng<=0.8 && rng>0.7) {
                 Assets.archetype.play();
                 bpm = 160;
                 musicDur = 218;
                 musicN = 4;
             }
-            else {
+            else if (rng<=0.9 && rng>0.8) {
                 Assets.harmfatal.play();
+                bpm = 160;
+                musicDur = 218;
+                musicN = 4;
+            }
+            else {
+                Assets.uD.play();
                 bpm = 160;
                 musicDur = 253;
                 musicN = 5;
@@ -154,45 +142,14 @@ public class GameScreen extends ScreenAdapter {
     // Update all entities, check for collision
     public void update(){
         batch.setProjectionMatrix(camerag.combined);
-            this.player.update();
-            checkOut();
-            this.camerag.update();
-         switch (pattern) {
-            case 1:
-                patternSlideL.update();
-                break;
-
-            case 2:
-                patternSides.update();
-                break;
-
-            case 3:
-                patternDiStraight.update();
-                break;
-
-            case 4:
-                patternMiddle.update();
-                break;
-
-            case 5:
-                patternTriStraight.update();
-                break;
-
-            case 6:
-                patternMidStraight.update();
-                break;
-        }
-            if     (Intersector.intersectPolygons(player.polygon, patternMidStraight.polygon, null) ||
-                    Intersector.intersectPolygons(player.polygon, patternTriStraight.polygonL, null) ||
-                    Intersector.intersectPolygons(player.polygon, patternTriStraight.polygonR, null) ||
-                    Intersector.intersectPolygons(player.polygon, patternDiStraight.polygonL, null) ||
-                    Intersector.intersectPolygons(player.polygon, patternDiStraight.polygonM, null) ||
-                    Intersector.intersectPolygons(player.polygon, patternDiStraight.polygonR, null) ||
-                    Intersector.intersectPolygons(player.polygon, patternSides.polygonL, null) ||
-                    Intersector.intersectPolygons(player.polygon, patternSides.polygonR, null) ||
-                    Intersector.intersectPolygons(player.polygon, patternMiddle.polygon, null) ||
-                    Intersector.intersectPolygons(player.polygon, patternMiddle.polygon, null))
-                hasCollided = true;
+        this.player.update();
+        this.obstacle.update();
+        this.obstacle2.update();
+        this.obstacle3.update();
+        this.obstacle4.update();
+        this.camerag.update();
+        if (Intersector.intersectPolygons(player.polygon, obstacle.polygon, null) || Intersector.intersectPolygons(player.polygon, obstacle2.polygon, null) || Intersector.intersectPolygons(player.polygon, obstacle3.polygon, null) || Intersector.intersectPolygons(player.polygon, obstacle4.polygon, null))
+            hasCollided = true;
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             Gdx.input.setCatchKey(Input.Keys.BACK,true);
             TrJr.INSTANCE.setScreen(new MainScreen(camerag));
@@ -224,41 +181,19 @@ public class GameScreen extends ScreenAdapter {
                 Gdx.gl.glClearColor(0, 0, 0, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-                this.patternDiStraight.velocity = velocity;
-                this.patternTriStraight.velocity = velocity;
-                this.patternMiddle.velocity = velocity;
-                this.patternMidStraight.velocity = velocity;
-                this.patternSlideL.velocity = velocity;
-                this.patternSides.velocity = velocity;
+                this.obstacle.velocity = velocity;
+                this.obstacle2.velocity = velocity;
+                this.obstacle3.velocity = velocity;
+                this.obstacle4.velocity = velocity;
+
 
                 String velocityg = String.format("%.0f", velocity * Gdx.graphics.getFramesPerSecond());
 
+                this.obstacle.render();
+                this.obstacle2.render();
+                this.obstacle3.render();
+                this.obstacle4.render();
                 this.player.render();
-                 switch (pattern) {
-                    case 1:
-                        patternSlideL.render();
-                        break;
-
-                    case 2:
-                        patternSides.render();
-                        break;
-
-                    case 3:
-                        patternDiStraight.render();
-                        break;
-
-                    case 4:
-                        patternMiddle.render();
-                        break;
-
-                    case 5:
-                        patternTriStraight.render();
-                        break;
-
-                    case 6:
-                        patternMidStraight.render();
-                        break;
-                }
 
                 if (playTime <= 0.075) {
                     shapeRenderer.setAutoShapeType(true);
@@ -350,81 +285,4 @@ public class GameScreen extends ScreenAdapter {
             }
     }
 
-    public void checkOut() {
-
-        if (pattern==1) {
-            patternSlideL.update();
-            patternSlideL.render();
-            if (patternSlideL.isOut) {
-                this.isOut = true;
-                pattern = (int) (Math.random() * 10);
-            }
-        }
-        if (pattern==2) {
-            patternSides.update();
-            patternSides.render();
-            if (patternSides.isOut) {
-                this.isOut = true;
-                pattern = (int) (Math.random() * 10);
-            }
-        }
-        if (pattern==3) {
-            patternDiStraight.update();
-            patternDiStraight.render();
-            if (patternDiStraight.isOut) {
-                this.isOut = true;
-                pattern = (int) (Math.random() * 10);
-            }
-        }
-        if (pattern==4) {
-            patternMiddle.update();
-            patternMiddle.render();
-            if (patternMiddle.isOut) {
-                this.isOut = true;
-                pattern = (int) (Math.random() * 10);
-            }
-        }
-        if (pattern==5) {
-            patternTriStraight.update();
-            patternTriStraight.render();
-            if (patternTriStraight.isOut) {
-                this.isOut = true;
-                pattern = (int) (Math.random() * 10);
-            }
-        }
-        if (pattern==6) {
-            patternMidStraight.update();
-            patternMidStraight.render();
-            if (patternMidStraight.isOut) {
-                this.isOut = true;
-                pattern = (int) (Math.random() * 10);
-            }
-        }
-        else {
-            patternMidStraight.update();
-            patternMidStraight.render();
-            if (patternMidStraight.isOut) {
-                this.isOut = true;
-                pattern = (int) (Math.random() * 10);
-            }
-        }
-
-
-            if (this.isOut) {
-                patternSlideL.resetPos();
-                patternSides.resetPos();
-                patternDiStraight.resetPos();
-                patternMiddle.resetPos();
-                patternTriStraight.resetPos();
-                patternMidStraight.resetPos();
-
-                patternSlideL.isOut = false;
-                patternSides.isOut = false;
-                patternDiStraight.isOut  = false;
-                patternMiddle.isOut = false;
-                patternTriStraight.isOut = false;
-                patternMidStraight.isOut = false;
-                isOut = false;
-            }
-    }
 }

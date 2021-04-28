@@ -19,7 +19,7 @@ public class TrJr extends Game {
 		this.scrH = Gdx.graphics.getHeight();
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, scrW, scrH);
-		setScreen(new MainScreen(camera));
+		setScreen(new EpilepsyScreen(camera));
 	}
 
 	public int getScrW() {

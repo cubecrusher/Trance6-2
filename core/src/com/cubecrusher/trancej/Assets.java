@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Assets {
-    public static Music archetype, chaozFantasy, fireAura, fireFly, basementFloor, dogHouse, harmfatal, tireDmg, shinyTech, uD, mainMenu, blip1, blip2, gameOver;
+    public static Music archetype, chaozFantasy, fireAura, fireFly, basementFloor, harmfatal, tireDmg, shinyTech, uD, mainMenu, blip1, blip2, gameOver;
     public static BitmapFont gui, guiSmall, gui2, gui2Small;
 
     public static void load(){
@@ -23,8 +23,6 @@ public class Assets {
         uD.setLooping(true);
         basementFloor = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/basementfloor.ogg")); //
         basementFloor.setLooping(true);
-        dogHouse = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/doghouse.ogg")); //
-        dogHouse.setLooping(true);
         harmfatal = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/harmfatal.ogg")); //
         harmfatal.setLooping(true);
         tireDmg = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/tiredmg.ogg")); //
@@ -62,7 +60,6 @@ public class Assets {
         Assets.stopMusic(Assets.chaozFantasy);
         Assets.stopMusic(Assets.tireDmg);
         Assets.stopMusic(Assets.harmfatal);
-        Assets.stopMusic(Assets.dogHouse);
         Assets.stopMusic(Assets.shinyTech);
     }
 
@@ -75,7 +72,6 @@ public class Assets {
         Assets.stopMusic(Assets.chaozFantasy);
         Assets.stopMusic(Assets.tireDmg);
         Assets.stopMusic(Assets.harmfatal);
-        Assets.stopMusic(Assets.dogHouse);
         Assets.stopMusic(Assets.shinyTech);
     }
 }

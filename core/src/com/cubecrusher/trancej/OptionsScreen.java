@@ -28,9 +28,10 @@ public class OptionsScreen extends ScreenAdapter {
     Texture soundtexture;
     Texture musictexture;
     Texture backtexture;
-    private TextureRegion soundtexturer, musictexturer, backtexturer, fpstexturer;
-    private TextureRegionDrawable soundtexturerd, musictexturerd, backtexturerd, fpstexturerd;
-    private ImageButton soundbutton, musicbutton, backbutton, fpsbutton;
+    Texture creditstexture;
+    private TextureRegion soundtexturer, musictexturer, backtexturer, creditstexturer;
+    private TextureRegionDrawable soundtexturerd, musictexturerd, backtexturerd, creditstexturerd;
+    private ImageButton soundbutton, musicbutton, backbutton, creditsbutton;
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private Sprite optionstext;
@@ -60,23 +61,28 @@ public class OptionsScreen extends ScreenAdapter {
             soundtexture = new Texture(Gdx.files.internal("textures/new/sound.png"));
             musictexture = new Texture(Gdx.files.internal("textures/new/music.png"));
             backtexture = new Texture(Gdx.files.internal("textures/new/back.png"));
+            creditstexture = new Texture(Gdx.files.internal("textures/new/credits.png"));
 
             soundtexturer = new TextureRegion(soundtexture);
             musictexturer = new TextureRegion(musictexture);
             backtexturer = new TextureRegion(backtexture);
+            creditstexturer = new TextureRegion(creditstexture);
 
             soundtexturerd = new TextureRegionDrawable(soundtexturer);
             musictexturerd = new TextureRegionDrawable(musictexturer);
             backtexturerd = new TextureRegionDrawable(backtexturer);
+            creditstexturerd = new TextureRegionDrawable(creditstexturer);
 
             soundbutton = new ImageButton(soundtexturerd);
             musicbutton = new ImageButton(musictexturerd);
             backbutton = new ImageButton(backtexturerd);
+            creditsbutton = new ImageButton(creditstexturerd);
 
             stage = new Stage(new ScreenViewport());
             stage.addActor(soundbutton);
             stage.addActor(musicbutton);
             stage.addActor(backbutton);
+            stage.addActor(creditsbutton);
             Gdx.input.setInputProcessor(stage);
         }
     }
@@ -91,9 +97,12 @@ public class OptionsScreen extends ScreenAdapter {
         musicbutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
         if (TrJr.INSTANCE.getScrW()>=1080) {
             backbutton.setPosition(0, TrJr.INSTANCE.getScrH() / 24f);
+            creditsbutton.setPosition(width - 250, TrJr.INSTANCE.getScrH()/24f);
         } else {
             backbutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f);
             backbutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
+            creditsbutton.setPosition(width - TrJr.INSTANCE.getScrW()/4f+20, TrJr.INSTANCE.getScrH()/12f);
+            creditsbutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
         }
         soundbutton.addListener(new ChangeListener() {
 
@@ -123,6 +132,15 @@ public class OptionsScreen extends ScreenAdapter {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
                 Gdx.input.setInputProcessor(null);
                 TrJr.INSTANCE.setScreen(new MainScreen(camera));
+            }
+        });
+
+        creditsbutton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
+                Gdx.input.setInputProcessor(null);
+                TrJr.INSTANCE.setScreen(new CreditsScreen(camera));
             }
         });
     }
