@@ -99,7 +99,7 @@ public class StatsScreen extends ScreenAdapter {
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.setColor(Color.DARK_GRAY);
             shapeRenderer.rect(0, 0, width, height);
             shapeRenderer.end();
             n++;
@@ -108,15 +108,15 @@ public class StatsScreen extends ScreenAdapter {
         stats.draw(batch);
 
         if (width < 1080) {
-                Assets.guiSmall.draw(batch, "Plays: " + settings.getPlays(), width / 20f, height / 3f * 2);
-                Assets.guiSmall.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 3f * 2 - 45);
-                Assets.guiSmall.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 90);
-                Assets.guiSmall.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 135);
+            TrJr.INSTANCE.font2.draw(batch, "Plays: " + settings.getPlays(), width / 20f, height / 3f * 2);
+            TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 3f * 2 - 45);
+            TrJr.INSTANCE.font2.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 90);
+            TrJr.INSTANCE.font2.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 135);
         } else {
-                Assets.guiSmall.draw(batch, "Plays: " + settings.getPlays(), width / 20f, height / 3f * 2);
-                Assets.guiSmall.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 3f * 2 - 50);
-                Assets.guiSmall.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 100);
-                Assets.guiSmall.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 150);
+            TrJr.INSTANCE.font2.draw(batch, "Plays: " + settings.getPlays(), width / 20f, height / 3f * 2);
+            TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 3f * 2 - 50);
+            TrJr.INSTANCE.font2.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 100);
+            TrJr.INSTANCE.font2.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 150);
         }
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());

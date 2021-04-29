@@ -62,13 +62,13 @@ public class EpilepsyScreen extends ScreenAdapter {
         n++;
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
-            Assets.guiSmall.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
-            Assets.guiSmall.draw(batch, "Flashing lights.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 150);
-            Assets.guiSmall.draw(batch, "Discretion advised.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
+            TrJr.INSTANCE.font.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
+            TrJr.INSTANCE.font3.draw(batch, "This game contains flashing lights.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
+            TrJr.INSTANCE.font3.draw(batch, "Discretion is advised.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 50);
         } else {
-            Assets.gui.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
-            Assets.guiSmall.draw(batch, "This game contains flashing lights.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
-            Assets.guiSmall.draw(batch, "Discretion is advised.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
+            TrJr.INSTANCE.font.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
+            TrJr.INSTANCE.font2.draw(batch, "This game contains flashing lights.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
+            TrJr.INSTANCE.font2.draw(batch, "Discretion is advised.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
         }
         batch.end();
 

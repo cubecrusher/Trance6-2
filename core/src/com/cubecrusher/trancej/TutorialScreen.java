@@ -95,24 +95,24 @@ public class TutorialScreen extends ScreenAdapter {
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.setColor(Color.DARK_GRAY);
             shapeRenderer.rect(0, 0, width, height);
             shapeRenderer.end();
             n++;
         }
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
-                Assets.guiSmall.draw(batch, "In this game, you dodge.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                Assets.guiSmall.draw(batch, "Avoid obstacles.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-                Assets.guiSmall.draw(batch, "Stay in the lower half.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
-                Assets.guiSmall.draw(batch, "The longer - the better.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
-                Assets.guiSmall.draw(batch, "Have fun.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
+                TrJr.INSTANCE.font2.draw(batch, "In this game, you dodge.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                TrJr.INSTANCE.font2.draw(batch, "Avoid obstacles.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
+                TrJr.INSTANCE.font2.draw(batch, "Stay in the lower half.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
+                TrJr.INSTANCE.font2.draw(batch, "The longer - the better.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
+                TrJr.INSTANCE.font2.draw(batch, "Have fun.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
         } else {
-                Assets.guiSmall.draw(batch, "In Trance Journey, you dodge.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
-                Assets.guiSmall.draw(batch, "Move your finger to move the ship.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
-                Assets.guiSmall.draw(batch, "Stay in the lower half.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
-                Assets.guiSmall.draw(batch, "Survive as long as you can.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                Assets.guiSmall.draw(batch, "Have fun.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
+                TrJr.INSTANCE.font2.draw(batch, "In Trance Journey, you dodge.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
+                TrJr.INSTANCE.font2.draw(batch, "Move your finger to move the ship.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
+                TrJr.INSTANCE.font2.draw(batch, "Stay in the lower half.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
+                TrJr.INSTANCE.font2.draw(batch, "Survive as long as you can.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                TrJr.INSTANCE.font2.draw(batch, "Have fun.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
         }
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());

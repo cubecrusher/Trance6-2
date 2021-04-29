@@ -2,7 +2,9 @@ package com.cubecrusher.trancej;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class Assets {
     public static Music archetype, chaozFantasy, fireAura, fireFly, basementFloor, harmfatal, tireDmg, shinyTech, uD, mainMenu, blip1, blip2, gameOver;

@@ -143,7 +143,7 @@ public class EndScreen extends ScreenAdapter {
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
             if (spritey2 > TrJr.INSTANCE.getScrH() / 3.5f * 2) {
-                Assets.guiSmall.draw(batch, "Time: " + time, width / 20f, height / 2f + 75);
+                TrJr.INSTANCE.font2.draw(batch, "Time: " + time, width / 20f, height / 2f + 75);
 
                 stage.act(Gdx.graphics.getDeltaTime());
                 stage.draw();
@@ -152,8 +152,8 @@ public class EndScreen extends ScreenAdapter {
             if (spritey2 > height / 4f * 2) {
                     Assets.gui.draw(batch, "Time: " + time, width / 20f, height / 2f + 300);
                     if (!newBest) {
-                        Assets.guiSmall.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 2f + 225);
-                        Assets.guiSmall.draw(batch, mockery, width / 20f, height / 2f + 175);
+                        TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 2f + 225);
+                        TrJr.INSTANCE.font2.draw(batch, mockery, width / 20f, height / 2f + 175);
                     }
                     else Assets.guiSmall.draw(batch, "(!!!) New highscore!", width / 20f, height / 2f + 225);
                     stage.act(Gdx.graphics.getDeltaTime());

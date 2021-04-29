@@ -151,7 +151,7 @@ public class MainScreen extends ScreenAdapter {
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.setColor(Color.DARK_GRAY);
             shapeRenderer.rect(0, 0, width, height);
             shapeRenderer.end();
             n++;

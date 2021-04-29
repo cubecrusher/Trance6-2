@@ -162,35 +162,35 @@ public class OptionsScreen extends ScreenAdapter {
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.setColor(Color.DARK_GRAY);
             shapeRenderer.rect(0, 0, width, height);
             shapeRenderer.end();
             n++;
         }
         batch.begin();
-        optionstext.setPosition(TrJr.INSTANCE.getScrW()/2f-234, TrJr.INSTANCE.getScrH()-TrJr.INSTANCE.getScrH()/4.5f);
+        optionstext.setPosition(TrJr.INSTANCE.getScrW()/2f-234, 0.8f*height);
         optionstext.draw(batch);
         if (TrJr.INSTANCE.getScrW()<1080) {
             if (settings.isSoundOn())
-                Assets.gui.draw(batch, "ON", TrJr.INSTANCE.getScrW() / 5f * 2, height / 2f - 100 + TrJr.INSTANCE.getScrH() / 12f * 2 - 25);
+                TrJr.INSTANCE.font2.draw(batch, "Sound ON", TrJr.INSTANCE.getScrW() / 5f * 2, height / 2f - 100 + TrJr.INSTANCE.getScrH() / 12f * 2 - 25);
             else
-                Assets.gui.draw(batch, "OFF", TrJr.INSTANCE.getScrW() / 5f * 2, height / 2f - 100 + TrJr.INSTANCE.getScrH() / 12f * 2 - 25);
+                TrJr.INSTANCE.font2.draw(batch, "Sound OFF", TrJr.INSTANCE.getScrW() / 5f * 2, height / 2f - 100 + TrJr.INSTANCE.getScrH() / 12f * 2 - 25);
 
             if (settings.isMusicOn())
-                Assets.gui.draw(batch, "ON", TrJr.INSTANCE.getScrW() / 5f * 2, height / 2f + 100 - TrJr.INSTANCE.getScrH() / 12f * 2 - 25);
+                TrJr.INSTANCE.font2.draw(batch, "Music ON", TrJr.INSTANCE.getScrW() / 5f * 2, height / 2f + 100 - TrJr.INSTANCE.getScrH() / 12f * 2 - 25);
             else
-                Assets.gui.draw(batch, "OFF", TrJr.INSTANCE.getScrW() / 5f * 2, height / 2f + 100 - TrJr.INSTANCE.getScrH() / 12f * 2 - 25);
+                TrJr.INSTANCE.font2.draw(batch, "Music OFF", TrJr.INSTANCE.getScrW() / 5f * 2, height / 2f + 100 - TrJr.INSTANCE.getScrH() / 12f * 2 - 25);
         }
         else {
             if (settings.isSoundOn())
-                Assets.gui.draw(batch, "Sound ON", TrJr.INSTANCE.getScrW() / 6f * 2, height / 2f + 210);
+                TrJr.INSTANCE.font.draw(batch, "Sound ON", TrJr.INSTANCE.getScrW() / 6f * 2, height / 2f + 210);
             else
-                Assets.gui.draw(batch, "Sound OFF", TrJr.INSTANCE.getScrW() / 6f * 2, height / 2f + 210);
+                TrJr.INSTANCE.font.draw(batch, "Sound OFF", TrJr.INSTANCE.getScrW() / 6f * 2, height / 2f + 210);
 
             if (settings.isMusicOn())
-                Assets.gui.draw(batch, "Music ON", TrJr.INSTANCE.getScrW() / 6f * 2, height / 2f - 180);
+                TrJr.INSTANCE.font.draw(batch, "Music ON", TrJr.INSTANCE.getScrW() / 6f * 2, height / 2f - 180);
             else
-                Assets.gui.draw(batch, "Music OFF", TrJr.INSTANCE.getScrW() / 6f * 2, height / 2f - 180);
+                TrJr.INSTANCE.font.draw(batch, "Music OFF", TrJr.INSTANCE.getScrW() / 6f * 2, height / 2f - 180);
         }
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());

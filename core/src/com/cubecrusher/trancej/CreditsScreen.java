@@ -101,7 +101,7 @@ public class CreditsScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         if (TrJr.INSTANCE.getScrW()>=1080) {
-            creditss.setPosition(width / 2f - 234, height - 500);
+            creditss.setPosition(width / 2f - 234, 0.8f*height);
             creditss.draw(batch);
         } else {
             creditss.setPosition(width / 2f - 234, height - 200);
@@ -110,44 +110,44 @@ public class CreditsScreen extends ScreenAdapter {
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.setColor(Color.DARK_GRAY);
             shapeRenderer.rect(0, 0, width, height);
             shapeRenderer.end();
             n++;
         }
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
-            Assets.guiSmall.draw(batch, "By TMM43:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 325);
-            Assets.guiSmall.draw(batch, "   Ultimate Destruction", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 285);
-            Assets.guiSmall.draw(batch, "By JohnnyGuy:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 245);
-            Assets.guiSmall.draw(batch, "   ArchetypeZ8's Theme", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 205);
-            Assets.guiSmall.draw(batch, "By Kid2Will:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 165);
-            Assets.guiSmall.draw(batch, "   Fire Aura", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 125);
-            Assets.guiSmall.draw(batch, "By DJ_Ultimus:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 85);
-            Assets.guiSmall.draw(batch, "   Firefly", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 45);
-            Assets.guiSmall.draw(batch, "By ParagonX9:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 5);
-            Assets.guiSmall.draw(batch, "   Chaoz Fantasy ", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 35);
-            Assets.guiSmall.draw(batch, "By Kevin MacLeod: ", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 75);
-            Assets.guiSmall.draw(batch, "   Shiny Tech2", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 115);
-            Assets.guiSmall.draw(batch, "   Harmful and Fatal", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 155);
-            Assets.guiSmall.draw(batch, "   Severe Tyre Damage", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 195);
-            Assets.guiSmall.draw(batch, "   Basement Floor", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 235);
-            Assets.guiSmall.draw(batch, "Per CC-BY-SA", TrJr.INSTANCE.getScrW() / 2.15f, 80);
-            Assets.guiSmall.draw(batch, "or usage permission.", TrJr.INSTANCE.getScrW() / 5f, 40);
+            TrJr.INSTANCE.font3.draw(batch, "By TMM43:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 325);
+            TrJr.INSTANCE.font3.draw(batch, "   Ultimate Destruction", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 285);
+            TrJr.INSTANCE.font3.draw(batch, "By JohnnyGuy:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 245);
+            TrJr.INSTANCE.font3.draw(batch, "   ArchetypeZ8's Theme", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 205);
+            TrJr.INSTANCE.font3.draw(batch, "By Kid2Will:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 165);
+            TrJr.INSTANCE.font3.draw(batch, "   Fire Aura", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 125);
+            TrJr.INSTANCE.font3.draw(batch, "By DJ_Ultimus:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 85);
+            TrJr.INSTANCE.font3.draw(batch, "   Firefly", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 45);
+            TrJr.INSTANCE.font3.draw(batch, "By ParagonX9:", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 5);
+            TrJr.INSTANCE.font3.draw(batch, "   Chaoz Fantasy ", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 35);
+            TrJr.INSTANCE.font3.draw(batch, "By Kevin MacLeod: ", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 75);
+            TrJr.INSTANCE.font3.draw(batch, "   Shiny Tech2", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 115);
+            TrJr.INSTANCE.font3.draw(batch, "   Harmful and Fatal", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 155);
+            TrJr.INSTANCE.font3.draw(batch, "   Severe Tyre Damage", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 195);
+            TrJr.INSTANCE.font3.draw(batch, "   Basement Floor", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 235);
+            //TrJr.INSTANCE.font3.draw(batch, "Per CC-BY-SA", TrJr.INSTANCE.getScrW() / 5f, 80);
+            //TrJr.INSTANCE.font3.draw(batch, "or usage permission.", TrJr.INSTANCE.getScrW() / 5f, 40);
         } else {
             Assets.gui.draw(batch, "Music used", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 450);
-            Assets.guiSmall.draw(batch, "TMM43 - Ultimate Destruction", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 325);
-            Assets.guiSmall.draw(batch, "JohnnyGuy - ArchetypeZ8's Theme", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 275);
-            Assets.guiSmall.draw(batch, "Kid2Will - Fire Aura", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 225);
-            Assets.guiSmall.draw(batch, "DJ_Ultimus - Firefly [Plasma RMX]", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 175);
-            Assets.guiSmall.draw(batch, "ParagonX9 - Chaoz Fantasy (Beta)", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 125);
-            Assets.guiSmall.draw(batch, "By Kevin MacLeod: ", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 25);
-            Assets.guiSmall.draw(batch, "   Shiny Tech2", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 25);
-            Assets.guiSmall.draw(batch, "   Harmful and Fatal", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 75);
-            Assets.guiSmall.draw(batch, "   Severe Tyre Damage", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 125);
-            Assets.guiSmall.draw(batch, "   Basement Floor", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 175);
-            Assets.guiSmall.draw(batch, "Music used is either licensed under", TrJr.INSTANCE.getScrW() / 19f, TrJr.INSTANCE.getScrH()/5f);
-            Assets.guiSmall.draw(batch, "CC-BY-SA or granted use by its OC.", TrJr.INSTANCE.getScrW() / 17f, TrJr.INSTANCE.getScrH()/5f-50);
+            TrJr.INSTANCE.font2.draw(batch, "TMM43 - Ultimate Destruction", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 325);
+            TrJr.INSTANCE.font2.draw(batch, "JohnnyGuy - ArchetypeZ8's Theme", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 275);
+            TrJr.INSTANCE.font2.draw(batch, "Kid2Will - Fire Aura", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 225);
+            TrJr.INSTANCE.font2.draw(batch, "DJ_Ultimus - Firefly [Plasma RMX]", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 175);
+            TrJr.INSTANCE.font2.draw(batch, "ParagonX9 - Chaoz Fantasy (Beta)", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 125);
+            TrJr.INSTANCE.font2.draw(batch, "By Kevin MacLeod: ", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 25);
+            TrJr.INSTANCE.font2.draw(batch, "   Shiny Tech2", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 25);
+            TrJr.INSTANCE.font2.draw(batch, "   Harmful and Fatal", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 75);
+            TrJr.INSTANCE.font2.draw(batch, "   Severe Tyre Damage", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 125);
+            TrJr.INSTANCE.font2.draw(batch, "   Basement Floor", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f - 175);
+            TrJr.INSTANCE.font2.draw(batch, "Music used is either licensed under", TrJr.INSTANCE.getScrW() / 19f, TrJr.INSTANCE.getScrH()/5f);
+            TrJr.INSTANCE.font2.draw(batch, "CC-BY-SA or granted use by its OC.", TrJr.INSTANCE.getScrW() / 17f, TrJr.INSTANCE.getScrH()/5f-50);
         }
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());

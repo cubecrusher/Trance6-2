@@ -37,7 +37,7 @@ public class GameScreen extends ScreenAdapter {
     private final double rng = Math.random();
     private double prng = 0;
 
-    protected float playTime = 0.00f;
+    protected float playTime = -2.00f;
     protected float highScore = 0.00f;
     protected float totalTime;
     public float velocity;
@@ -68,7 +68,7 @@ public class GameScreen extends ScreenAdapter {
         this.obstacle3 = new Obstacle3(this);
         this.obstacle4 = new Obstacle4(this);
         this.hasCollided = false;
-        this.velocity = TrJr.INSTANCE.getScrH()/120f;
+        this.velocity = height/120f;
         this.isOut = false;
         this.shapeRenderer = new ShapeRenderer();
         this.highScoreg = settings.getHighScore();
@@ -143,10 +143,12 @@ public class GameScreen extends ScreenAdapter {
     public void update(){
         batch.setProjectionMatrix(camerag.combined);
         this.player.update();
-        this.obstacle.update();
-        this.obstacle2.update();
-        this.obstacle3.update();
-        this.obstacle4.update();
+        if (playTime>=0) {
+            this.obstacle.update();
+            this.obstacle2.update();
+            this.obstacle3.update();
+            this.obstacle4.update();
+        }
         this.camerag.update();
         if (Intersector.intersectPolygons(player.polygon, obstacle.polygon, null) || Intersector.intersectPolygons(player.polygon, obstacle2.polygon, null) || Intersector.intersectPolygons(player.polygon, obstacle3.polygon, null) || Intersector.intersectPolygons(player.polygon, obstacle4.polygon, null))
             hasCollided = true;
@@ -156,7 +158,7 @@ public class GameScreen extends ScreenAdapter {
             if (n<=2) {
                 shapeRenderer.setAutoShapeType(true);
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                shapeRenderer.setColor(Color.WHITE);
+                shapeRenderer.setColor(Color.DARK_GRAY);
                 shapeRenderer.rect(0, 0, width, height);
                 shapeRenderer.end();
                 n++;
@@ -181,6 +183,14 @@ public class GameScreen extends ScreenAdapter {
                 Gdx.gl.glClearColor(0, 0, 0, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+                if (playTime <= -2.925) {
+                    shapeRenderer.setAutoShapeType(true);
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                    shapeRenderer.setColor(Color.DARK_GRAY);
+                    shapeRenderer.rect(0, 0, width, height);
+                    shapeRenderer.end();
+                }
+
                 this.obstacle.velocity = velocity;
                 this.obstacle2.velocity = velocity;
                 this.obstacle3.velocity = velocity;
@@ -189,20 +199,15 @@ public class GameScreen extends ScreenAdapter {
 
                 String velocityg = String.format("%.0f", velocity * Gdx.graphics.getFramesPerSecond());
 
-                this.obstacle.render();
-                this.obstacle2.render();
-                this.obstacle3.render();
-                this.obstacle4.render();
+                if (playTime>=0) {
+                    this.obstacle.render();
+                    this.obstacle2.render();
+                    this.obstacle3.render();
+                    this.obstacle4.render();
+                }
                 this.player.render();
 
-                if (playTime <= 0.075) {
-                    shapeRenderer.setAutoShapeType(true);
-                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-                    shapeRenderer.setColor(Color.WHITE);
-                    shapeRenderer.rect(0, 0, width, height);
-                    shapeRenderer.end();
-                }
-                if (playTime <= 4.8) {
+                if (playTime <= 0) {
                     shapeRenderer.setAutoShapeType(true);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(Color.BLACK);
@@ -224,47 +229,42 @@ public class GameScreen extends ScreenAdapter {
 
                 batch.begin();
                 if (TrJr.INSTANCE.getScrW()<1080) {
-                    Assets.gui2.draw(batch, "" + strDouble, 50, height - 50);
-                    Assets.gui.draw(batch, "" + strDouble, 45, height - 45);
+                    TrJr.INSTANCE.font2.draw(batch, "" + strDouble, 45, height - 45);
                 } else {
-                    Assets.gui2.draw(batch, "" + strDouble, 85, height - 85);
-                    Assets.gui.draw(batch, "" + strDouble, 80, height - 80);
+                    TrJr.INSTANCE.font.draw(batch, "" + strDouble, 80, height - 80);
                 }
                 if (playTime < settings.getHighScore()) {
                     if (TrJr.INSTANCE.getScrW() < 1080) {
-                        Assets.gui2Small.draw(batch, "B: " + settings.getHighScore(), 50, height - 125);
-                        Assets.guiSmall.draw(batch, "B: " + settings.getHighScore(), 48, height - 123);
+                        TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getHighScore(), 48, height - 90);
                     } else {
-                        Assets.gui2Small.draw(batch, "B: " + settings.getHighScore(), 82, height - 162);
-                        Assets.guiSmall.draw(batch, "B: " + settings.getHighScore(), 80, height - 160);
+                        TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getHighScore(), 80, height - 160);
                     }
                 } else {
                     if (TrJr.INSTANCE.getScrW() < 1080) {
-                        Assets.gui2Small.draw(batch, "New best!", 50, height - 125);
-                        Assets.guiSmall.draw(batch, "New best!", 48, height - 123);
+                        TrJr.INSTANCE.font3.draw(batch, "New best!", 48, height - 123);
                     } else {
-                        Assets.gui2Small.draw(batch, "New best!", 82, height - 162);
-                        Assets.guiSmall.draw(batch, "New best!", 80, height - 160);
+                        TrJr.INSTANCE.font2.draw(batch, "New best!", 80, height - 160);
                     }
                 }
 
-                if (playTime <= 4.8) {
-                    Assets.gui2Small.draw(batch, "Control area", 22, height / 2f - 2 + 40);
-                    Assets.guiSmall.draw(batch, "Control area", 20, height / 2f + 40);
+                if (playTime<=-1.5) TrJr.INSTANCE.fontBig.draw(batch, "3", width/2f-64, height / 1.5f);
+                if (playTime>=-1.5 && playTime<-1) TrJr.INSTANCE.fontBig.draw(batch, "2", width/2f-64, height / 1.5f);
+                if (playTime>=-1 && playTime<-0.5) TrJr.INSTANCE.fontBig.draw(batch, "1", width/2f-56, height / 1.5f);
+                if (playTime>=-0.5 && playTime<0) TrJr.INSTANCE.fontBig.draw(batch, "GO", width/2f-128, height / 1.5f);
+
+                if (playTime <= 0) {
+                    TrJr.INSTANCE.font2.draw(batch, "Control area", 20, height / 2f + 40);
                 }
 
                 if (settings.isFpsOn()) {
-                    Assets.gui2Small.draw(batch, "F: " + Gdx.graphics.getFramesPerSecond(), 82, height - 197);
-                    Assets.guiSmall.draw(batch, "F: " + Gdx.graphics.getFramesPerSecond(), 80, height - 195);
+                    TrJr.INSTANCE.font2.draw(batch, "F: " + Gdx.graphics.getFramesPerSecond(), 80, height - 195);
                 }
 
                 if (settings.isSpeedOn()) {
-                    Assets.gui2Small.draw(batch, "V: " + velocityg, 82, height - 232);
-                    Assets.guiSmall.draw(batch, "V: " + velocityg, 80, height - 230);
+                    TrJr.INSTANCE.font2.draw(batch, "V: " + velocityg, 80, height - 230);
                 }
-                if (player.oob && playTime > 4.8) {
-                    Assets.gui2Small.draw(batch, "Move down", 22, height / 2f - 2 + 40);
-                    Assets.guiSmall.draw(batch, "Move down", 20, height / 2f + 40);
+                if (player.oob && playTime > 0) {
+                    TrJr.INSTANCE.font2.draw(batch, "Move down", 20, height / 2f + 40);
                 }
                 batch.end();
             } else {
