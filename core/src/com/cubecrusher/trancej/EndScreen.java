@@ -2,6 +2,7 @@ package com.cubecrusher.trancej;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Net;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.net.HttpRequestBuilder;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -19,7 +21,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class EndScreen extends ScreenAdapter {
     public static float time;
-    public static boolean newBest = false;
+    public static boolean newBest = false, netNewBest = false;
     private OrthographicCamera camera;
     protected GameScreen gameScreen;
     private Stage stage;
@@ -110,6 +112,20 @@ public class EndScreen extends ScreenAdapter {
 
     }
 
+    public void submitScore(Net.HttpResponseListener listener){
+        if (newBest) netNewBest = true;
+        if (netNewBest){
+            int bestScore = (int) (settings.getHighScore()*100);
+            StringBuilder urlReq = new StringBuilder("http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/");
+            urlReq.append(bestScore);
+            String urlReqString = urlReq.toString();
+            HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+            Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            Gdx.net.sendHttpRequest(httpRequest, listener);
+            netNewBest = false;
+        }
+    }
+
     public void update(){
         batch.setProjectionMatrix(camera.combined);
         this.camera.update();
@@ -150,12 +166,12 @@ public class EndScreen extends ScreenAdapter {
             }
         } else {
             if (spritey2 > height / 4f * 2) {
-                    Assets.gui.draw(batch, "Time: " + time, width / 20f, height / 2f + 300);
+                TrJr.INSTANCE.font.draw(batch, "Time: " + time, width / 20f, height / 2f + 300);
                     if (!newBest) {
                         TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 2f + 225);
                         TrJr.INSTANCE.font2.draw(batch, mockery, width / 20f, height / 2f + 175);
                     }
-                    else Assets.guiSmall.draw(batch, "(!!!) New highscore!", width / 20f, height / 2f + 225);
+                    else TrJr.INSTANCE.fontCyan2.draw(batch, "(!!!) New highscore!", width / 20f, height / 2f + 225);
                     stage.act(Gdx.graphics.getDeltaTime());
                     stage.draw();
                 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "62030607478",
+    "project_id": "trancejourney-408a8",
+    "storage_bucket": "trancejourney-408a8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:62030607478:android:b3f734742e460a7ff31b57",
+        "android_client_info": {
+          "package_name": "com.cubecrusher.trancej"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "62030607478-cbp5ete88n2oo253dltjk0ut75974orl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkXlTXluJRIWxEZuWtRslCurOJaBNVyrY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "62030607478-cbp5ete88n2oo253dltjk0ut75974orl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

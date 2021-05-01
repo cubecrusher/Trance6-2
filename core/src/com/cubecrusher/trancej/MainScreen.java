@@ -11,7 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -21,9 +22,9 @@ public class MainScreen extends ScreenAdapter {
     public static float best;
     private OrthographicCamera camera;
     private Stage stage;
-    private TextureRegion playtexturer, opttexturer, scoretexturer, exittexturer;
-    private TextureRegionDrawable playtexturerd, opttexturerd, scoretexturerd, exittexturerd;
-    private ImageButton playbutton, optbutton, scorebutton, exitbutton;
+    private TextureRegion playtexturer, opttexturer, statstexturer, exittexturer;
+    private TextureRegionDrawable playtexturerd, opttexturerd, statstexturerd, exittexturerd;
+    private ImageButton playbutton, optbutton, statsbutton, exitbutton;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Sprite gamelogos;
@@ -48,30 +49,30 @@ public class MainScreen extends ScreenAdapter {
             gamelogos = new Sprite(gamelogo);
             Texture playtexture = new Texture(Gdx.files.internal("textures/new/play.png"));
             Texture opttexture = new Texture(Gdx.files.internal("textures/new/options.png"));
-            Texture scoretexture = new Texture(Gdx.files.internal("textures/new/score.png"));
+            Texture scoretexture = new Texture(Gdx.files.internal("textures/new/stats.png"));
             Texture exittexture = new Texture(Gdx.files.internal("textures/new/exit.png"));
 
 
             playtexturer = new TextureRegion(playtexture);
             opttexturer = new TextureRegion(opttexture);
-            scoretexturer = new TextureRegion(scoretexture);
+            statstexturer = new TextureRegion(scoretexture);
             exittexturer = new TextureRegion(exittexture);
 
             playtexturerd = new TextureRegionDrawable(playtexturer);
             opttexturerd = new TextureRegionDrawable(opttexturer);
-            scoretexturerd = new TextureRegionDrawable(scoretexturer);
+            statstexturerd = new TextureRegionDrawable(statstexturer);
             exittexturerd = new TextureRegionDrawable(exittexturer);
 
             playbutton = new ImageButton(playtexturerd);
             optbutton = new ImageButton(opttexturerd);
-            scorebutton = new ImageButton(scoretexturerd);
+            statsbutton = new ImageButton(statstexturerd);
             exitbutton = new ImageButton(exittexturerd);
 
             stage = new Stage(new ScreenViewport());
 
             stage.addActor(playbutton);
             stage.addActor(optbutton);
-            stage.addActor(scorebutton);
+            stage.addActor(statsbutton);
             stage.addActor(exitbutton);
             Gdx.input.setInputProcessor(stage);
     }
@@ -85,8 +86,8 @@ public class MainScreen extends ScreenAdapter {
             if (TrJr.INSTANCE.getScrW()>=1080) {
                 optbutton.setPosition(0, TrJr.INSTANCE.getScrH() / 24f);
 
-                scorebutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+250);
-                scorebutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
+                statsbutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+250);
+                statsbutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
 
                 exitbutton.setPosition(width - 250, TrJr.INSTANCE.getScrH()/24f);
             }
@@ -94,8 +95,8 @@ public class MainScreen extends ScreenAdapter {
                 optbutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f);
                 optbutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
 
-                scorebutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f * 2.5f);
-                scorebutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
+                statsbutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f * 2.5f);
+                statsbutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
 
                 exitbutton.setPosition(width - TrJr.INSTANCE.getScrW()/4f+20, TrJr.INSTANCE.getScrH()/12f);
                 exitbutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
@@ -119,7 +120,7 @@ public class MainScreen extends ScreenAdapter {
                 }
             });
 
-            scorebutton.addListener(new ChangeListener() {
+            statsbutton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     if (settings.isSoundOn()) Assets.playSound(Assets.blip1);

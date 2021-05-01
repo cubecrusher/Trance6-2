@@ -2,13 +2,9 @@ package com.cubecrusher.trancej;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class Assets {
     public static Music archetype, chaozFantasy, fireAura, fireFly, basementFloor, harmfatal, tireDmg, shinyTech, uD, mainMenu, blip1, blip2, gameOver;
-    public static BitmapFont gui, guiSmall, gui2, gui2Small;
 
     public static void load(){
         archetype = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/AZ8T.ogg")); //160bpm
@@ -34,10 +30,6 @@ public class Assets {
         blip1 = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/select.ogg"));
         blip2 = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/transition.ogg"));
         gameOver = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/terminated.ogg"));
-        gui = new BitmapFont(Gdx.files.internal("fonts/gui.fnt"),Gdx.files.internal("fonts/gui.png"),false);
-        guiSmall = new BitmapFont(Gdx.files.internal("fonts/gui_small.fnt"),Gdx.files.internal("fonts/gui_small.png"),false);
-        gui2 = new BitmapFont(Gdx.files.internal("fonts/gui2.fnt"),Gdx.files.internal("fonts/gui2.png"),false);
-        gui2Small = new BitmapFont(Gdx.files.internal("fonts/gui2_small.fnt"),Gdx.files.internal("fonts/gui2_small.png"),false);
         System.out.println("INFO: Assets loaded.");
     }
 

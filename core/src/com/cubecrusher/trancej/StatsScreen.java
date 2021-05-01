@@ -25,9 +25,9 @@ public class StatsScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     protected GameScreen gameScreen;
     private Stage stage;
-    private TextureRegion backtexturer;
-    private TextureRegionDrawable backtexturerd;
-    private ImageButton backbutton;
+    private TextureRegion scoretexturer, backtexturer;
+    private TextureRegionDrawable scoretexturerd, backtexturerd;
+    private ImageButton scorebutton, backbutton;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Sprite stats;
@@ -46,9 +46,14 @@ public class StatsScreen extends ScreenAdapter {
     }
 
     public void create(){
+        Texture scoretexture = new Texture(Gdx.files.internal("textures/new/scores.png"));
         Texture statss = new Texture(Gdx.files.internal("textures/stats.png"));
         stats = new Sprite(statss);
         Texture backtexture = new Texture(Gdx.files.internal("textures/new/back.png"));
+
+        scoretexturer = new TextureRegion(scoretexture);
+        scoretexturerd = new TextureRegionDrawable(scoretexturer);
+        scorebutton = new ImageButton(scoretexturerd);
 
 
         backtexturer = new TextureRegion(backtexture);
@@ -58,6 +63,7 @@ public class StatsScreen extends ScreenAdapter {
         backbutton = new ImageButton(backtexturerd);
 
         stage = new Stage(new ScreenViewport());
+        stage.addActor(scorebutton);
         stage.addActor(backbutton);
         Gdx.input.setInputProcessor(stage);
     }
@@ -66,8 +72,12 @@ public class StatsScreen extends ScreenAdapter {
     public void show(){
         create();
         if (TrJr.INSTANCE.getScrW()>=1080) {
+            scorebutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+250);
+            scorebutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
             backbutton.setPosition(0, height / 24f);
         } else {
+            scorebutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f * 2.5f);
+            scorebutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
             backbutton.setPosition(-20, height / 12f);
             backbutton.setSize(width / 4f, height / 12f);
         }
@@ -76,6 +86,15 @@ public class StatsScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
                 TrJr.INSTANCE.setScreen(new MainScreen(camera));
+            }
+        });
+
+        scorebutton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
+                Gdx.input.setInputProcessor(null);
+                TrJr.INSTANCE.setScreen(new ScoreScreen(camera));
             }
         });
 

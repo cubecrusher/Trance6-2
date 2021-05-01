@@ -6,19 +6,16 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-import java.text.DecimalFormat;
-
-import obj.*;
+import obj.Obstacle;
+import obj.Obstacle2;
+import obj.Obstacle3;
+import obj.Obstacle4;
+import obj.Player;
 
 public class GameScreen extends ScreenAdapter {
     protected OrthographicCamera camerag;
@@ -183,7 +180,7 @@ public class GameScreen extends ScreenAdapter {
                 Gdx.gl.glClearColor(0, 0, 0, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-                if (playTime <= -2.925) {
+                if (playTime <= -1.925) {
                     shapeRenderer.setAutoShapeType(true);
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(Color.DARK_GRAY);
@@ -243,7 +240,7 @@ public class GameScreen extends ScreenAdapter {
                     if (TrJr.INSTANCE.getScrW() < 1080) {
                         TrJr.INSTANCE.font3.draw(batch, "New best!", 48, height - 123);
                     } else {
-                        TrJr.INSTANCE.font2.draw(batch, "New best!", 80, height - 160);
+                        TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
                     }
                 }
 

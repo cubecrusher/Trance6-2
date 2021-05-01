@@ -73,10 +73,6 @@ public class CreditsScreen extends ScreenAdapter {
         backbutton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (settings.isSoundOn()) {
-                    Assets.playSound(Assets.blip1);
-                    Assets.stopMusic(Assets.mainMenu);
-                }
                 Gdx.input.setInputProcessor(null);
                 TrJr.INSTANCE.setScreen(new OptionsScreen(camera));
             }
@@ -135,7 +131,7 @@ public class CreditsScreen extends ScreenAdapter {
             //TrJr.INSTANCE.font3.draw(batch, "Per CC-BY-SA", TrJr.INSTANCE.getScrW() / 5f, 80);
             //TrJr.INSTANCE.font3.draw(batch, "or usage permission.", TrJr.INSTANCE.getScrW() / 5f, 40);
         } else {
-            Assets.gui.draw(batch, "Music used", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 450);
+            TrJr.INSTANCE.font.draw(batch, "Music used", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 450);
             TrJr.INSTANCE.font2.draw(batch, "TMM43 - Ultimate Destruction", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 325);
             TrJr.INSTANCE.font2.draw(batch, "JohnnyGuy - ArchetypeZ8's Theme", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 275);
             TrJr.INSTANCE.font2.draw(batch, "Kid2Will - Fire Aura", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 225);
