@@ -95,14 +95,6 @@ public class CreditsScreen extends ScreenAdapter {
         update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        if (TrJr.INSTANCE.getScrW()>=1080) {
-            creditss.setPosition(width / 2f - 234, 0.8f*height);
-            creditss.draw(batch);
-        } else {
-            creditss.setPosition(width / 2f - 234, height - 200);
-            creditss.draw(batch);
-        }
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -110,6 +102,14 @@ public class CreditsScreen extends ScreenAdapter {
             shapeRenderer.rect(0, 0, width, height);
             shapeRenderer.end();
             n++;
+        }
+        batch.begin();
+        if (TrJr.INSTANCE.getScrW()>=1080) {
+            creditss.setPosition(width / 2f - 234, 0.8f*height);
+            creditss.draw(batch);
+        } else {
+            creditss.setPosition(width / 2f - 234, height - 200);
+            creditss.draw(batch);
         }
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
@@ -131,7 +131,7 @@ public class CreditsScreen extends ScreenAdapter {
             //TrJr.INSTANCE.font3.draw(batch, "Per CC-BY-SA", TrJr.INSTANCE.getScrW() / 5f, 80);
             //TrJr.INSTANCE.font3.draw(batch, "or usage permission.", TrJr.INSTANCE.getScrW() / 5f, 40);
         } else {
-            TrJr.INSTANCE.font.draw(batch, "Music used", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 450);
+            TrJr.INSTANCE.fontCyan.draw(batch, "Music used", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 450);
             TrJr.INSTANCE.font2.draw(batch, "TMM43 - Ultimate Destruction", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 325);
             TrJr.INSTANCE.font2.draw(batch, "JohnnyGuy - ArchetypeZ8's Theme", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 275);
             TrJr.INSTANCE.font2.draw(batch, "Kid2Will - Fire Aura", TrJr.INSTANCE.getScrW() / 25f, TrJr.INSTANCE.getScrH() / 2f + 225);

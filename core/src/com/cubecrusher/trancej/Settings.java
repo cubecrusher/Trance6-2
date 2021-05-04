@@ -12,6 +12,7 @@ public class Settings {
     private boolean launch;
     private float highScore, totalTime;
     private int character, money, plays;
+    private String username;
 
     public Settings(){
         prefs = Gdx.app.getPreferences("TranceConfig");
@@ -24,6 +25,7 @@ public class Settings {
         character = prefs.getInteger("character",0);
         money = prefs.getInteger("money",0);
         plays = prefs.getInteger("plays",0);
+        username = prefs.getString("user", "PublicAccount");
         totalTime = prefs.getFloat("total",0);
     }
 
@@ -70,6 +72,15 @@ public class Settings {
     }
     public float getHighScore(){
         return highScore;
+    }
+
+    public void setUsername(String username){
+        this.username=username;
+        prefs.putString("user",username);
+        prefs.flush();
+    }
+    public String getUsername(){
+        return username;
     }
 
     public void setCharacter(int character){

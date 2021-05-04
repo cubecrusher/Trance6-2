@@ -10,12 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
-
-import obj.Obstacle;
-import obj.Obstacle2;
-import obj.Obstacle3;
-import obj.Obstacle4;
-import obj.Player;
+import obj.*;
 
 public class GameScreen extends ScreenAdapter {
     protected OrthographicCamera camerag;
@@ -77,67 +72,62 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void show(){
         plays++;
-        Assets.stopMusic(Assets.mainMenu);
-        if (settings.isMusicOn()) {
-            if (rng<=0.1) {
-                Assets.fireAura.play();
-                bpm = 180;
-                musicDur = 213;
-                musicN = 0;
-            }
-            else if (rng<=0.2 && rng>0.1) {
-                Assets.chaozFantasy.play();
-                bpm = 108;
-                musicDur = 121;
-                musicN = 1;
-            }
-            else if (rng<=0.3 && rng>0.2) {
-                Assets.fireFly.play();
-                bpm = 140;
-                musicDur = 258;
-                musicN = 2;
-            }
-            else if (rng<=0.4 && rng>0.3) {
-                Assets.uD.play();
-                bpm = 140;
-                musicDur = 198;
-                musicN = 3;
-            }
-            else if (rng<=0.5 && rng>0.4) {
-                Assets.tireDmg.play();
-                bpm = 140;
-                musicDur = 198;
-                musicN = 3;
-            }
-            else if (rng<=0.6 && rng>0.5) {
-                Assets.shinyTech.play();
-                bpm = 140;
-                musicDur = 198;
-                musicN = 3;
-            }
-            else if (rng<=0.8 && rng>0.7) {
-                Assets.archetype.play();
-                bpm = 160;
-                musicDur = 218;
-                musicN = 4;
-            }
-            else if (rng<=0.9 && rng>0.8) {
-                Assets.harmfatal.play();
-                bpm = 160;
-                musicDur = 218;
-                musicN = 4;
-            }
-            else {
-                Assets.uD.play();
-                bpm = 160;
-                musicDur = 253;
-                musicN = 5;
-            }
-        }
+
     }
 
     // Update all entities, check for collision
     public void update(){
+        Assets.stopMusic(Assets.mainMenu);
+        if (playTime>=0) {
+            if (settings.isMusicOn()) {
+                if (rng <= 0.1) {
+                    Assets.fireAura.play();
+                    bpm = 180;
+                    musicDur = 213;
+                    musicN = 0;
+                } else if (rng <= 0.2 && rng > 0.1) {
+                    Assets.chaozFantasy.play();
+                    bpm = 108;
+                    musicDur = 121;
+                    musicN = 1;
+                } else if (rng <= 0.3 && rng > 0.2) {
+                    Assets.fireFly.play();
+                    bpm = 140;
+                    musicDur = 258;
+                    musicN = 2;
+                } else if (rng <= 0.4 && rng > 0.3) {
+                    Assets.uD.play();
+                    bpm = 140;
+                    musicDur = 198;
+                    musicN = 3;
+                } else if (rng <= 0.5 && rng > 0.4) {
+                    Assets.tireDmg.play();
+                    bpm = 140;
+                    musicDur = 198;
+                    musicN = 3;
+                } else if (rng <= 0.6 && rng > 0.5) {
+                    Assets.shinyTech.play();
+                    bpm = 140;
+                    musicDur = 198;
+                    musicN = 3;
+                } else if (rng <= 0.8 && rng > 0.7) {
+                    Assets.archetype.play();
+                    bpm = 160;
+                    musicDur = 218;
+                    musicN = 4;
+                } else if (rng <= 0.9 && rng > 0.8) {
+                    Assets.harmfatal.play();
+                    bpm = 160;
+                    musicDur = 218;
+                    musicN = 4;
+                } else {
+                    Assets.uD.play();
+                    bpm = 160;
+                    musicDur = 253;
+                    musicN = 5;
+                }
+            }
+        }
         batch.setProjectionMatrix(camerag.combined);
         this.player.update();
         if (playTime>=0) {
@@ -247,7 +237,7 @@ public class GameScreen extends ScreenAdapter {
                 if (playTime<=-1.5) TrJr.INSTANCE.fontBig.draw(batch, "3", width/2f-64, height / 1.5f);
                 if (playTime>=-1.5 && playTime<-1) TrJr.INSTANCE.fontBig.draw(batch, "2", width/2f-64, height / 1.5f);
                 if (playTime>=-1 && playTime<-0.5) TrJr.INSTANCE.fontBig.draw(batch, "1", width/2f-56, height / 1.5f);
-                if (playTime>=-0.5 && playTime<0) TrJr.INSTANCE.fontBig.draw(batch, "GO", width/2f-128, height / 1.5f);
+                if (playTime>=-0.5 && playTime<0) TrJr.INSTANCE.fontCyanBig.draw(batch, "GO", width/2f-128, height / 1.5f);
 
                 if (playTime <= 0) {
                     TrJr.INSTANCE.font2.draw(batch, "Control area", 20, height / 2f + 40);

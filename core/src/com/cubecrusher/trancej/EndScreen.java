@@ -36,6 +36,7 @@ public class EndScreen extends ScreenAdapter {
     private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
     private int spritey = 0, spritey2 = 0;
+    int a = 0;
 
 
     public EndScreen(OrthographicCamera camera){
@@ -112,16 +113,31 @@ public class EndScreen extends ScreenAdapter {
 
     }
 
-    public void submitScore(Net.HttpResponseListener listener){
+    public void submitScore(){
         if (newBest) netNewBest = true;
         if (netNewBest){
             int bestScore = (int) (settings.getHighScore()*100);
-            StringBuilder urlReq = new StringBuilder("http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/");
-            urlReq.append(bestScore);
-            String urlReqString = urlReq.toString();
+            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + "superlagger" + "/" + bestScore;
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
-            Gdx.net.sendHttpRequest(httpRequest, listener);
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) network RESPONSE: ");
+                    System.out.println();
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitScores() FAILED: ");
+                    t.printStackTrace();
+                }
+
+                @Override
+                public void cancelled() {
+
+                }
+            });
             netNewBest = false;
         }
     }
@@ -146,6 +162,8 @@ public class EndScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        a++;
+        if (a<=1) submitScore();
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             Gdx.input.setCatchKey(Input.Keys.BACK,true);
             TrJr.INSTANCE.setScreen(new MainScreen(camera));

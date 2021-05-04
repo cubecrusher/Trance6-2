@@ -46,7 +46,7 @@ public class StatsScreen extends ScreenAdapter {
     }
 
     public void create(){
-        Texture scoretexture = new Texture(Gdx.files.internal("textures/new/scores.png"));
+        Texture scoretexture = new Texture(Gdx.files.internal("textures/new/stats.png"));
         Texture statss = new Texture(Gdx.files.internal("textures/stats.png"));
         stats = new Sprite(statss);
         Texture backtexture = new Texture(Gdx.files.internal("textures/new/back.png"));
@@ -114,7 +114,6 @@ public class StatsScreen extends ScreenAdapter {
         update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -123,6 +122,9 @@ public class StatsScreen extends ScreenAdapter {
             shapeRenderer.end();
             n++;
         }
+        batch.begin();
+
+
         stats.setPosition(width / 2f - 193, height - TrJr.INSTANCE.getScrH() / 4.5f);
         stats.draw(batch);
 

@@ -13,7 +13,7 @@ public class TrJr extends Game {
 	public static final TrJr INSTANCE = new TrJr();
 	private OrthographicCamera camera;
 	public AssetManager manager;
-	public BitmapFont font, font2, font3, fontBig, fontCyan, fontCyan2;
+	public BitmapFont font, font2, font3, fontBig, fontCyan, fontCyan2, fontCyanBig;
 
 	TrJr(){
 	}
@@ -25,6 +25,7 @@ public class TrJr extends Game {
 		this.font2 = new BitmapFont();
 		this.font3 = new BitmapFont();
 		this.fontBig = new BitmapFont();
+		this.fontCyanBig = new BitmapFont();
 		Assets.load();
 		this.scrW = Gdx.graphics.getWidth();
 		this.scrH = Gdx.graphics.getHeight();
@@ -42,6 +43,7 @@ public class TrJr extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyanBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
 		parameter.size = 64;
 		parameter.shadowOffsetX = 5;
@@ -84,6 +86,13 @@ public class TrJr extends Game {
 		parameterCyan2.color = Color.CYAN;
 		parameterCyan2.shadowColor = Color.BLACK;
 		fontCyan2 = generator.generateFont(parameterCyan2);
+
+		parameterCyanBig.size = 128;
+		parameterCyanBig.shadowOffsetX = 10;
+		parameterCyanBig.shadowOffsetY = 10;
+		parameterCyanBig.color = Color.CYAN;
+		parameterCyanBig.shadowColor = Color.BLACK;
+		fontCyanBig = generator.generateFont(parameterCyanBig);
 
 		generator.dispose();
 	}

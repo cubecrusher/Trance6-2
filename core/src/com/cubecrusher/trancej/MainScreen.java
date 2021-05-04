@@ -49,7 +49,7 @@ public class MainScreen extends ScreenAdapter {
             gamelogos = new Sprite(gamelogo);
             Texture playtexture = new Texture(Gdx.files.internal("textures/new/play.png"));
             Texture opttexture = new Texture(Gdx.files.internal("textures/new/options.png"));
-            Texture scoretexture = new Texture(Gdx.files.internal("textures/new/stats.png"));
+            Texture scoretexture = new Texture(Gdx.files.internal("textures/new/scores.png"));
             Texture exittexture = new Texture(Gdx.files.internal("textures/new/exit.png"));
 
 

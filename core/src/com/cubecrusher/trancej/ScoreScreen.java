@@ -25,7 +25,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.util.ArrayList;
 
-public class ScoreScreen extends ScreenAdapter implements Net.HttpResponseListener {
+public class ScoreScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     protected GameScreen gameScreen;
     private Stage stage;
@@ -39,6 +39,8 @@ public class ScoreScreen extends ScreenAdapter implements Net.HttpResponseListen
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
     int n=0;
+    boolean a=true, isDone = false;
+    public ArrayList<String> highscoreList;
 
 
     public ScoreScreen(OrthographicCamera camera){
@@ -48,6 +50,7 @@ public class ScoreScreen extends ScreenAdapter implements Net.HttpResponseListen
         this.gameScreen = new GameScreen(camera);
         this.shapeRenderer = new ShapeRenderer();
         this.batch = new SpriteBatch();
+        this.highscoreList = new ArrayList<>();
     }
 
     public void create(){
@@ -90,55 +93,52 @@ public class ScoreScreen extends ScreenAdapter implements Net.HttpResponseListen
         this.camera.update();
     }
 
-    public void getScores(){
-        StringBuilder urlReq = new StringBuilder("http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/json/");
-        String urlString = urlReq.toString();
+    public void getScores() {
+        String urlString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/json/";
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlString).build();
-        Gdx.net.sendHttpRequest(httpRequest, this);
-    }
+        if (a) {
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) network RESPONSE: ");
+                    JsonReader json = new JsonReader();
+                    String results = httpResponse.getResultAsString();
+                    System.out.println("STRING: " + results);
+                        JsonValue base = json.parse(results);
+                        JsonValue dlo = base.get("dreamlo");
+                        JsonValue lb = dlo.get("leaderboard");
+                        JsonValue entries = lb.get("entry");
+                        for (int i = 0; i < 10; i++) {
+                            JsonValue score = entries.get(i);
+                            String name = score.getString("name");
+                            String value = score.getString("score");
+                            int intPart = Integer.parseInt(value) / 100;
+                            float floatPart = Float.parseFloat(value) % 100;
+                            value = intPart + "." + floatPart;
+                            value = value.substring(0, value.length() - 2);
+                            highscoreList.add(name + "  -  " + value);
+                            if (i == 9) isDone = true;
+                        }
+                }
 
-    public void parseScores(String scoreString){
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitScores() FAILED: ");
+                    t.printStackTrace();
+                }
 
-        ArrayList<String> highscoreList = new ArrayList<>();
-        JsonReader json = new JsonReader();
-        JsonValue base = json.parse(scoreString);
-        JsonValue dlo = base.get("dreamlo");
-        JsonValue lb = dlo.get("leaderboard");
-        JsonValue entries = lb.get("entry");
-        for (int i=0; i<10; i++){
-            int rank = i+1;
-            JsonValue score = entries.get(i);
-            String value = score.getString("score");
-            highscoreList.add("" + rank + ". " + value + "s");
-        }
-        if (TrJr.INSTANCE.getScrW() < 1080) {
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 125);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 175);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
-        } else {
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
-            TrJr.INSTANCE.font2.draw(batch, highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
+                @Override
+                public void cancelled() {
+
+                }
+            });
         }
     }
 
     @Override
     public void render(float delta) {
+        if (a) getScores();
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             Gdx.input.setCatchKey(Input.Keys.BACK,true);
             TrJr.INSTANCE.setScreen(new MainScreen(camera));
@@ -157,10 +157,35 @@ public class ScoreScreen extends ScreenAdapter implements Net.HttpResponseListen
         batch.begin();
         scores.setPosition(width / 2f - 224, height - TrJr.INSTANCE.getScrH() / 4.5f);
         scores.draw(batch);
-
+        if (isDone) {
+            if (TrJr.INSTANCE.getScrW() < 1080) {
+                TrJr.INSTANCE.font2.draw(batch, "1.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                TrJr.INSTANCE.font2.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
+                TrJr.INSTANCE.font2.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
+                TrJr.INSTANCE.font2.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
+                TrJr.INSTANCE.font2.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
+                TrJr.INSTANCE.font2.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
+                TrJr.INSTANCE.font2.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
+                TrJr.INSTANCE.font2.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 125);
+                TrJr.INSTANCE.font2.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 175);
+                TrJr.INSTANCE.font2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
+            } else {
+                TrJr.INSTANCE.fontCyan2.draw(batch, "0.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
+                TrJr.INSTANCE.font2.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
+                TrJr.INSTANCE.font2.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
+                TrJr.INSTANCE.font2.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                TrJr.INSTANCE.font2.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
+                TrJr.INSTANCE.font2.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
+                TrJr.INSTANCE.font2.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
+                TrJr.INSTANCE.font2.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
+                TrJr.INSTANCE.font2.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
+                TrJr.INSTANCE.font2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
+            }
+        }
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         batch.end();
+        a=false;
     }
 
     @Override
@@ -178,19 +203,5 @@ public class ScoreScreen extends ScreenAdapter implements Net.HttpResponseListen
 
     }
 
-    @Override
-    public void handleHttpResponse(Net.HttpResponse httpResponse) {
-
-    }
-
-    @Override
-    public void failed(Throwable t) {
-
-    }
-
-    @Override
-    public void cancelled() {
-
-    }
 }
 
