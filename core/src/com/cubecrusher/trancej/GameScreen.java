@@ -10,8 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import obj.Obstacle;
 import obj.Obstacle2;
@@ -24,7 +22,6 @@ public class GameScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Settings settings;
-    private Viewport viewport;
 
     protected Player player;
     protected Obstacle obstacle;
@@ -60,7 +57,6 @@ public class GameScreen extends ScreenAdapter {
         this.settings = new Settings();
         this.camerag.position.set(new Vector3(width/2f, height/2f,0));
         this.batch = new SpriteBatch();
-        this.viewport = new FitViewport(800,400, camera);
         this.n = 1;
         this.pattern = (int)(Math.random()*10);
         this.player = new Player(this);
@@ -162,7 +158,10 @@ public class GameScreen extends ScreenAdapter {
             Assets.stopAllGameMusic();
             TrJr.INSTANCE.setScreen(new MainScreen(camerag));
         }
-        velocity+=0.005;
+        if (settings.getDifficulty().matches("Beginner")) velocity+=0.005; // set to 0.0025 later
+        if (settings.getDifficulty().matches("Medium")) velocity+=0.005;
+        if (settings.getDifficulty().matches("Expert")) velocity+=0.01;
+        if (settings.getDifficulty().matches("Cursed")) velocity+=0.05;
     }
 
     // Render everything

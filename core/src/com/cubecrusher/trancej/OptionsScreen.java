@@ -11,9 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -36,14 +34,10 @@ public class OptionsScreen extends ScreenAdapter {
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private Sprite optionstext;
-    private World world;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private int spritey = 0;
     int n = 0;
-
-    //private Player player;
-    //private Obstacle obstacle;
 
 
     public OptionsScreen(OrthographicCamera camera){
@@ -51,7 +45,6 @@ public class OptionsScreen extends ScreenAdapter {
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
         this.batch = new SpriteBatch();
         this.shapeRenderer = new ShapeRenderer();
-        this.world = new World(new Vector2(0,0),false); // this crashes sometimes
         this.settings = new Settings();
     }
 
@@ -147,7 +140,6 @@ public class OptionsScreen extends ScreenAdapter {
     }
 
     public void update(){
-        world.step(1/60f,6,2);
         batch.setProjectionMatrix(camera.combined);
         this.camera.update();
         if(settings.isMusicOn()) Assets.playMusic(Assets.mainMenu);

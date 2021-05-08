@@ -21,9 +21,9 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 public class MainScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private Stage stage;
-    private TextureRegion playtexturer, opttexturer, statstexturer, exittexturer;
-    private TextureRegionDrawable playtexturerd, opttexturerd, statstexturerd, exittexturerd;
-    private ImageButton playbutton, optbutton, statsbutton, exitbutton;
+    private TextureRegion playtexturer, opttexturer, statstexturer, exittexturer, difficultytr;
+    private TextureRegionDrawable playtexturerd, opttexturerd, statstexturerd, exittexturerd, difficultytrd;
+    private ImageButton playbutton, optbutton, statsbutton, exitbutton, difficultybutton;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Sprite gamelogos;
@@ -50,19 +50,23 @@ public class MainScreen extends ScreenAdapter {
             Texture opttexture = new Texture(Gdx.files.internal("textures/new/options.png"));
             Texture scoretexture = new Texture(Gdx.files.internal("textures/new/scores.png"));
             Texture exittexture = new Texture(Gdx.files.internal("textures/new/exit.png"));
+            Texture difficultytexture = new Texture(Gdx.files.internal("textures/new/difficulty.png"));
 
 
             playtexturer = new TextureRegion(playtexture);
+            difficultytr = new TextureRegion(difficultytexture);
             opttexturer = new TextureRegion(opttexture);
             statstexturer = new TextureRegion(scoretexture);
             exittexturer = new TextureRegion(exittexture);
 
             playtexturerd = new TextureRegionDrawable(playtexturer);
+            difficultytrd = new TextureRegionDrawable(difficultytr);
             opttexturerd = new TextureRegionDrawable(opttexturer);
             statstexturerd = new TextureRegionDrawable(statstexturer);
             exittexturerd = new TextureRegionDrawable(exittexturer);
 
             playbutton = new ImageButton(playtexturerd);
+            difficultybutton = new ImageButton(difficultytrd);
             optbutton = new ImageButton(opttexturerd);
             statsbutton = new ImageButton(statstexturerd);
             exitbutton = new ImageButton(exittexturerd);
@@ -70,6 +74,7 @@ public class MainScreen extends ScreenAdapter {
             stage = new Stage(new ScreenViewport());
 
             stage.addActor(playbutton);
+            stage.addActor(difficultybutton);
             stage.addActor(optbutton);
             stage.addActor(statsbutton);
             stage.addActor(exitbutton);
@@ -80,8 +85,13 @@ public class MainScreen extends ScreenAdapter {
     public void show(){
         if (settings.isMusicOn()) Assets.playMusic(Assets.mainMenu);
             create();
-            playbutton.setPosition(0, height / 2f - 100);
+
+            playbutton.setPosition(-5, height / 2f - 100);
             playbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
+            difficultybutton.setPosition(-5, height / 2f - 275);
+            difficultybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
             if (TrJr.INSTANCE.getScrW()>=1080) {
                 optbutton.setPosition(0, TrJr.INSTANCE.getScrH() / 24f);
 
@@ -109,6 +119,15 @@ public class MainScreen extends ScreenAdapter {
                     else TrJr.INSTANCE.setScreen(new GameScreen(camera));
                 }
             });
+            difficultybutton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                    if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
+                    Gdx.input.setInputProcessor(null);
+                    TrJr.INSTANCE.setScreen(new DifficultyScreen(camera));
+                }
+            });
+
 
             optbutton.addListener(new ChangeListener() {
                 @Override
@@ -157,9 +176,13 @@ public class MainScreen extends ScreenAdapter {
             n++;
         }
         batch.begin();
-        if (TrJr.INSTANCE.getScrW()<1080) gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()/6f*3.5f);
+        if (TrJr.INSTANCE.getScrW()<1080) {
+            gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()/6f*3.5f);
+            TrJr.INSTANCE.font3.draw(batch, "Difficulty: "+settings.getDifficulty(), 20, height / 2f + 75);
+        }
         else {
             gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()-512);
+            TrJr.INSTANCE.font2.draw(batch, "Difficulty: "+settings.getDifficulty(), 25, height / 2f + 125);
         }
         gamelogos.draw(batch);
         batch.end();

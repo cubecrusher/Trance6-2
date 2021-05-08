@@ -13,7 +13,7 @@ public class Settings {
     private boolean nameSet;
     private float highScore, totalTime;
     private int plays;
-    private String username;
+    private String username, difficulty;
 
     public Settings(){
         prefs = Gdx.app.getPreferences("TranceConfig");
@@ -24,6 +24,7 @@ public class Settings {
         launch = prefs.getBoolean("launch",true);
         highScore = prefs.getFloat("highscore",0);
         plays = prefs.getInteger("plays",0);
+        difficulty = prefs.getString("difficulty", "Medium");
         username = prefs.getString("user", "Nickname");
         totalTime = prefs.getFloat("total",0);
         nameSet = prefs.getBoolean("nameset",false);
@@ -81,6 +82,15 @@ public class Settings {
     }
     public String getUsername(){
         return username;
+    }
+
+    public void setDifficulty(String difficulty){
+        this.difficulty=difficulty;
+        prefs.putString("difficulty",difficulty);
+        prefs.flush();
+    }
+    public String getDifficulty(){
+        return difficulty;
     }
 
     public void setPlays(int plays){

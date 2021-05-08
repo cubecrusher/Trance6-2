@@ -87,7 +87,7 @@ public class EndScreen extends ScreenAdapter {
     @Override
     public void show(){
         create();
-        playbutton.setPosition(0, height / 2f - 100);
+        playbutton.setPosition(-5, height / 2f - 100);
         playbutton.setSize(width-80,height/12f);
         if (width>=1080) {
             backbutton.setPosition(0, height / 24f);
@@ -121,7 +121,7 @@ public class EndScreen extends ScreenAdapter {
         if (newBest) netNewBest = true;
         if (netNewBest){
             int bestScore = (int) (settings.getHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore;
+            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore + "/";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {

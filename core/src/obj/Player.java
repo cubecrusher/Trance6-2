@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.cubecrusher.trancej.GameScreen;
+import com.cubecrusher.trancej.Settings;
 import com.cubecrusher.trancej.TrJr;
 
 public class Player {
@@ -13,6 +14,7 @@ public class Player {
     protected GameScreen gameScreen;
     public Polygon polygon;
     protected ShapeRenderer shapeRenderer;
+    private Settings settings;
     public float lowerBound = TrJr.INSTANCE.getScrH()/10f;
     protected float touchpt;
     protected float[] vertices = new float[6];
@@ -20,6 +22,7 @@ public class Player {
     public boolean white = true, oob = false;
 
     public Player(GameScreen gameScreen){
+        this.settings = new Settings();
         this.x = TrJr.INSTANCE.getScrW()/2f;
         this.y = lowerBound;
 
@@ -69,13 +72,24 @@ public class Player {
         }
     }
 
+    public Color toRGB(int r, int g, int b) {
+        float RED = r / 255.0f;
+        float GREEN = g / 255.0f;
+        float BLUE = b / 255.0f;
+        return new Color(RED, GREEN, BLUE, 1);
+    }
+
+
     public void render(){
         if (!gameScreen.hasCollided) {
             update();
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.BLACK);
-            shapeRenderer.triangle(x+5, lowerBound-5, x + width/2f + 5, (float) (lowerBound + Math.sqrt( (width/2f)*(width/2f)-(width/2f)*(width/2f)/4f )*2) - 5, x + width + 5, lowerBound - 5);
+            if (settings.getDifficulty().matches("Beginner")) shapeRenderer.setColor(Color.GREEN);
+            if (settings.getDifficulty().matches("Medium")) shapeRenderer.setColor(toRGB(255,216,0));
+            if (settings.getDifficulty().matches("Expert")) shapeRenderer.setColor(Color.RED);
+            if (settings.getDifficulty().matches("Cursed")) shapeRenderer.setColor(toRGB(178,0,255));
+            shapeRenderer.triangle(x, lowerBound-10, x + width/2f, (float) (lowerBound + Math.sqrt( (width/2f)*(width/2f)-(width/2f)*(width/2f)/4f )*2) - 10, x + width, lowerBound - 10);
             shapeRenderer.setColor(Color.WHITE);
             shapeRenderer.triangle(x, lowerBound, x + width/2f, (float) (lowerBound + Math.sqrt( (width/2f)*(width/2f)-(width/2f)*(width/2f)/4f )*2), x + width, lowerBound);
             shapeRenderer.end();
