@@ -17,7 +17,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class EndScreen extends ScreenAdapter {
     public static float time;
@@ -27,6 +29,7 @@ public class EndScreen extends ScreenAdapter {
     private Stage stage;
     private TextureRegion playtexturer, backtexturer;
     private TextureRegionDrawable playtexturerd, backtexturerd;
+    private Viewport viewport;
     private ImageButton playbutton, backbutton;
     private SpriteBatch batch;
     private Sprite gameovers;
@@ -45,6 +48,7 @@ public class EndScreen extends ScreenAdapter {
         this.camera.position.set(new Vector3(width/2f, height/2f,0));
         this.gameScreen = new GameScreen(camera);
         this.batch = new SpriteBatch();
+        this.viewport = new FitViewport(800,400, camera);
         if (mockeryd<=0.1) mockery = "(!) That's a bruh moment";
         if (mockeryd>0.1 && mockeryd<=0.2) mockery = "(!) You are not speed";
         if (mockeryd>0.2 && mockeryd<=0.3) mockery = "(!) Everyone disliked that";
@@ -117,7 +121,7 @@ public class EndScreen extends ScreenAdapter {
         if (newBest) netNewBest = true;
         if (netNewBest){
             int bestScore = (int) (settings.getHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + "superlagger" + "/" + bestScore;
+            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore;
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {

@@ -17,10 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class CreditsScreen extends ScreenAdapter {
     private OrthographicCamera camera;
+    private Viewport viewport;
     protected OptionsScreen optionsScreen;
     private Stage stage;
     private TextureRegion backtexturer;
@@ -40,6 +43,7 @@ public class CreditsScreen extends ScreenAdapter {
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.viewport = new FitViewport(800,400, camera);
         this.optionsScreen = new OptionsScreen(camera);
         this.batch = new SpriteBatch();
     }

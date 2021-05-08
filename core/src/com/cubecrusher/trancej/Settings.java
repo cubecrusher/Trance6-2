@@ -10,8 +10,9 @@ public class Settings {
     private boolean fpsOn;
     private boolean speedOn;
     private boolean launch;
+    private boolean nameSet;
     private float highScore, totalTime;
-    private int character, money, plays;
+    private int plays;
     private String username;
 
     public Settings(){
@@ -22,11 +23,10 @@ public class Settings {
         speedOn = prefs.getBoolean("speed",false);
         launch = prefs.getBoolean("launch",true);
         highScore = prefs.getFloat("highscore",0);
-        character = prefs.getInteger("character",0);
-        money = prefs.getInteger("money",0);
         plays = prefs.getInteger("plays",0);
-        username = prefs.getString("user", "PublicAccount");
+        username = prefs.getString("user", "");
         totalTime = prefs.getFloat("total",0);
+        nameSet = prefs.getBoolean("nameset",false);
     }
 
     public void setSound(boolean soundOn){
@@ -83,24 +83,6 @@ public class Settings {
         return username;
     }
 
-    public void setCharacter(int character){
-        this.character=character;
-        prefs.putInteger("character",character);
-        prefs.flush();
-    }
-    public int getCharacter(){
-        return character;
-    }
-
-    public void setMoney(int money){
-        this.money=money;
-        prefs.putInteger("money",money);
-        prefs.flush();
-    }
-    public int getMoney(){
-        return money;
-    }
-
     public void setPlays(int plays){
         this.plays = plays;
         prefs.putInteger("plays",plays);
@@ -126,5 +108,14 @@ public class Settings {
     }
     public float getTotal(){
         return totalTime;
+    }
+
+    public void setNameSet(boolean nameSet){
+        this.nameSet=nameSet;
+        prefs.putBoolean("nameset",nameSet);
+        prefs.flush();
+    }
+    public boolean getNameSet(){
+        return musicOn;
     }
 }

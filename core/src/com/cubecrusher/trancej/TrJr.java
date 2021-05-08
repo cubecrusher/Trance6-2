@@ -32,7 +32,7 @@ public class TrJr extends Game {
 		makeFont();
 		this.camera = new OrthographicCamera();
 		this.camera.setToOrtho(false, scrW, scrH);
-		setScreen(new EpilepsyScreen(camera));
+		setScreen(new MainScreen(camera));
 	}
 
 	public void makeFont(){
@@ -96,6 +96,7 @@ public class TrJr extends Game {
 
 		generator.dispose();
 	}
+
 
 	public int getScrW() {
 		return scrW;

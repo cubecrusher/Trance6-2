@@ -16,10 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class TutorialScreen extends ScreenAdapter {
     private OrthographicCamera camera;
+    private Viewport viewport;
     protected GameScreen gameScreen;
     private Stage stage;
     private TextureRegion playtexturer;
@@ -37,6 +40,7 @@ public class TutorialScreen extends ScreenAdapter {
         this.settings = new Settings();
         this.camera = camera;
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.viewport = new FitViewport(800,400, camera);
         this.gameScreen = new GameScreen(camera);
         this.shapeRenderer = new ShapeRenderer();
         this.batch = new SpriteBatch();

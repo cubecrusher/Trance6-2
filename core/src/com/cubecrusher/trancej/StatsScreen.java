@@ -17,13 +17,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class StatsScreen extends ScreenAdapter {
     public static float time;
     public static boolean newBest = false;
     private OrthographicCamera camera;
     protected GameScreen gameScreen;
+    private Viewport viewport;
     private Stage stage;
     private TextureRegion scoretexturer, backtexturer;
     private TextureRegionDrawable scoretexturerd, backtexturerd;
@@ -42,6 +45,7 @@ public class StatsScreen extends ScreenAdapter {
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.viewport = new FitViewport(800,400, camera);
         this.batch = new SpriteBatch();
     }
 

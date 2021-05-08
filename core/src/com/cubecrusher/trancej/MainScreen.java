@@ -16,11 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MainScreen extends ScreenAdapter {
     public static float best;
     private OrthographicCamera camera;
+    private Viewport viewport;
     private Stage stage;
     private TextureRegion playtexturer, opttexturer, statstexturer, exittexturer;
     private TextureRegionDrawable playtexturerd, opttexturerd, statstexturerd, exittexturerd;
@@ -28,7 +31,7 @@ public class MainScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Sprite gamelogos;
-    private boolean launch;
+    private boolean launch, nameset;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
@@ -40,8 +43,10 @@ public class MainScreen extends ScreenAdapter {
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.viewport = new FitViewport(800,400, camera);
         this.batch = new SpriteBatch();
         this.launch = settings.getLaunch();
+        this.nameset = settings.getNameSet();
     }
 
     public void create(){
@@ -106,7 +111,7 @@ public class MainScreen extends ScreenAdapter {
                 public void changed(ChangeEvent event, Actor actor) {
                     if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
                     Gdx.input.setInputProcessor(null);
-                    if (launch) TrJr.INSTANCE.setScreen(new TutorialScreen(camera));
+                    if (nameset) TrJr.INSTANCE.setScreen(new NameScreen(camera));
                     else TrJr.INSTANCE.setScreen(new GameScreen(camera));
                 }
             });

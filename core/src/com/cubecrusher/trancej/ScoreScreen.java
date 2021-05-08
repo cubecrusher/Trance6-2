@@ -21,7 +21,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
 
@@ -38,14 +40,16 @@ public class ScoreScreen extends ScreenAdapter {
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
-    int n=0;
-    boolean a=true, isDone = false;
+    private Viewport viewport;
+    int n=0, colored=10;
+    boolean a=true, isDone = false, hasfailed = false;
     public ArrayList<String> highscoreList;
 
 
     public ScoreScreen(OrthographicCamera camera){
         this.settings = new Settings();
         this.camera = camera;
+        this.viewport = new FitViewport(800,400, camera);
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
         this.gameScreen = new GameScreen(camera);
         this.shapeRenderer = new ShapeRenderer();
@@ -112,6 +116,7 @@ public class ScoreScreen extends ScreenAdapter {
                         for (int i = 0; i < 10; i++) {
                             JsonValue score = entries.get(i);
                             String name = score.getString("name");
+                            if (name.equals(settings.getUsername())) colored=i;
                             String value = score.getString("score");
                             int intPart = Integer.parseInt(value) / 100;
                             float floatPart = Float.parseFloat(value) % 100;
@@ -126,6 +131,7 @@ public class ScoreScreen extends ScreenAdapter {
                 public void failed(Throwable t) {
                     System.out.println("(!!!) submitScores() FAILED: ");
                     t.printStackTrace();
+                    hasfailed=true;
                 }
 
                 @Override
@@ -138,10 +144,13 @@ public class ScoreScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        if (a) getScores();
+        if (a) {
+            getScores();
+            a=false;
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             Gdx.input.setCatchKey(Input.Keys.BACK,true);
-            TrJr.INSTANCE.setScreen(new MainScreen(camera));
+            TrJr.INSTANCE.setScreen(new StatsScreen(camera));
         }
         update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -159,33 +168,59 @@ public class ScoreScreen extends ScreenAdapter {
         scores.draw(batch);
         if (isDone) {
             if (TrJr.INSTANCE.getScrW() < 1080) {
-                TrJr.INSTANCE.font2.draw(batch, "1.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                TrJr.INSTANCE.font2.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-                TrJr.INSTANCE.font2.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
-                TrJr.INSTANCE.font2.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
-                TrJr.INSTANCE.font2.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
-                TrJr.INSTANCE.font2.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
-                TrJr.INSTANCE.font2.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
-                TrJr.INSTANCE.font2.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 125);
-                TrJr.INSTANCE.font2.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 175);
-                TrJr.INSTANCE.font2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
+                TrJr.INSTANCE.font3.draw(batch, "1.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                TrJr.INSTANCE.font3.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
+                TrJr.INSTANCE.font3.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
+                TrJr.INSTANCE.font3.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
+                TrJr.INSTANCE.font3.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
+                TrJr.INSTANCE.font3.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
+                TrJr.INSTANCE.font3.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
+                TrJr.INSTANCE.font3.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 125);
+                TrJr.INSTANCE.font3.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 175);
+                TrJr.INSTANCE.font3.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
+                if (!settings.getNameSet()) TrJr.INSTANCE.font3.draw(batch, "Your nickname: "+settings.getUsername(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 375);
             } else {
-                TrJr.INSTANCE.fontCyan2.draw(batch, "0.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
-                TrJr.INSTANCE.font2.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
-                TrJr.INSTANCE.font2.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
-                TrJr.INSTANCE.font2.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                TrJr.INSTANCE.font2.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-                TrJr.INSTANCE.font2.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
-                TrJr.INSTANCE.font2.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
-                TrJr.INSTANCE.font2.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
-                TrJr.INSTANCE.font2.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
-                TrJr.INSTANCE.font2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
+                // Это действительно тупо, но я делал это в 2 ночи, прошу прощения
+                if (colored==0) TrJr.INSTANCE.fontCyan2.draw(batch, "0.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
+                else TrJr.INSTANCE.font2.draw(batch, "0.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
+                if (colored==1) TrJr.INSTANCE.fontCyan2.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
+                else TrJr.INSTANCE.font2.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
+                if (colored==2) TrJr.INSTANCE.fontCyan2.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
+                else TrJr.INSTANCE.font2.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
+                if (colored==3) TrJr.INSTANCE.fontCyan2.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                else TrJr.INSTANCE.font2.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                if (colored==4) TrJr.INSTANCE.fontCyan2.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
+                else TrJr.INSTANCE.font2.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
+                if (colored==5) TrJr.INSTANCE.fontCyan2.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
+                else TrJr.INSTANCE.font2.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
+                if (colored==6) TrJr.INSTANCE.fontCyan2.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
+                else TrJr.INSTANCE.font2.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
+                if (colored==7) TrJr.INSTANCE.fontCyan2.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
+                else TrJr.INSTANCE.font2.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
+                if (colored==8) TrJr.INSTANCE.fontCyan2.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
+                else TrJr.INSTANCE.font2.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
+                if (colored==9) TrJr.INSTANCE.fontCyan2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
+                else TrJr.INSTANCE.font2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
+                if (!settings.getNameSet()) TrJr.INSTANCE.fontCyan2.draw(batch, "Your nickname: "+settings.getUsername(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
+            }
+        } else if (!isDone && !hasfailed){
+            if (width<1080) TrJr.INSTANCE.font3.draw(batch, "Downoading...", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+            else TrJr.INSTANCE.font2.draw(batch, "Downloading...", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
+        }
+        if (hasfailed) {
+            if (width<1080) {
+                TrJr.INSTANCE.font3.draw(batch, "Download failed.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+                TrJr.INSTANCE.font3.draw(batch, "An error has occured.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
+                TrJr.INSTANCE.font3.draw(batch, "Check your internet connection.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
+            } else {
+                TrJr.INSTANCE.font2.draw(batch, "Download failed.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
+                TrJr.INSTANCE.fontCyan2.draw(batch, "An error has occured.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
+                TrJr.INSTANCE.font2.draw(batch, "Check your internet connection.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
             }
         }
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         batch.end();
-        a=false;
     }
 
     @Override

@@ -14,7 +14,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -50,7 +51,7 @@ public class OptionsScreen extends ScreenAdapter {
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
         this.batch = new SpriteBatch();
         this.shapeRenderer = new ShapeRenderer();
-        this.world = new World(new Vector2(0,0),false);
+        this.world = new World(new Vector2(0,0),false); // this crashes sometimes
         this.settings = new Settings();
     }
 
@@ -156,6 +157,10 @@ public class OptionsScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta){
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            Gdx.input.setCatchKey(Input.Keys.BACK,true);
+            TrJr.INSTANCE.setScreen(new MainScreen(camera));
+        }
         update();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -167,6 +172,7 @@ public class OptionsScreen extends ScreenAdapter {
             shapeRenderer.end();
             n++;
         }
+
         batch.begin();
         optionstext.setPosition(TrJr.INSTANCE.getScrW()/2f-234, 0.8f*height);
         optionstext.draw(batch);

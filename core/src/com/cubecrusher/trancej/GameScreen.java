@@ -10,13 +10,21 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector3;
-import obj.*;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+import obj.Obstacle;
+import obj.Obstacle2;
+import obj.Obstacle3;
+import obj.Obstacle4;
+import obj.Player;
 
 public class GameScreen extends ScreenAdapter {
     protected OrthographicCamera camerag;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Settings settings;
+    private Viewport viewport;
 
     protected Player player;
     protected Obstacle obstacle;
@@ -52,6 +60,7 @@ public class GameScreen extends ScreenAdapter {
         this.settings = new Settings();
         this.camerag.position.set(new Vector3(width/2f, height/2f,0));
         this.batch = new SpriteBatch();
+        this.viewport = new FitViewport(800,400, camera);
         this.n = 1;
         this.pattern = (int)(Math.random()*10);
         this.player = new Player(this);
@@ -177,6 +186,7 @@ public class GameScreen extends ScreenAdapter {
                     shapeRenderer.rect(0, 0, width, height);
                     shapeRenderer.end();
                 }
+
 
                 this.obstacle.velocity = velocity;
                 this.obstacle2.velocity = velocity;
