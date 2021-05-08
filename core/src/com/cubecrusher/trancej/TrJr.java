@@ -13,7 +13,7 @@ public class TrJr extends Game {
 	public static final TrJr INSTANCE = new TrJr();
 	private OrthographicCamera camera;
 	public AssetManager manager;
-	public BitmapFont font, font2, font3, fontBig, fontCyan, fontCyan2, fontCyanBig;
+	public BitmapFont font, font2, font3, fontBig, fontCyan, fontCyan2, fontCyan3, fontCyanBig;
 
 	TrJr(){
 	}
@@ -43,6 +43,7 @@ public class TrJr extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyanBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
 		parameter.size = 64;
@@ -86,6 +87,13 @@ public class TrJr extends Game {
 		parameterCyan2.color = Color.CYAN;
 		parameterCyan2.shadowColor = Color.BLACK;
 		fontCyan2 = generator.generateFont(parameterCyan2);
+
+		parameterCyan3.size = 16;
+		parameterCyan3.shadowOffsetX = 2;
+		parameterCyan3.shadowOffsetY = 2;
+		parameterCyan3.color = Color.CYAN;
+		parameterCyan3.shadowColor = Color.BLACK;
+		fontCyan3 = generator.generateFont(parameterCyan3);
 
 		parameterCyanBig.size = 128;
 		parameterCyanBig.shadowOffsetX = 10;

@@ -238,7 +238,7 @@ public class GameScreen extends ScreenAdapter {
                     }
                 } else {
                     if (TrJr.INSTANCE.getScrW() < 1080) {
-                        TrJr.INSTANCE.font3.draw(batch, "New best!", 48, height - 123);
+                        TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
                     } else {
                         TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
                     }
