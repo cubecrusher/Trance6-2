@@ -178,7 +178,7 @@ public class ScoreScreen extends ScreenAdapter {
                 TrJr.INSTANCE.font3.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 125);
                 TrJr.INSTANCE.font3.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 175);
                 TrJr.INSTANCE.font3.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
-                if (!settings.getNameSet()) TrJr.INSTANCE.font3.draw(batch, "Your nickname: "+settings.getUsername(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 375);
+                if (settings.getNameSet()) TrJr.INSTANCE.font3.draw(batch, "Your nickname: "+settings.getUsername(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 375);
             } else {
                 // Это действительно тупо, но я делал это в 2 ночи, прошу прощения
                 if (colored==0) TrJr.INSTANCE.fontCyan2.draw(batch, "0.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
@@ -201,10 +201,10 @@ public class ScoreScreen extends ScreenAdapter {
                 else TrJr.INSTANCE.font2.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
                 if (colored==9) TrJr.INSTANCE.fontCyan2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
                 else TrJr.INSTANCE.font2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
-                if (!settings.getNameSet()) TrJr.INSTANCE.fontCyan2.draw(batch, "Your nickname: "+settings.getUsername(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
+                if (settings.getNameSet()) TrJr.INSTANCE.fontCyan2.draw(batch, "Your nickname: "+settings.getUsername(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
             }
         } else if (!isDone && !hasfailed){
-            if (width<1080) TrJr.INSTANCE.font3.draw(batch, "Downoading...", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
+            if (width<1080) TrJr.INSTANCE.font3.draw(batch, "Downloading...", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
             else TrJr.INSTANCE.font2.draw(batch, "Downloading...", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
         }
         if (hasfailed) {

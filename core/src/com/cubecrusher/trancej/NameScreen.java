@@ -60,6 +60,7 @@ public class NameScreen extends ScreenAdapter {
         this.batch = new SpriteBatch();
         this.textFieldStyle = new TextField.TextFieldStyle(TrJr.INSTANCE.fontCyan, Color.WHITE,null, null,null);
         this.textField = new TextField("Nickname", textFieldStyle);
+        matchingUsername = "Nickname";
         this.highscoreList = new ArrayList<>();
     }
 
@@ -190,7 +191,6 @@ public class NameScreen extends ScreenAdapter {
                         break;
                     }
             }
-            if (!matchingUsername.equals(currentUsername)) existing=false;
         }
         if (isDone) if (!matchingUsername.equals(currentUsername)) existing=false;
         update();
@@ -207,32 +207,30 @@ public class NameScreen extends ScreenAdapter {
         }
         if (TrJr.INSTANCE.getScrW()>=1080) {
             usernames.setPosition(width / 2f - 294, 0.8f*height);
-            usernames.draw(batch);
-            textbox.draw(batch);
         } else {
             usernames.setPosition(width / 2f - 294, height - 200);
-            usernames.draw(batch);
-            textbox.draw(batch);
         }
+        usernames.draw(batch);
+        textbox.draw(batch);
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
-            TrJr.INSTANCE.font2.draw(batch, "Think twice before playing.", width / 20f, height / 2f + 225);
-            TrJr.INSTANCE.font2.draw(batch, "You can only set it once.", width / 20f, height / 2f + 175);
-            TrJr.INSTANCE.font2.draw(batch, "Characters ( ) * cannot be used.", width / 20f, height / 2f + 125);
+            TrJr.INSTANCE.font3.draw(batch, "Think twice before playing.", width / 20f, height / 2f + 225);
+            TrJr.INSTANCE.font3.draw(batch, "You can only set it once.", width / 20f, height / 2f + 175);
+            TrJr.INSTANCE.font3.draw(batch, "Characters ( ) * cannot be used.", width / 20f, height / 2f + 125);
 
-            if (!isDone) TrJr.INSTANCE.font2.draw(batch, "Getting nicknames...", width / 20f, height / 2f + 75);
+            if (!isDone) TrJr.INSTANCE.font3.draw(batch, "Getting nicknames...", width / 20f, height / 2f + 75);
 
             if (hasfailed) {
-                TrJr.INSTANCE.font2.draw(batch, "Error getting nicknames.", width / 20f, height / 2f + 75);
-                TrJr.INSTANCE.font2.draw(batch, "Check your internet connection.", width / 20f, height / 2f + 25);
+                TrJr.INSTANCE.font3.draw(batch, "Error getting nicknames.", width / 20f, height / 2f + 75);
+                TrJr.INSTANCE.font3.draw(batch, "Check your internet connection.", width / 20f, height / 2f + 25);
             }
             if (existing) {
-                TrJr.INSTANCE.font2.draw(batch, "Someone already has this nickname.", width / 20f, height / 2f + 75);
-                TrJr.INSTANCE.font2.draw(batch, "Please set another one.", width / 20f, height / 2f + 25);
+                TrJr.INSTANCE.font3.draw(batch, "Someone already has this nickname.", width / 20f, height / 2f + 75);
+                TrJr.INSTANCE.font3.draw(batch, "Please set another one.", width / 20f, height / 2f + 25);
             }
             if (currentUsername.length()>12) {
-                TrJr.INSTANCE.font2.draw(batch, "This nickname is too long.", width / 20f, height / 2f + 75);
-                TrJr.INSTANCE.font2.draw(batch, "Max length is 12 symbols.", width / 20f, height / 2f + 25);
+                TrJr.INSTANCE.font3.draw(batch, "This nickname is too long.", width / 20f, height / 2f + 75);
+                TrJr.INSTANCE.font3.draw(batch, "Max length is 12 symbols.", width / 20f, height / 2f + 25);
             }
         } else {
             TrJr.INSTANCE.font2.draw(batch, "Think twice before continuing.", width / 20f, height / 2f + 375);

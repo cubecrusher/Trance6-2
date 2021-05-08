@@ -24,7 +24,7 @@ public class Settings {
         launch = prefs.getBoolean("launch",true);
         highScore = prefs.getFloat("highscore",0);
         plays = prefs.getInteger("plays",0);
-        username = prefs.getString("user", "");
+        username = prefs.getString("user", "Nickname");
         totalTime = prefs.getFloat("total",0);
         nameSet = prefs.getBoolean("nameset",false);
     }
@@ -116,6 +116,6 @@ public class Settings {
         prefs.flush();
     }
     public boolean getNameSet(){
-        return musicOn;
+        return nameSet;
     }
 }

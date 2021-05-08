@@ -111,7 +111,7 @@ public class MainScreen extends ScreenAdapter {
                 public void changed(ChangeEvent event, Actor actor) {
                     if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
                     Gdx.input.setInputProcessor(null);
-                    if (nameset) TrJr.INSTANCE.setScreen(new NameScreen(camera));
+                    if (!nameset) TrJr.INSTANCE.setScreen(new NameScreen(camera));
                     else TrJr.INSTANCE.setScreen(new GameScreen(camera));
                 }
             });
