@@ -11,6 +11,7 @@ public class Settings {
     private boolean speedOn;
     private boolean launch;
     private boolean nameSet;
+    private boolean scoreSent;
     private float highScore, totalTime;
     private int plays;
     private String username, difficulty;
@@ -25,9 +26,10 @@ public class Settings {
         highScore = prefs.getFloat("highscore",0);
         plays = prefs.getInteger("plays",0);
         difficulty = prefs.getString("difficulty", "Medium");
-        username = prefs.getString("user", "Nickname");
+        username = prefs.getString("user", "-");
         totalTime = prefs.getFloat("total",0);
         nameSet = prefs.getBoolean("nameset",false);
+        scoreSent = prefs.getBoolean("scoreSent",false);
     }
 
     public void setSound(boolean soundOn){
@@ -127,5 +129,14 @@ public class Settings {
     }
     public boolean getNameSet(){
         return nameSet;
+    }
+
+    public void setScoreSent(boolean scoreSent){
+        this.scoreSent=scoreSent;
+        prefs.putBoolean("scoreSent",scoreSent);
+        prefs.flush();
+    }
+    public boolean getScoreSent(){
+        return scoreSent;
     }
 }

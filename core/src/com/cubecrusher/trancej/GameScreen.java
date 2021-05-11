@@ -168,6 +168,7 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         EndScreen.newBest = false;
+        settings.setScoreSent(false);
             if (!hasCollided) {
                 update();
                 this.playTime += delta;

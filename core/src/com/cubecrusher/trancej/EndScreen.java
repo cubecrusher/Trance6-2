@@ -129,6 +129,7 @@ public class EndScreen extends ScreenAdapter {
                 public void handleHttpResponse(Net.HttpResponse httpResponse) {
                     System.out.println("(!!!) network RESPONSE: ");
                     System.out.println();
+                    settings.setScoreSent(true);
                 }
 
                 @Override

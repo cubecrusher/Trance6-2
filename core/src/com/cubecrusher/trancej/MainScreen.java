@@ -1,6 +1,7 @@
 package com.cubecrusher.trancej;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.net.HttpRequestBuilder;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -27,7 +29,7 @@ public class MainScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Sprite gamelogos;
-    private boolean nameset;
+    private boolean nameset, isScoreSent, sendFailed, isDone;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
@@ -41,6 +43,9 @@ public class MainScreen extends ScreenAdapter {
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
         this.batch = new SpriteBatch();
         this.nameset = settings.getNameSet();
+        this.isScoreSent = false;
+        this.sendFailed = false;
+        this.isDone = false;
     }
 
     public void create(){
@@ -162,9 +167,46 @@ public class MainScreen extends ScreenAdapter {
         this.camera.update();
     }
 
+    public void submitMediumScore(){
+        if (!settings.getScoreSent()){
+            int bestScore = (int) (settings.getHighScore()*100);
+            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore + "/";
+            HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+            Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) NETWORK (MEDIUM) RESPONSE: ");
+                    settings.setScoreSent(true);
+                    isScoreSent = true;
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitMediumScores() FAILED: ");
+                    t.printStackTrace();
+                    sendFailed = true;
+                }
+
+                @Override
+                public void cancelled() {
+                    System.out.println("(!!!) submitMediumScores() CANCELED.");
+                    sendFailed = true;
+                }
+            });
+        }
+        isDone = true;
+    }
+
     @Override
     public void render(float delta){
         update();
+        if (!isDone){
+            if (settings.getDifficulty().equals("Beginner")) submitMediumScore();
+            if (settings.getDifficulty().equals("Medium")) submitMediumScore();
+            if (settings.getDifficulty().equals("Expert")) submitMediumScore();
+            if (settings.getDifficulty().equals("Cursed")) submitMediumScore();
+        }
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (n<=2) {
@@ -178,9 +220,17 @@ public class MainScreen extends ScreenAdapter {
         batch.begin();
         if (TrJr.INSTANCE.getScrW()<1080) {
             gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()/6f*3.5f);
+            if (!settings.getScoreSent() && settings.getLaunch()) {
+                if (!sendFailed) TrJr.INSTANCE.fontCyan3.draw(batch, "Sending your scores...", 20, height / 2f + 125);
+                else TrJr.INSTANCE.fontCyan3.draw(batch, "Failed to send scores. Retry later.", 20, height / 2f + 125);
+            }
             TrJr.INSTANCE.font3.draw(batch, "Difficulty: "+settings.getDifficulty(), 20, height / 2f + 75);
         }
         else {
+            if (!settings.getScoreSent()){
+                if (!sendFailed) TrJr.INSTANCE.fontCyan2.draw(batch, "Sending your scores...", 25, height / 2f + 175);
+                else TrJr.INSTANCE.fontCyan2.draw(batch, "Failed to send scores. Retry later.", 25, height / 2f + 175);
+            }
             gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()-512);
             TrJr.INSTANCE.font2.draw(batch, "Difficulty: "+settings.getDifficulty(), 25, height / 2f + 125);
         }

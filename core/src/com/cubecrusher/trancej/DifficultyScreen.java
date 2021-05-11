@@ -110,6 +110,8 @@ public class DifficultyScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
                 settings.setDifficulty("Beginner");
+                Gdx.input.setInputProcessor(null);
+                TrJr.INSTANCE.setScreen(new MainScreen(camera));
             }
         });
         normalbutton.addListener(new ChangeListener() {
@@ -117,6 +119,8 @@ public class DifficultyScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
                 settings.setDifficulty("Medium");
+                Gdx.input.setInputProcessor(null);
+                TrJr.INSTANCE.setScreen(new MainScreen(camera));
             }
         });
 
@@ -125,6 +129,8 @@ public class DifficultyScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
                 settings.setDifficulty("Expert");
+                Gdx.input.setInputProcessor(null);
+                TrJr.INSTANCE.setScreen(new MainScreen(camera));
             }
         });
 
@@ -133,6 +139,8 @@ public class DifficultyScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
                 settings.setDifficulty("Cursed");
+                Gdx.input.setInputProcessor(null);
+                TrJr.INSTANCE.setScreen(new MainScreen(camera));
             }
         });
 
