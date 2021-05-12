@@ -38,7 +38,7 @@ public class GameScreen extends ScreenAdapter {
     protected float highScore = 0.00f;
     protected float totalTime;
     public float velocity;
-    public Float highScoreg;
+    public Float ehighScoreg, nhighScoreg, hhighScoreg, chighScoreg;
     public Float strDouble;
 
     protected int bpm;
@@ -68,7 +68,10 @@ public class GameScreen extends ScreenAdapter {
         this.velocity = height/120f;
         this.isOut = false;
         this.shapeRenderer = new ShapeRenderer();
-        this.highScoreg = settings.getHighScore();
+        this.ehighScoreg = settings.geteHighScore();
+        this.nhighScoreg = settings.getnHighScore();
+        this.hhighScoreg = settings.gethHighScore();
+        this.chighScoreg = settings.getcHighScore();
         this.plays = settings.getPlays();
         this.totalTime = settings.getTotal();
     }
@@ -158,7 +161,7 @@ public class GameScreen extends ScreenAdapter {
             Assets.stopAllGameMusic();
             TrJr.INSTANCE.setScreen(new MainScreen(camerag));
         }
-        if (settings.getDifficulty().matches("Beginner")) velocity+=0.005; // set to 0.0025 later
+        if (settings.getDifficulty().matches("Beginner")) velocity+=0.0025;
         if (settings.getDifficulty().matches("Medium")) velocity+=0.005;
         if (settings.getDifficulty().matches("Expert")) velocity+=0.01;
         if (settings.getDifficulty().matches("Cursed")) velocity+=0.05;
@@ -173,8 +176,18 @@ public class GameScreen extends ScreenAdapter {
                 update();
                 this.playTime += delta;
                 this.strDouble = ((int)(playTime*100))/100f;
-                if (this.strDouble > settings.getHighScore())
-                    highScore = playTime;
+                if (settings.getDifficulty().equals("Beginner")) {
+                    if (this.strDouble > settings.geteHighScore()) highScore = playTime;
+                }
+                if (settings.getDifficulty().equals("Medium")) {
+                    if (this.strDouble > settings.getnHighScore()) highScore = playTime;
+                }
+                if (settings.getDifficulty().equals("Expert")) {
+                    if (this.strDouble > settings.gethHighScore()) highScore = playTime;
+                }
+                if (settings.getDifficulty().equals("Cursed")) {
+                    if (this.strDouble > settings.getcHighScore()) highScore = playTime;
+                }
                 musicPos += this.strDouble;
                 Gdx.gl.glClearColor(0, 0, 0, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -230,17 +243,64 @@ public class GameScreen extends ScreenAdapter {
                 } else {
                     TrJr.INSTANCE.font.draw(batch, "" + strDouble, 80, height - 80);
                 }
-                if (playTime < settings.getHighScore()) {
-                    if (TrJr.INSTANCE.getScrW() < 1080) {
-                        TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getHighScore(), 48, height - 90);
+                if (settings.getDifficulty().equals("Beginner")) {
+                    if (playTime < settings.geteHighScore()) {
+                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                            TrJr.INSTANCE.font3.draw(batch, "B: " + settings.geteHighScore(), 48, height - 90);
+                        } else {
+                            TrJr.INSTANCE.font2.draw(batch, "B: " + settings.geteHighScore(), 80, height - 160);
+                        }
                     } else {
-                        TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getHighScore(), 80, height - 160);
+                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                            TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
+                        } else {
+                            TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
+                        }
                     }
-                } else {
-                    if (TrJr.INSTANCE.getScrW() < 1080) {
-                        TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
+                }
+                if (settings.getDifficulty().equals("Medium")) {
+                    if (playTime < settings.getnHighScore()) {
+                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                            TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getnHighScore(), 48, height - 90);
+                        } else {
+                            TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getnHighScore(), 80, height - 160);
+                        }
                     } else {
-                        TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
+                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                            TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
+                        } else {
+                            TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
+                        }
+                    }
+                }
+                if (settings.getDifficulty().equals("Expert")) {
+                    if (playTime < settings.gethHighScore()) {
+                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                            TrJr.INSTANCE.font3.draw(batch, "B: " + settings.gethHighScore(), 48, height - 90);
+                        } else {
+                            TrJr.INSTANCE.font2.draw(batch, "B: " + settings.gethHighScore(), 80, height - 160);
+                        }
+                    } else {
+                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                            TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
+                        } else {
+                            TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
+                        }
+                    }
+                }
+                if (settings.getDifficulty().equals("Cursed")) {
+                    if (playTime < settings.getcHighScore()) {
+                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                            TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getcHighScore(), 48, height - 90);
+                        } else {
+                            TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getcHighScore(), 80, height - 160);
+                        }
+                    } else {
+                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                            TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
+                        } else {
+                            TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
+                        }
                     }
                 }
 
@@ -273,9 +333,29 @@ public class GameScreen extends ScreenAdapter {
                     EndScreen.time = strDouble;
                     totalTime+=strDouble;
                     settings.setTotal(totalTime);
-                    if (playTime > this.highScoreg) {
-                        settings.setHighScore(strDouble);
-                        EndScreen.newBest = true;
+                    if (settings.getDifficulty().equals("Beginner")) {
+                        if (playTime > this.ehighScoreg) {
+                            settings.seteHighScore(strDouble);
+                            EndScreen.newBest = true;
+                        }
+                    }
+                    if (settings.getDifficulty().equals("Medium")) {
+                        if (playTime > this.nhighScoreg) {
+                            settings.setnHighScore(strDouble);
+                            EndScreen.newBest = true;
+                        }
+                    }
+                    if (settings.getDifficulty().equals("Expert")) {
+                        if (playTime > this.hhighScoreg) {
+                            settings.sethHighScore(strDouble);
+                            EndScreen.newBest = true;
+                        }
+                    }
+                    if (settings.getDifficulty().equals("Cursed")) {
+                        if (playTime > this.chighScoreg) {
+                            settings.setcHighScore(strDouble);
+                            EndScreen.newBest = true;
+                        }
                     }
                     TrJr.INSTANCE.setScreen(new EndScreen(camerag));
                 }

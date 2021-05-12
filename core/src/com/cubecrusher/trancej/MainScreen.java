@@ -29,7 +29,7 @@ public class MainScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Sprite gamelogos;
-    private boolean nameset, isScoreSent, sendFailed, isDone;
+    private boolean nameset, isScoreSent, sendFailed, iseDone, isnDone, ishDone, iscDone;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
@@ -45,7 +45,10 @@ public class MainScreen extends ScreenAdapter {
         this.nameset = settings.getNameSet();
         this.isScoreSent = false;
         this.sendFailed = false;
-        this.isDone = false;
+        this.iseDone = false;
+        this.isnDone = false;
+        this.ishDone = false;
+        this.iscDone = false;
     }
 
     public void create(){
@@ -98,6 +101,9 @@ public class MainScreen extends ScreenAdapter {
             difficultybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
 
             if (TrJr.INSTANCE.getScrW()>=1080) {
+                difficultybutton.setPosition(-5, height / 2f - 275);
+                difficultybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
                 optbutton.setPosition(0, TrJr.INSTANCE.getScrH() / 24f);
 
                 statsbutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+250);
@@ -106,6 +112,9 @@ public class MainScreen extends ScreenAdapter {
                 exitbutton.setPosition(width - 250, TrJr.INSTANCE.getScrH()/24f);
             }
             else {
+                difficultybutton.setPosition(-5, height / 2f - 200);
+                difficultybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
                 optbutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f);
                 optbutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
 
@@ -167,9 +176,40 @@ public class MainScreen extends ScreenAdapter {
         this.camera.update();
     }
 
+    public void submitEasyScore(){
+        if (!settings.getScoreSent()){
+            int bestScore = (int) (settings.geteHighScore()*100);
+            String urlReqString = "http://dreamlo.com/lb/BN0B0ZjSlk2snBWFvcTOQgwXJdz69dhk2pQRiN4-CquQ/add/" + settings.getUsername() + "/" + bestScore + "/";
+            HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+            Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) NETWORK (EASY) RESPONSE: ");
+                    settings.setScoreSent(true);
+                    isScoreSent = true;
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitEasyScore() FAILED: ");
+                    t.printStackTrace();
+                    sendFailed = true;
+                }
+
+                @Override
+                public void cancelled() {
+                    System.out.println("(!!!) submitEasyScore() CANCELED.");
+                    sendFailed = true;
+                }
+            });
+        }
+        iseDone = true;
+    }
+
     public void submitMediumScore(){
         if (!settings.getScoreSent()){
-            int bestScore = (int) (settings.getHighScore()*100);
+            int bestScore = (int) (settings.getnHighScore()*100);
             String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore + "/";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
@@ -183,30 +223,90 @@ public class MainScreen extends ScreenAdapter {
 
                 @Override
                 public void failed(Throwable t) {
-                    System.out.println("(!!!) submitMediumScores() FAILED: ");
+                    System.out.println("(!!!) submitMediumScore() FAILED: ");
                     t.printStackTrace();
                     sendFailed = true;
                 }
 
                 @Override
                 public void cancelled() {
-                    System.out.println("(!!!) submitMediumScores() CANCELED.");
+                    System.out.println("(!!!) submitMediumScore() CANCELED.");
                     sendFailed = true;
                 }
             });
         }
-        isDone = true;
+        isnDone = true;
+    }
+
+    public void submitHardScore(){
+        if (!settings.getScoreSent()){
+            int bestScore = (int) (settings.gethHighScore()*100);
+            String urlReqString = "http://dreamlo.com/lb/QJNYhELT6kum8gnBlxvuNALo_R2Fa2UUClZd3A5E0N1Q/add/" + settings.getUsername() + "/" + bestScore + "/";
+            HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+            Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) NETWORK (HARD) RESPONSE: ");
+                    settings.setScoreSent(true);
+                    isScoreSent = true;
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitHardScore() FAILED: ");
+                    t.printStackTrace();
+                    sendFailed = true;
+                }
+
+                @Override
+                public void cancelled() {
+                    System.out.println("(!!!) submitHardScore() CANCELED.");
+                    sendFailed = true;
+                }
+            });
+        }
+        ishDone = true;
+    }
+
+    public void submitCursedScore(){
+        if (!settings.getScoreSent()){
+            int bestScore = (int) (settings.getcHighScore()*100);
+            String urlReqString = "http://dreamlo.com/lb/5JdylXUUXky8NJN8X6O8iwncyP4oBIQE25bWj-CYrFvQ/add/" + settings.getUsername() + "/" + bestScore + "/";
+            HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+            Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) NETWORK (CURSED) RESPONSE: ");
+                    settings.setScoreSent(true);
+                    isScoreSent = true;
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitCursedScore() FAILED: ");
+                    t.printStackTrace();
+                    sendFailed = true;
+                }
+
+                @Override
+                public void cancelled() {
+                    System.out.println("(!!!) submitCursedScore() CANCELED.");
+                    sendFailed = true;
+                }
+            });
+        }
+        iscDone = true;
     }
 
     @Override
     public void render(float delta){
         update();
-        if (!isDone){
-            if (settings.getDifficulty().equals("Beginner")) submitMediumScore();
-            if (settings.getDifficulty().equals("Medium")) submitMediumScore();
-            if (settings.getDifficulty().equals("Expert")) submitMediumScore();
-            if (settings.getDifficulty().equals("Cursed")) submitMediumScore();
-        }
+        if (!iseDone) submitEasyScore();
+        if (!isnDone) submitMediumScore();
+        if (!ishDone) submitHardScore();
+        if (!iscDone) submitCursedScore();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (n<=2) {
@@ -224,7 +324,8 @@ public class MainScreen extends ScreenAdapter {
                 if (!sendFailed) TrJr.INSTANCE.fontCyan3.draw(batch, "Sending your scores...", 20, height / 2f + 125);
                 else TrJr.INSTANCE.fontCyan3.draw(batch, "Failed to send scores. Retry later.", 20, height / 2f + 125);
             }
-            TrJr.INSTANCE.font3.draw(batch, "Difficulty: "+settings.getDifficulty(), 20, height / 2f + 75);
+            TrJr.INSTANCE.font3.draw(batch, "Difficulty: "+settings.getDifficulty(), 20, height / 2f + 35);
+            TrJr.INSTANCE.font3.draw(batch, "0.9.1", 20, 40);
         }
         else {
             if (!settings.getScoreSent()){
@@ -233,6 +334,7 @@ public class MainScreen extends ScreenAdapter {
             }
             gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()-512);
             TrJr.INSTANCE.font2.draw(batch, "Difficulty: "+settings.getDifficulty(), 25, height / 2f + 125);
+            TrJr.INSTANCE.font2.draw(batch, "0.9.1", 20, 40);
         }
         gamelogos.draw(batch);
         batch.end();

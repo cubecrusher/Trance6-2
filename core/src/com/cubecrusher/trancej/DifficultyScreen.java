@@ -86,21 +86,33 @@ public class DifficultyScreen extends ScreenAdapter {
         if (settings.isMusicOn()) Assets.playMusic(Assets.mainMenu);
         create();
 
-        easybutton.setPosition(-5, height / 2f + 75);
-        easybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
-
-        normalbutton.setPosition(-5, height / 2f - 100);
-        normalbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
-
-        hardbutton.setPosition(-5, height / 2f - 275);
-        hardbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
-
-        cursedbutton.setPosition(-5, height / 2f - 450);
-        cursedbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
-
         if (TrJr.INSTANCE.getScrW()>=1080) {
+            easybutton.setPosition(-5, height / 2f + 75);
+            easybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
+            normalbutton.setPosition(-5, height / 2f - 100);
+            normalbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
+            hardbutton.setPosition(-5, height / 2f - 275);
+            hardbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
+            cursedbutton.setPosition(-5, height / 2f - 450);
+            cursedbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
             backbutton.setPosition(0, TrJr.INSTANCE.getScrH() / 24f);
         } else {
+            easybutton.setPosition(-5, height / 2f);
+            easybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
+            normalbutton.setPosition(-5, height / 2f - 100);
+            normalbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
+            hardbutton.setPosition(-5, height / 2f - 200);
+            hardbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
+            cursedbutton.setPosition(-5, height / 2f - 300);
+            cursedbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
             backbutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f);
             backbutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
         }
@@ -175,8 +187,8 @@ public class DifficultyScreen extends ScreenAdapter {
         }
         batch.begin();
         if (TrJr.INSTANCE.getScrW()<1080) {
-            difficulty.setPosition(TrJr.INSTANCE.getScrW()/2f-284, TrJr.INSTANCE.getScrH()/6f*3.5f);
-            TrJr.INSTANCE.font3.draw(batch, "Difficulty: "+settings.getDifficulty(), 20, height / 2f + 200);
+            difficulty.setPosition(TrJr.INSTANCE.getScrW()/2f-284, TrJr.INSTANCE.getScrH()/6f*4.5f);
+            TrJr.INSTANCE.font3.draw(batch, "Difficulty: "+settings.getDifficulty(), 20, height / 2f + 135);
         }
         else {
             difficulty.setPosition(TrJr.INSTANCE.getScrW()/2f-284, TrJr.INSTANCE.getScrH()-512);

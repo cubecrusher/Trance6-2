@@ -134,16 +134,22 @@ public class StatsScreen extends ScreenAdapter {
 
         if (width < 1080) {
             TrJr.INSTANCE.fontCyan3.draw(batch, "Nickname: " + settings.getUsername(), width / 20f, height / 3f * 2);
-            TrJr.INSTANCE.font3.draw(batch, "Plays: " + settings.getPlays(), width / 20f, height / 3f * 2 - 45);
-            TrJr.INSTANCE.font3.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 3f * 2 - 90);
-            TrJr.INSTANCE.font3.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 135);
-            TrJr.INSTANCE.font3.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 180);
+            TrJr.INSTANCE.font3.draw(batch, "Attempts: " + settings.getPlays(), width / 20f, height / 3f * 2 - 45);
+            TrJr.INSTANCE.font3.draw(batch, "Best (Beginner): " + settings.geteHighScore(), width / 20f, height / 3f * 2 - 90);
+            TrJr.INSTANCE.font3.draw(batch, "Best (Medium): " + settings.getnHighScore(), width / 20f, height / 3f * 2 - 135);
+            TrJr.INSTANCE.font3.draw(batch, "Best (Expert): " + settings.gethHighScore(), width / 20f, height / 3f * 2 - 180);
+            TrJr.INSTANCE.font3.draw(batch, "Best (Cursed): " + settings.getcHighScore(), width / 20f, height / 3f * 2 - 225);
+            TrJr.INSTANCE.font3.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 270);
+            TrJr.INSTANCE.font3.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 315);
         } else {
             TrJr.INSTANCE.fontCyan2.draw(batch, "Nickname: " + settings.getUsername(), width / 20f, height / 3f * 2);
-            TrJr.INSTANCE.font2.draw(batch, "Plays: " + settings.getPlays(), width / 20f, height / 3f * 2 - 50);
-            TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 3f * 2 - 100);
-            TrJr.INSTANCE.font2.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 150);
-            TrJr.INSTANCE.font2.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 200);
+            TrJr.INSTANCE.font2.draw(batch, "Attempts: " + settings.getPlays(), width / 20f, height / 3f * 2 - 50);
+            TrJr.INSTANCE.font2.draw(batch, "Best (Beginner): " + settings.geteHighScore(), width / 20f, height / 3f * 2 - 100);
+            TrJr.INSTANCE.font2.draw(batch, "Best (Medium): " + settings.getnHighScore(), width / 20f, height / 3f * 2 - 150);
+            TrJr.INSTANCE.font2.draw(batch, "Best (Expert): " + settings.gethHighScore(), width / 20f, height / 3f * 2 - 200);
+            TrJr.INSTANCE.font2.draw(batch, "Best (Cursed): " + settings.getcHighScore(), width / 20f, height / 3f * 2 - 250);
+            TrJr.INSTANCE.font2.draw(batch, "Average: " + ((int)(settings.getTotal()/settings.getPlays()*100))/100f, width / 20f, height / 3f * 2 - 300);
+            TrJr.INSTANCE.font2.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 350);
         }
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());

@@ -80,7 +80,7 @@ public class NameScreen extends ScreenAdapter {
         textField.setY(height / 2f - 200);
         textField.setWidth(width-80);
         textField.setHeight(height/12f);
-        textField.setText("Nickname");
+        textField.setText("-");
 
         stage = new Stage(new ScreenViewport());
         stage.addActor(textField);
@@ -89,8 +89,128 @@ public class NameScreen extends ScreenAdapter {
 
     }
 
-    public void getScores() {
+    public void getEasyScores() {
+        String urlString = "http://dreamlo.com/lb/BN0B0ZjSlk2snBWFvcTOQgwXJdz69dhk2pQRiN4-CquQ/json/";
+        HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+        Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlString).build();
+        if (a) {
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) network RESPONSE: ");
+                    JsonReader json = new JsonReader();
+                    String results = httpResponse.getResultAsString();
+                    System.out.println("STRING: " + results);
+                    JsonValue base = json.parse(results);
+                    JsonValue dlo = base.get("dreamlo");
+                    JsonValue lb = dlo.get("leaderboard");
+                    JsonValue entries = lb.get("entry");
+                    for (int i = 0; i < entries.size-1; i++) {
+                        JsonValue score = entries.get(i);
+                        String name = score.getString("name");
+                        existing = name.equals(settings.getUsername());
+                        highscoreList.add(name);
+                    }
+                    isDone = true;
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitScores() FAILED: ");
+                    t.printStackTrace();
+                    hasfailed=true;
+                }
+
+                @Override
+                public void cancelled() {
+
+                }
+            });
+        }
+    }
+
+    public void getNormalScores() {
         String urlString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/json/";
+        HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+        Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlString).build();
+        if (a) {
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) network RESPONSE: ");
+                    JsonReader json = new JsonReader();
+                    String results = httpResponse.getResultAsString();
+                    System.out.println("STRING: " + results);
+                    JsonValue base = json.parse(results);
+                    JsonValue dlo = base.get("dreamlo");
+                    JsonValue lb = dlo.get("leaderboard");
+                    JsonValue entries = lb.get("entry");
+                    for (int i = 0; i < entries.size-1; i++) {
+                        JsonValue score = entries.get(i);
+                        String name = score.getString("name");
+                        existing = name.equals(settings.getUsername());
+                        highscoreList.add(name);
+                    }
+                    isDone = true;
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitScores() FAILED: ");
+                    t.printStackTrace();
+                    hasfailed=true;
+                }
+
+                @Override
+                public void cancelled() {
+
+                }
+            });
+        }
+    }
+
+    public void getHardScores() {
+        String urlString = "http://dreamlo.com/lb/QJNYhELT6kum8gnBlxvuNALo_R2Fa2UUClZd3A5E0N1Q/json/";
+        HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+        Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlString).build();
+        if (a) {
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) network RESPONSE: ");
+                    JsonReader json = new JsonReader();
+                    String results = httpResponse.getResultAsString();
+                    System.out.println("STRING: " + results);
+                    JsonValue base = json.parse(results);
+                    JsonValue dlo = base.get("dreamlo");
+                    JsonValue lb = dlo.get("leaderboard");
+                    JsonValue entries = lb.get("entry");
+                    for (int i = 0; i < entries.size-1; i++) {
+                        JsonValue score = entries.get(i);
+                        String name = score.getString("name");
+                        existing = name.equals(settings.getUsername());
+                        highscoreList.add(name);
+                    }
+                    isDone = true;
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitScores() FAILED: ");
+                    t.printStackTrace();
+                    hasfailed=true;
+                }
+
+                @Override
+                public void cancelled() {
+
+                }
+            });
+        }
+    }
+
+    public void getCursedScores() {
+        String urlString = "http://dreamlo.com/lb/5JdylXUUXky8NJN8X6O8iwncyP4oBIQE25bWj-CYrFvQ/json/";
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlString).build();
         if (a) {
@@ -179,7 +299,10 @@ public class NameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         if (a) {
-            getScores();
+            getEasyScores();
+            getNormalScores();
+            getHardScores();
+            getCursedScores();
             a=false;
         }
         currentUsername = textField.getText();
@@ -220,15 +343,15 @@ public class NameScreen extends ScreenAdapter {
 
             if (!isDone) TrJr.INSTANCE.font3.draw(batch, "Getting nicknames...", width / 20f, height / 2f + 75);
 
-            if (hasfailed && !(currentUsername.length()>12 || currentUsername.length()<3)) {
+            if (hasfailed && !(currentUsername.length()>12 || currentUsername.length()<3) ) {
                 TrJr.INSTANCE.fontCyan3.draw(batch, "Error getting nicknames.", width / 20f, height / 2f + 75);
                 TrJr.INSTANCE.fontCyan3.draw(batch, "Check your internet connection.", width / 20f, height / 2f + 25);
             }
-            if (existing) {
+            if (existing && !hasfailed && !(currentUsername.length()>12 || currentUsername.length()<3)) {
                 TrJr.INSTANCE.fontCyan3.draw(batch, "Someone already has this nickname.", width / 20f, height / 2f + 75);
                 TrJr.INSTANCE.fontCyan3.draw(batch, "Please set another one.", width / 20f, height / 2f + 25);
             }
-            if (currentUsername.length()>12 || currentUsername.length()<3) {
+            if ((currentUsername.length()>12 || currentUsername.length()<3)) {
                 TrJr.INSTANCE.fontCyan3.draw(batch, "This nickname is too long or short.", width / 20f, height / 2f + 75);
                 TrJr.INSTANCE.font3.draw(batch, "It must be 3-12 characters long.", width / 20f, height / 2f + 25);
             }
@@ -243,11 +366,11 @@ public class NameScreen extends ScreenAdapter {
                 TrJr.INSTANCE.fontCyan2.draw(batch, "Error getting nicknames.", width / 20f, height / 2f + 225);
                 TrJr.INSTANCE.fontCyan2.draw(batch, "Check your internet connection.", width / 20f, height / 2f + 175);
             }
-            if (existing) {
+            if (existing && !hasfailed && !(currentUsername.length()>12 || currentUsername.length()<3)) {
                 TrJr.INSTANCE.fontCyan2.draw(batch, "Someone already has this nickname.", width / 20f, height / 2f + 225);
                 TrJr.INSTANCE.fontCyan2.draw(batch, "Please set another one.", width / 20f, height / 2f + 175);
             }
-            if (currentUsername.length()>12 || currentUsername.length()<3) {
+            if ((currentUsername.length()>12 || currentUsername.length()<3)) {
                 TrJr.INSTANCE.fontCyan2.draw(batch, "This nickname is too long or short.", width / 20f, height / 2f + 225);
                 TrJr.INSTANCE.fontCyan2.draw(batch, "It must be 3-12 characters long.", width / 20f, height / 2f + 175);
             }

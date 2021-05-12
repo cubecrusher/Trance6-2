@@ -12,7 +12,7 @@ public class Settings {
     private boolean launch;
     private boolean nameSet;
     private boolean scoreSent;
-    private float highScore, totalTime;
+    private float ehighScore, nhighScore, hhighScore, chighScore, totalTime;
     private int plays;
     private String username, difficulty;
 
@@ -23,7 +23,10 @@ public class Settings {
         fpsOn = prefs.getBoolean("fps",false);
         speedOn = prefs.getBoolean("speed",false);
         launch = prefs.getBoolean("launch",true);
-        highScore = prefs.getFloat("highscore",0);
+        ehighScore = prefs.getFloat("ehighscore",0);
+        nhighScore = prefs.getFloat("nhighscore",0);
+        hhighScore = prefs.getFloat("hhighscore",0);
+        chighScore = prefs.getFloat("chighscore",0);
         plays = prefs.getInteger("plays",0);
         difficulty = prefs.getString("difficulty", "Medium");
         username = prefs.getString("user", "-");
@@ -68,13 +71,40 @@ public class Settings {
         return speedOn;
     }
 
-    public void setHighScore(float highScore){
-        this.highScore=highScore;
-        prefs.putFloat("highscore",highScore);
+    public void seteHighScore(float ehighScore){
+        this.ehighScore=ehighScore;
+        prefs.putFloat("ehighscore",ehighScore);
         prefs.flush();
     }
-    public float getHighScore(){
-        return highScore;
+    public float geteHighScore(){
+        return ehighScore;
+    }
+
+    public void setnHighScore(float nhighScore){
+        this.nhighScore=nhighScore;
+        prefs.putFloat("nhighscore",nhighScore);
+        prefs.flush();
+    }
+    public float getnHighScore(){
+        return nhighScore;
+    }
+
+    public void sethHighScore(float hhighScore){
+        this.hhighScore=hhighScore;
+        prefs.putFloat("hhighscore",hhighScore);
+        prefs.flush();
+    }
+    public float gethHighScore(){
+        return hhighScore;
+    }
+
+    public void setcHighScore(float chighScore){
+        this.chighScore=chighScore;
+        prefs.putFloat("chighscore",chighScore);
+        prefs.flush();
+    }
+    public float getcHighScore(){
+        return chighScore;
     }
 
     public void setUsername(String username){

@@ -117,24 +117,114 @@ public class EndScreen extends ScreenAdapter {
 
     }
 
-    public void submitScore(){
+    public void submitEasyScore(){
         if (newBest) netNewBest = true;
         if (netNewBest){
-            int bestScore = (int) (settings.getHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore + "/";
+            int bestScore = (int) (settings.geteHighScore()*100);
+            String urlReqString = "http://dreamlo.com/lb/BN0B0ZjSlk2snBWFvcTOQgwXJdz69dhk2pQRiN4-CquQ/add/" + settings.getUsername() + "/" + bestScore + "/";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
                 @Override
                 public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                    System.out.println("(!!!) network RESPONSE: ");
+                    System.out.println("(!!!) NETWORK (EASY) RESPONSE: ");
                     System.out.println();
                     settings.setScoreSent(true);
                 }
 
                 @Override
                 public void failed(Throwable t) {
-                    System.out.println("(!!!) submitScores() FAILED: ");
+                    System.out.println("(!!!) submitEasyScore() FAILED: ");
+                    t.printStackTrace();
+                }
+
+                @Override
+                public void cancelled() {
+
+                }
+            });
+            netNewBest = false;
+        }
+    }
+
+    public void submitNormalScore(){
+        if (newBest) netNewBest = true;
+        if (netNewBest){
+            int bestScore = (int) (settings.getnHighScore()*100);
+            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore + "/";
+            HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+            Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) NETWORK (MEDIUM) RESPONSE: ");
+                    System.out.println();
+                    settings.setScoreSent(true);
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitMediumScore() FAILED: ");
+                    t.printStackTrace();
+                }
+
+                @Override
+                public void cancelled() {
+
+                }
+            });
+            netNewBest = false;
+        }
+    }
+
+    public void submitHardScore(){
+        if (newBest) netNewBest = true;
+        if (netNewBest){
+            int bestScore = (int) (settings.gethHighScore()*100);
+            String urlReqString = "http://dreamlo.com/lb/QJNYhELT6kum8gnBlxvuNALo_R2Fa2UUClZd3A5E0N1Q/add/" + settings.getUsername() + "/" + bestScore + "/";
+            HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+            Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) NETWORK (HARD) RESPONSE: ");
+                    System.out.println();
+                    settings.setScoreSent(true);
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitHardScore() FAILED: ");
+                    t.printStackTrace();
+                }
+
+                @Override
+                public void cancelled() {
+
+                }
+            });
+            netNewBest = false;
+        }
+    }
+
+    public void submitCursedScore(){
+        if (newBest) netNewBest = true;
+        if (netNewBest){
+            int bestScore = (int) (settings.getcHighScore()*100);
+            String urlReqString = "http://dreamlo.com/lb/5JdylXUUXky8NJN8X6O8iwncyP4oBIQE25bWj-CYrFvQ/add/" + settings.getUsername() + "/" + bestScore + "/";
+            HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
+            Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
+                @Override
+                public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                    System.out.println("(!!!) NETWORK (CURSED) RESPONSE: ");
+                    System.out.println();
+                    settings.setScoreSent(true);
+                }
+
+                @Override
+                public void failed(Throwable t) {
+                    System.out.println("(!!!) submitCursedScore() FAILED: ");
                     t.printStackTrace();
                 }
 
@@ -168,7 +258,12 @@ public class EndScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         a++;
-        if (a<=1) submitScore();
+        if (a<=1) {
+            submitEasyScore();
+            submitNormalScore();
+            submitHardScore();
+            submitCursedScore();
+        }
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             Gdx.input.setCatchKey(Input.Keys.BACK,true);
             TrJr.INSTANCE.setScreen(new MainScreen(camera));
@@ -191,7 +286,10 @@ public class EndScreen extends ScreenAdapter {
             if (spritey2 > height / 4f * 2) {
                 TrJr.INSTANCE.font.draw(batch, "Time: " + time, width / 20f, height / 2f + 300);
                     if (!newBest) {
-                        TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Beginner")) TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.geteHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Medium")) TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getnHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Expert")) TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.gethHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Cursed")) TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getcHighScore(), width / 20f, height / 2f + 225);
                         TrJr.INSTANCE.font2.draw(batch, mockery, width / 20f, height / 2f + 175);
                     }
                     else TrJr.INSTANCE.fontCyan2.draw(batch, "(!!!) New highscore!", width / 20f, height / 2f + 225);
