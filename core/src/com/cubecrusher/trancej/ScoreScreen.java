@@ -101,6 +101,7 @@ public class ScoreScreen extends ScreenAdapter {
         String urlString = "http://dreamlo.com/lb/BN0B0ZjSlk2snBWFvcTOQgwXJdz69dhk2pQRiN4-CquQ/json/";
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlString).build();
+        httpRequest.setTimeOut(0);
         if (a) {
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
                 @Override
@@ -146,6 +147,7 @@ public class ScoreScreen extends ScreenAdapter {
         String urlString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/json/";
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlString).build();
+        httpRequest.setTimeOut(0);
         if (a) {
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
                 @Override
@@ -191,6 +193,7 @@ public class ScoreScreen extends ScreenAdapter {
         String urlString = "http://dreamlo.com/lb/QJNYhELT6kum8gnBlxvuNALo_R2Fa2UUClZd3A5E0N1Q/json/";
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlString).build();
+        httpRequest.setTimeOut(0);
         if (a) {
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
                 @Override
@@ -236,6 +239,7 @@ public class ScoreScreen extends ScreenAdapter {
         String urlString = "http://dreamlo.com/lb/5JdylXUUXky8NJN8X6O8iwncyP4oBIQE25bWj-CYrFvQ/json/";
         HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
         Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlString).build();
+        httpRequest.setTimeOut(0);
         if (a) {
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
                 @Override
