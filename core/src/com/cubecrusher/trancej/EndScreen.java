@@ -49,16 +49,55 @@ public class EndScreen extends ScreenAdapter {
         this.gameScreen = new GameScreen(camera);
         this.batch = new SpriteBatch();
         this.viewport = new FitViewport(800,400, camera);
-        if (mockeryd<=0.1) mockery = "(!) That's a bruh moment";
-        if (mockeryd>0.1 && mockeryd<=0.2) mockery = "(!) You are not speed";
-        if (mockeryd>0.2 && mockeryd<=0.3) mockery = "(!) Everyone disliked that";
-        if (mockeryd>0.3 && mockeryd<=0.4) mockery = "(!) Not even close";
-        if (mockeryd>0.4 && mockeryd<=0.5) mockery = "(!) This is no place to die!";
-        if (mockeryd>0.5 && mockeryd<=0.6) mockery = "(!) All you got?";
-        if (mockeryd>0.6 && mockeryd<=0.7) mockery = "(!) Brap SFX #4";
-        if (mockeryd>0.7 && mockeryd<=0.8) mockery = "(!) #yolo";
-        if (mockeryd>0.8 && mockeryd<=0.9) mockery = "(!) That's kinda small. Yikes!";
-        if (mockeryd>0.9 && mockeryd<=1.0) mockery = "(!) You've been gnomed!";
+        if (settings.getDifficulty().equals("Beginner")) {
+            if (mockeryd <= 0.1) mockery = "(!) How'd you mess THIS up!?";
+            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) Go ahead, try again";
+            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) virgin moment";
+            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) Easier difficulty coming NEVER!";
+            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) so good at this";
+            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) come on its the easiest level";
+            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) wow you suck lol";
+            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) yeah ur too young for this game";
+            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) amogus";
+            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) I think you should quit";
+        }
+
+        if (settings.getDifficulty().equals("Medium")) {
+            if (mockeryd <= 0.1) mockery = "(!) That's a bruh moment";
+            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) You are not speed";
+            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) Everyone disliked that";
+            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) Not even close";
+            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) This is no place to die!";
+            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) All you got?";
+            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) Brap SFX #4";
+            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) #yolo";
+            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) That's kinda small. Yikes!";
+            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) You've been gnomed!";
+        }
+        if (settings.getDifficulty().equals("Expert")) {
+            if (mockeryd <= 0.1) mockery = "(!) You lost. Congratulations.";
+            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) Test Subject #1 Terminated!";
+            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) death";
+            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) go down to medium ok?";
+            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) damn you tried so hard";
+            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) Yeah, you are no expert.";
+            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) U kinda lack the power";
+            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) [loud desk thud]";
+            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) Jeers!";
+            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) Put the CD in the computer";
+        }
+        if (settings.getDifficulty().equals("Cursed")) {
+            if (mockeryd <= 0.1) mockery = "(!) trollge incident";
+            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) git gud noob";
+            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) You messed up!";
+            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) LOL";
+            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) Dominated!";
+            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) 2fast4you";
+            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) Train reaction bro";
+            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) go easy amateur";
+            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) rekt";
+            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) gamer destroyed";
+        }
     }
 
     public void create(){

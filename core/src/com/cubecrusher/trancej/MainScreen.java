@@ -33,7 +33,6 @@ public class MainScreen extends ScreenAdapter {
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
-    Vector3 touchpt = new Vector3();
     int n=0;
 
     public MainScreen(OrthographicCamera camera){
@@ -182,6 +181,7 @@ public class MainScreen extends ScreenAdapter {
             String urlReqString = "http://dreamlo.com/lb/BN0B0ZjSlk2snBWFvcTOQgwXJdz69dhk2pQRiN4-CquQ/add/" + settings.getUsername() + "/" + bestScore + "/";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            httpRequest.setTimeOut(0);
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
                 @Override
                 public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -213,6 +213,7 @@ public class MainScreen extends ScreenAdapter {
             String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore + "/";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            httpRequest.setTimeOut(0);
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
                 @Override
                 public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -244,6 +245,7 @@ public class MainScreen extends ScreenAdapter {
             String urlReqString = "http://dreamlo.com/lb/QJNYhELT6kum8gnBlxvuNALo_R2Fa2UUClZd3A5E0N1Q/add/" + settings.getUsername() + "/" + bestScore + "/";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            httpRequest.setTimeOut(0);
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
                 @Override
                 public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -275,6 +277,7 @@ public class MainScreen extends ScreenAdapter {
             String urlReqString = "http://dreamlo.com/lb/5JdylXUUXky8NJN8X6O8iwncyP4oBIQE25bWj-CYrFvQ/add/" + settings.getUsername() + "/" + bestScore + "/";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
+            httpRequest.setTimeOut(0);
             Gdx.net.sendHttpRequest(httpRequest, new Net.HttpResponseListener() {
                 @Override
                 public void handleHttpResponse(Net.HttpResponse httpResponse) {
@@ -303,10 +306,12 @@ public class MainScreen extends ScreenAdapter {
     @Override
     public void render(float delta){
         update();
-        if (!iseDone) submitEasyScore();
-        if (!isnDone) submitMediumScore();
-        if (!ishDone) submitHardScore();
-        if (!iscDone) submitCursedScore();
+        if (settings.getNameSet()) {
+            if (!iseDone) submitEasyScore();
+            if (!isnDone) submitMediumScore();
+            if (!ishDone) submitHardScore();
+            if (!iscDone) submitCursedScore();
+        }
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (n<=2) {
@@ -325,7 +330,7 @@ public class MainScreen extends ScreenAdapter {
                 else TrJr.INSTANCE.fontCyan3.draw(batch, "Failed to send scores. Retry later.", 20, height / 2f + 125);
             }
             TrJr.INSTANCE.font3.draw(batch, "Difficulty: "+settings.getDifficulty(), 20, height / 2f + 35);
-            TrJr.INSTANCE.font3.draw(batch, "0.9.1", 20, 40);
+            TrJr.INSTANCE.font3.draw(batch, "1.0.0a", 20, 40);
         }
         else {
             if (!settings.getScoreSent()){
@@ -334,7 +339,7 @@ public class MainScreen extends ScreenAdapter {
             }
             gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()-512);
             TrJr.INSTANCE.font2.draw(batch, "Difficulty: "+settings.getDifficulty(), 25, height / 2f + 125);
-            TrJr.INSTANCE.font2.draw(batch, "0.9.1", 20, 40);
+            TrJr.INSTANCE.font2.draw(batch, "1.0.0a", 20, 40);
         }
         gamelogos.draw(batch);
         batch.end();

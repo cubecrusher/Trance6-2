@@ -76,14 +76,12 @@ public class GameScreen extends ScreenAdapter {
         this.totalTime = settings.getTotal();
     }
 
-    // Play music, add "Back" functionalities
     @Override
     public void show(){
         plays++;
 
     }
 
-    // Update all entities, check for collision
     public void update(){
         Assets.stopMusic(Assets.mainMenu);
         if (playTime>=0) {
@@ -167,7 +165,6 @@ public class GameScreen extends ScreenAdapter {
         if (settings.getDifficulty().matches("Cursed")) velocity+=0.05;
     }
 
-    // Render everything
     @Override
     public void render(float delta) {
         EndScreen.newBest = false;

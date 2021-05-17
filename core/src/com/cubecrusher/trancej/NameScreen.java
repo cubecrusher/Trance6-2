@@ -355,7 +355,7 @@ public class NameScreen extends ScreenAdapter {
                 TrJr.INSTANCE.fontCyan3.draw(batch, "Someone already has this nickname.", width / 20f, height / 2f + 75);
                 TrJr.INSTANCE.fontCyan3.draw(batch, "Please set another one.", width / 20f, height / 2f + 25);
             }
-            if ((currentUsername.length()>12 || currentUsername.length()<3)) {
+            if ((currentUsername.length()>12 || currentUsername.length()<3) && isDone && !hasfailed) {
                 TrJr.INSTANCE.fontCyan3.draw(batch, "This nickname is too long or short.", width / 20f, height / 2f + 75);
                 TrJr.INSTANCE.font3.draw(batch, "It must be 3-12 characters long.", width / 20f, height / 2f + 25);
             }
@@ -374,7 +374,7 @@ public class NameScreen extends ScreenAdapter {
                 TrJr.INSTANCE.fontCyan2.draw(batch, "Someone already has this nickname.", width / 20f, height / 2f + 225);
                 TrJr.INSTANCE.fontCyan2.draw(batch, "Please set another one.", width / 20f, height / 2f + 175);
             }
-            if ((currentUsername.length()>12 || currentUsername.length()<3)) {
+            if ((currentUsername.length()>12 || currentUsername.length()<3) && isDone && !hasfailed) {
                 TrJr.INSTANCE.fontCyan2.draw(batch, "This nickname is too long or short.", width / 20f, height / 2f + 225);
                 TrJr.INSTANCE.fontCyan2.draw(batch, "It must be 3-12 characters long.", width / 20f, height / 2f + 175);
             }
