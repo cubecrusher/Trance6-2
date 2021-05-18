@@ -1,37 +1,22 @@
 package com.cubecrusher.trancej;
 
-import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 public class AndroidLauncher extends AndroidApplication {
 
-	protected boolean shouldAskPermissions() {
-		return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
-	}
-
-	@TargetApi(23)
-	protected void askPermissions() {
-		String[] permissions = {
-				"android.permission.READ_EXTERNAL_STORAGE",
-				"android.permission.WRITE_EXTERNAL_STORAGE"
-		};
-		int requestCode = 200;
-		requestPermissions(permissions, requestCode);
-	}
-
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
+		View decorView = getWindow().getDecorView();
+		int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+				| View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+				| View.SYSTEM_UI_FLAG_FULLSCREEN;
+		decorView.setSystemUiVisibility(uiOptions);
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(TrJr.INSTANCE, config);
-
-		if (shouldAskPermissions()) {
-			askPermissions();
-		}
-
 	}
 }
