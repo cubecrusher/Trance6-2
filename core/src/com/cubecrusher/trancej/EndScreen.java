@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.net.HttpRequestBuilder;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -27,6 +29,7 @@ public class EndScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     protected GameScreen gameScreen;
     private Stage stage;
+    private ShapeRenderer shapeRenderer;
     private TextureRegion playtexturer, backtexturer;
     private TextureRegionDrawable playtexturerd, backtexturerd;
     private Viewport viewport;
@@ -38,65 +41,44 @@ public class EndScreen extends ScreenAdapter {
     private int height = TrJr.INSTANCE.getScrH();
     private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
+    private boolean moneyAdded, uishown;
     private int spritey = 0, spritey2 = 0;
-    int a = 0;
+    int a = 0, newMoney = 0;
 
 
     public EndScreen(OrthographicCamera camera){
         this.settings = new Settings();
         this.camera = camera;
+        this.shapeRenderer = new ShapeRenderer();
         this.camera.position.set(new Vector3(width/2f, height/2f,0));
         this.gameScreen = new GameScreen(camera);
         this.batch = new SpriteBatch();
+        this.moneyAdded = false;
+        this.uishown = false;
         this.viewport = new FitViewport(800,400, camera);
-        if (settings.getDifficulty().equals("Beginner")) {
-            if (mockeryd <= 0.1) mockery = "(!) How'd you mess THIS up!?";
-            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) Go ahead, try again";
-            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) virgin moment";
-            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) Easier difficulty coming NEVER!";
-            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) so good at this";
-            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) come on its the easiest level";
-            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) wow you suck lol";
-            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) yeah ur too young for this game";
-            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) amogus";
-            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) I think you should quit";
-        }
 
-        if (settings.getDifficulty().equals("Medium")) {
-            if (mockeryd <= 0.1) mockery = "(!) That's a bruh moment";
-            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) You are not speed";
-            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) Everyone disliked that";
-            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) Not even close";
-            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) This is no place to die!";
-            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) All you got?";
-            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) Brap SFX #4";
-            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) #yolo";
-            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) That's kinda small. Yikes!";
-            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) You've been gnomed!";
-        }
-        if (settings.getDifficulty().equals("Expert")) {
-            if (mockeryd <= 0.1) mockery = "(!) You lost. Congratulations.";
-            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) Test Subject #1 Terminated!";
-            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) death";
-            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) go down to medium ok?";
-            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) damn you tried so hard";
-            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) Yeah, you are no expert.";
-            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) U kinda lack the power";
-            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) [loud desk thud]";
-            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) Jeers!";
-            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) Put the CD in the computer";
-        }
-        if (settings.getDifficulty().equals("Cursed")) {
-            if (mockeryd <= 0.1) mockery = "(!) trollge incident";
-            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) git gud noob";
-            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) You messed up!";
-            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) LOL";
-            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) Dominated!";
-            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) 2fast4you";
-            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) Train reaction bro";
-            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) go easy amateur";
-            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) rekt";
-            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) gamer destroyed";
+        if (settings.getLanguage()==1){
+            if (mockeryd <= 0.1) mockery = "(!) Игра окончена.";
+            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) Вы умерли.";
+            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) ГГ";
+            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) [удар по столу]";
+            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) Геймер уничтожен";
+            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) хорошо идёшь";
+            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) может тебе попроще сделать?";
+            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) бууууууууууу";
+            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) Хорошая работа";
+            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) Вы возродитесь через null";
+        } else {
+            if (mockeryd <= 0.1) mockery = "(!) Jeers!";
+            if (mockeryd > 0.1 && mockeryd <= 0.2) mockery = "(!) You died.";
+            if (mockeryd > 0.2 && mockeryd <= 0.3) mockery = "(!) Bruh moment";
+            if (mockeryd > 0.3 && mockeryd <= 0.4) mockery = "(!) BBQ'd";
+            if (mockeryd > 0.4 && mockeryd <= 0.5) mockery = "(!) So good at this";
+            if (mockeryd > 0.5 && mockeryd <= 0.6) mockery = "(!) GG";
+            if (mockeryd > 0.6 && mockeryd <= 0.7) mockery = "(!) [desk thud]";
+            if (mockeryd > 0.7 && mockeryd <= 0.8) mockery = "(!) Dominated";
+            if (mockeryd > 0.8 && mockeryd <= 0.9) mockery = "(!) Gamer destroyed";
+            if (mockeryd > 0.9 && mockeryd <= 1.0) mockery = "(!) Boooooooooo.";
         }
     }
 
@@ -105,10 +87,11 @@ public class EndScreen extends ScreenAdapter {
         Texture gameover = new Texture(Gdx.files.internal("textures/gameover.png"));
         gameovers = new Sprite(gameover);
         Texture playtexture = new Texture(Gdx.files.internal("textures/new/play.png"));
+        Texture rplaytexture = new Texture(Gdx.files.internal("textures/new/rplay.png"));
         Texture backtexture = new Texture(Gdx.files.internal("textures/new/back.png"));
 
-
-        playtexturer = new TextureRegion(playtexture);
+        if (settings.getLanguage()==1) playtexturer = new TextureRegion(rplaytexture);
+        else playtexturer = new TextureRegion(playtexture);
         backtexturer = new TextureRegion(backtexture);
 
         playtexturerd = new TextureRegionDrawable(playtexturer);
@@ -311,6 +294,27 @@ public class EndScreen extends ScreenAdapter {
             Gdx.input.setCatchKey(Input.Keys.BACK,true);
             TrJr.INSTANCE.setScreen(new MainScreen(camera));
         }
+
+    if (!moneyAdded) {
+        if (settings.getDifficulty().equals("Beginner")) {
+            settings.setMoney(settings.getMoney() + (Math.round(time)) / 2);
+            newMoney+=Math.round(time)/2;
+        }
+        if (settings.getDifficulty().equals("Medium")) {
+            settings.setMoney(settings.getMoney() + (Math.round(time)));
+            newMoney+=Math.round(time);
+        }
+        if (settings.getDifficulty().equals("Expert")) {
+            settings.setMoney(settings.getMoney() + (Math.round(time)) * 2);
+            newMoney+=Math.round(time)*2;
+        }
+        if (settings.getDifficulty().equals("Cursed")) {
+            settings.setMoney(settings.getMoney() + (Math.round(time)) * 4);
+            newMoney+=Math.round(time)*4;
+        }
+        moneyAdded=true;
+    }
+
         update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -318,29 +322,65 @@ public class EndScreen extends ScreenAdapter {
         gameovers.setPosition(width / 2f - 193, height - spritey);
         gameovers.draw(batch);
 
+
+
         if (TrJr.INSTANCE.getScrW() < 1080) {
             if (spritey2 > TrJr.INSTANCE.getScrH() / 3.5f * 2) {
-                TrJr.INSTANCE.font2.draw(batch, "Time: " + time, width / 20f, height / 2f + 75);
-
+                if (settings.getLanguage()==1){
+                    TrJr.INSTANCE.rfont2.draw(batch, "Время: " + time, width / 20f, height / 2f + 75);
+                } else {
+                    TrJr.INSTANCE.font2.draw(batch, "Time: " + time, width / 20f, height / 2f + 75);
+                }
+                uishown=true;
                 stage.act(Gdx.graphics.getDeltaTime());
                 stage.draw();
             }
         } else {
             if (spritey2 > height / 4f * 2) {
-                TrJr.INSTANCE.font.draw(batch, "Time: " + time, width / 20f, height / 2f + 300);
+                if (settings.getLanguage()==1) {
+                    TrJr.INSTANCE.rfont.draw(batch, "Время: " + time, width / 20f, height / 2f + 300);
                     if (!newBest) {
-                        if (settings.getDifficulty().equals("Beginner")) TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.geteHighScore(), width / 20f, height / 2f + 225);
-                        if (settings.getDifficulty().equals("Medium")) TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getnHighScore(), width / 20f, height / 2f + 225);
-                        if (settings.getDifficulty().equals("Expert")) TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.gethHighScore(), width / 20f, height / 2f + 225);
-                        if (settings.getDifficulty().equals("Cursed")) TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getcHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Beginner"))
+                            TrJr.INSTANCE.rfont2.draw(batch, "Рекорд: " + settings.geteHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Medium"))
+                            TrJr.INSTANCE.rfont2.draw(batch, "Рекорд: " + settings.getnHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Expert"))
+                            TrJr.INSTANCE.rfont2.draw(batch, "Рекорд: " + settings.gethHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Cursed"))
+                            TrJr.INSTANCE.rfont2.draw(batch, "Рекорд: " + settings.getcHighScore(), width / 20f, height / 2f + 225);
+                        TrJr.INSTANCE.rfont2.draw(batch, mockery, width / 20f, height / 2f + 175);
+                    } else
+                        TrJr.INSTANCE.rfontCyan2.draw(batch, "(!!!) Новый рекорд!", width / 20f, height / 2f + 225);
+                } else {
+                    TrJr.INSTANCE.font.draw(batch, "Time: " + time, width / 20f, height / 2f + 300);
+                    if (!newBest) {
+                        if (settings.getDifficulty().equals("Beginner"))
+                            TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.geteHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Medium"))
+                            TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getnHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Expert"))
+                            TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.gethHighScore(), width / 20f, height / 2f + 225);
+                        if (settings.getDifficulty().equals("Cursed"))
+                            TrJr.INSTANCE.font2.draw(batch, "Best: " + settings.getcHighScore(), width / 20f, height / 2f + 225);
                         TrJr.INSTANCE.font2.draw(batch, mockery, width / 20f, height / 2f + 175);
-                    }
-                    else TrJr.INSTANCE.fontCyan2.draw(batch, "(!!!) New highscore!", width / 20f, height / 2f + 225);
+                    } else
+                        TrJr.INSTANCE.fontCyan2.draw(batch, "(!!!) New highscore!", width / 20f, height / 2f + 225);
+                }
                     stage.act(Gdx.graphics.getDeltaTime());
                     stage.draw();
+                TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
+                TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney()+" (+"+newMoney+")", 55, height - 28);
                 }
+            uishown=true;
             }
         batch.end();
+        if (uishown) {
+            shapeRenderer.setAutoShapeType(true);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.rect(0, height - height / 25f, width, 10);
+            shapeRenderer.end();
+        }
     }
 
     @Override

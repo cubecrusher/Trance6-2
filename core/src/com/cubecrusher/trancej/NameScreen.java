@@ -324,6 +324,7 @@ public class NameScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
+
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -378,6 +379,7 @@ public class NameScreen extends ScreenAdapter {
                 TrJr.INSTANCE.fontCyan2.draw(batch, "This nickname is too long or short.", width / 20f, height / 2f + 225);
                 TrJr.INSTANCE.fontCyan2.draw(batch, "It must be 3-12 characters long.", width / 20f, height / 2f + 175);
             }
+
         }
         if (!existing && !textField.getText().equals("")) settings.setUsername(currentUsername);
         batch.end();

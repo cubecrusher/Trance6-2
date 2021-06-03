@@ -14,6 +14,7 @@ public class TrJr extends Game {
 	private OrthographicCamera camera;
 	public AssetManager manager;
 	public BitmapFont font, font2, font3, fontBig, fontCyan, fontCyan2, fontCyan3, fontCyanBig;
+	public BitmapFont rfont, rfont2, rfont3, rfontBig, rfontCyan, rfontCyan2, rfontCyan3, rfontCyanBig;
 
 	TrJr(){
 	}
@@ -26,6 +27,11 @@ public class TrJr extends Game {
 		this.font3 = new BitmapFont();
 		this.fontBig = new BitmapFont();
 		this.fontCyanBig = new BitmapFont();
+		this.rfont = new BitmapFont();
+		this.rfont2 = new BitmapFont();
+		this.rfont3 = new BitmapFont();
+		this.rfontBig = new BitmapFont();
+		this.rfontCyanBig = new BitmapFont();
 		Assets.load();
 		this.scrW = Gdx.graphics.getWidth();
 		this.scrH = Gdx.graphics.getHeight();
@@ -37,6 +43,7 @@ public class TrJr extends Game {
 
 	public void makeFont(){
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/gui.ttf"));
+		FreeTypeFontGenerator rgenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/guinew.ttf"));
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -45,6 +52,15 @@ public class TrJr extends Game {
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyanBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
+		FreeTypeFontGenerator.FreeTypeFontParameter rparameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FreeTypeFontGenerator.FreeTypeFontParameter rparameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FreeTypeFontGenerator.FreeTypeFontParameter rparameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FreeTypeFontGenerator.FreeTypeFontParameter rparameterBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FreeTypeFontGenerator.FreeTypeFontParameter rparameterCyan = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FreeTypeFontGenerator.FreeTypeFontParameter rparameterCyan2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FreeTypeFontGenerator.FreeTypeFontParameter rparameterCyan3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		FreeTypeFontGenerator.FreeTypeFontParameter rparameterCyanBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
 		parameter.size = 64;
 		parameter.shadowOffsetX = 5;
@@ -102,7 +118,73 @@ public class TrJr extends Game {
 		parameterCyanBig.shadowColor = Color.BLACK;
 		fontCyanBig = generator.generateFont(parameterCyanBig);
 
+
+		rparameter.size = 72;
+		rparameter.shadowOffsetX = 5;
+		rparameter.shadowOffsetY = 5;
+		rparameter.color = Color.WHITE;
+		rparameter.shadowColor = Color.BLACK;
+		rparameter.characters += "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя";
+		rfont = rgenerator.generateFont(rparameter);
+
+		rparameter2.size = 48;
+		rparameter2.shadowOffsetX = 3;
+		rparameter2.shadowOffsetY = 3;
+		rparameter2.color = Color.WHITE;
+		rparameter2.shadowColor = Color.BLACK;
+		rparameter2.characters += "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя";
+		rfont2 = rgenerator.generateFont(rparameter2);
+
+		rparameter3.size = 24;
+		rparameter3.shadowOffsetX = 2;
+		rparameter3.shadowOffsetY = 2;
+		rparameter3.color = Color.WHITE;
+		rparameter3.shadowColor = Color.BLACK;
+		rparameter3.characters += "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя";
+		rfont3 = rgenerator.generateFont(rparameter3);
+
+		rparameterBig.size = 128;
+		rparameterBig.shadowOffsetX = 10;
+		rparameterBig.shadowOffsetY = 10;
+		rparameterBig.color = Color.WHITE;
+		rparameterBig.shadowColor = Color.BLACK;
+		rparameterBig.characters += "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя";
+		rfontBig = rgenerator.generateFont(rparameterBig);
+
+		rparameterCyan.size = 72;
+		rparameterCyan.shadowOffsetX = 5;
+		rparameterCyan.shadowOffsetY = 5;
+		rparameterCyan.color = Color.CYAN;
+		rparameterCyan.shadowColor = Color.BLACK;
+		rparameterCyan.characters += "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя";
+		rfontCyan = rgenerator.generateFont(rparameterCyan);
+
+		rparameterCyan2.size = 48;
+		rparameterCyan2.shadowOffsetX = 3;
+		rparameterCyan2.shadowOffsetY = 3;
+		rparameterCyan2.color = Color.CYAN;
+		rparameterCyan2.shadowColor = Color.BLACK;
+		rparameterCyan2.characters += "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя";
+		rfontCyan2 = rgenerator.generateFont(rparameterCyan2);
+
+		rparameterCyan3.size = 24;
+		rparameterCyan3.shadowOffsetX = 2;
+		rparameterCyan3.shadowOffsetY = 2;
+		rparameterCyan3.color = Color.CYAN;
+		rparameterCyan3.shadowColor = Color.BLACK;
+		rparameterCyan3.characters += "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя";
+		rfontCyan3 = rgenerator.generateFont(rparameterCyan3);
+
+		rparameterCyanBig.size = 128;
+		rparameterCyanBig.shadowOffsetX = 10;
+		rparameterCyanBig.shadowOffsetY = 10;
+		rparameterCyanBig.color = Color.CYAN;
+		rparameterCyanBig.shadowColor = Color.BLACK;
+		rparameterCyanBig.characters += "АаБбВвГгДдЕеЁёЖжЗзИиЙйКкЛлМмНнОоПпРрСсТтУуФфХхЦцЧчШшЩщЪъЫыЬьЭэЮюЯя";
+		rfontCyanBig = rgenerator.generateFont(rparameterCyanBig);
+
 		generator.dispose();
+		rgenerator.dispose();
 	}
 
 
@@ -120,7 +202,6 @@ public class TrJr extends Game {
 
 	public void dispose () {
 		super.dispose();
-		font.dispose();
 	}
 
 }

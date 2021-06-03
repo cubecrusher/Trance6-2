@@ -33,14 +33,15 @@ public class ScoreScreen extends ScreenAdapter {
     private Stage stage;
     private TextureRegion backtexturer;
     private TextureRegionDrawable backtexturerd;
-    private ImageButton backbutton;
+    private ImageButton backbutton, uploadbtn;
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private Sprite scores;
-    private int height = Gdx.graphics.getHeight();
-    private int width = Gdx.graphics.getWidth();
+    private int height = TrJr.INSTANCE.getScrH();;
+    private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
     private Viewport viewport;
+    private String rusdifftext;
     int n=0, colored=10;
     boolean a=true, isDone = false, hasfailed = false;
     public ArrayList<String> highscoreList;
@@ -50,11 +51,15 @@ public class ScoreScreen extends ScreenAdapter {
         this.settings = new Settings();
         this.camera = camera;
         this.viewport = new FitViewport(800,400, camera);
-        this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.camera.position.set(new Vector3(width/2f, height/2f,0));
         this.gameScreen = new GameScreen(camera);
         this.shapeRenderer = new ShapeRenderer();
         this.batch = new SpriteBatch();
         this.highscoreList = new ArrayList<>();
+        if (settings.getDifficulty().equals("Beginner")) rusdifftext = "Новичок";
+        if (settings.getDifficulty().equals("Medium")) rusdifftext = "Нормальная";
+        if (settings.getDifficulty().equals("Expert")) rusdifftext = "Эксперт";
+        if (settings.getDifficulty().equals("Cursed")) rusdifftext = "Хардкор";
     }
 
     public void create(){
@@ -77,7 +82,7 @@ public class ScoreScreen extends ScreenAdapter {
     @Override
     public void show(){
         create();
-        if (TrJr.INSTANCE.getScrW()>=1080) {
+        if (width>=1080) {
             backbutton.setPosition(0, height / 24f);
         } else {
             backbutton.setPosition(-20, height / 12f);
@@ -314,6 +319,13 @@ public class ScoreScreen extends ScreenAdapter {
         update();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        shapeRenderer.setAutoShapeType(true);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.WHITE);
+        shapeRenderer.rect(0, height-height/25f, width, 10);
+        shapeRenderer.end();
+
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -323,72 +335,117 @@ public class ScoreScreen extends ScreenAdapter {
             n++;
         }
         batch.begin();
-        scores.setPosition(width / 2f - 224, height - TrJr.INSTANCE.getScrH() / 4.5f);
+        scores.setPosition(width / 2f - 224, height - height / 4.5f);
         scores.draw(batch);
         if (isDone) {
-            if (TrJr.INSTANCE.getScrW() < 1080) {
-                TrJr.INSTANCE.fontCyan3.draw(batch, "Scores for "+settings.getDifficulty()+" difficulty", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
-                if (colored==0) TrJr.INSTANCE.fontCyan3.draw(batch, "0.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                else TrJr.INSTANCE.font3.draw(batch, "0.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                if (colored==1) TrJr.INSTANCE.fontCyan3.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-                else TrJr.INSTANCE.font3.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-                if (colored==2) TrJr.INSTANCE.fontCyan3.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
-                else TrJr.INSTANCE.font3.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
-                if (colored==3) TrJr.INSTANCE.fontCyan3.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
-                else TrJr.INSTANCE.font3.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
-                if (colored==4) TrJr.INSTANCE.fontCyan3.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
-                else TrJr.INSTANCE.font3.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
-                if (colored==5) TrJr.INSTANCE.fontCyan3.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
-                else TrJr.INSTANCE.font3.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
-                if (colored==6) TrJr.INSTANCE.fontCyan3.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
-                else TrJr.INSTANCE.font3.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
-                if (colored==7) TrJr.INSTANCE.fontCyan3.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 125);
-                else TrJr.INSTANCE.font3.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 125);
-                if (colored==8) TrJr.INSTANCE.fontCyan3.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 175);
-                else TrJr.INSTANCE.font3.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 175);
-                if (colored==9) TrJr.INSTANCE.fontCyan3.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
-                else TrJr.INSTANCE.font3.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
-                if (settings.getNameSet()) TrJr.INSTANCE.fontCyan3.draw(batch, "Your nickname: "+settings.getUsername(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 275);
-                TrJr.INSTANCE.fontCyan3.draw(batch, "Change difficulty for other scores", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 325);
+            if (width < 1080) {
+                TrJr.INSTANCE.fontCyan3.draw(batch, "$", 20, height - 14);
+                TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 30, height - 20);
+
+                if (colored==0) TrJr.INSTANCE.fontCyan3.draw(batch, "0.    "+ highscoreList.get(0), width / 20f, height / 2f + 225);
+                else TrJr.INSTANCE.font3.draw(batch, "0.    "+ highscoreList.get(0), width / 20f, height / 2f + 225);
+                if (colored==1) TrJr.INSTANCE.fontCyan3.draw(batch, "2.    "+ highscoreList.get(1), width / 20f, height / 2f + 175);
+                else TrJr.INSTANCE.font3.draw(batch, "2.    "+ highscoreList.get(1), width / 20f, height / 2f + 175);
+                if (colored==2) TrJr.INSTANCE.fontCyan3.draw(batch, "3.    "+ highscoreList.get(2), width / 20f, height / 2f + 125);
+                else TrJr.INSTANCE.font3.draw(batch, "3.    "+ highscoreList.get(2), width / 20f, height / 2f + 125);
+                if (colored==3) TrJr.INSTANCE.fontCyan3.draw(batch, "4.    "+ highscoreList.get(3), width / 20f, height / 2f + 75);
+                else TrJr.INSTANCE.font3.draw(batch, "4.    "+ highscoreList.get(3), width / 20f, height / 2f + 75);
+                if (colored==4) TrJr.INSTANCE.fontCyan3.draw(batch, "5.    "+ highscoreList.get(4), width / 20f, height / 2f + 25);
+                else TrJr.INSTANCE.font3.draw(batch, "5.    "+ highscoreList.get(4), width / 20f, height / 2f + 25);
+                if (colored==5) TrJr.INSTANCE.fontCyan3.draw(batch, "6.    "+ highscoreList.get(5), width / 20f, height / 2f - 25);
+                else TrJr.INSTANCE.font3.draw(batch, "6.    "+ highscoreList.get(5), width / 20f, height / 2f - 25);
+                if (colored==6) TrJr.INSTANCE.fontCyan3.draw(batch, "7.    "+ highscoreList.get(6), width / 20f, height / 2f - 75);
+                else TrJr.INSTANCE.font3.draw(batch, "7.    "+ highscoreList.get(6), width / 20f, height / 2f - 75);
+                if (colored==7) TrJr.INSTANCE.fontCyan3.draw(batch, "8.    "+ highscoreList.get(7), width / 20f, height / 2f - 125);
+                else TrJr.INSTANCE.font3.draw(batch, "8.    "+ highscoreList.get(7), width / 20f, height / 2f - 125);
+                if (colored==8) TrJr.INSTANCE.fontCyan3.draw(batch, "9.    "+ highscoreList.get(8), width / 20f, height / 2f - 175);
+                else TrJr.INSTANCE.font3.draw(batch, "9.    "+ highscoreList.get(8), width / 20f, height / 2f - 175);
+                if (colored==9) TrJr.INSTANCE.fontCyan3.draw(batch, "10.   "+ highscoreList.get(9), width / 20f, height / 2f - 225);
+                else TrJr.INSTANCE.font3.draw(batch, "10.   "+ highscoreList.get(9), width / 20f, height / 2f - 225);
+                if (settings.getLanguage()==1){
+                    TrJr.INSTANCE.rfontCyan3.draw(batch, "Рекорды для сложности \"" + rusdifftext + "\"", width / 20f, height / 2f + 275);
+                    if (settings.getNameSet())
+                        TrJr.INSTANCE.rfontCyan3.draw(batch, "Ваш никнейм:  " + settings.getUsername(), width / 20f, height / 2f - 275);
+                    TrJr.INSTANCE.rfontCyan3.draw(batch, "Смените сложность для других рекордов", width / 20f, height / 2f - 325);
+                } else {
+                    TrJr.INSTANCE.fontCyan3.draw(batch, "Scores for " + settings.getDifficulty() + " difficulty", width / 20f, height / 2f + 275);
+                    if (settings.getNameSet())
+                        TrJr.INSTANCE.fontCyan3.draw(batch, "Your nickname:  " + settings.getUsername(), width / 20f, height / 2f - 275);
+                    TrJr.INSTANCE.fontCyan3.draw(batch, "Change difficulty for other scores", width / 20f, height / 2f - 325);
+                }
             } else {
-                // Это действительно тупо, но я делал это в 2 ночи, прошу прощения
-                TrJr.INSTANCE.fontCyan2.draw(batch, "Scores for "+settings.getDifficulty()+" difficulty", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 425);
-                if (colored==0) TrJr.INSTANCE.fontCyan2.draw(batch, "0.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
-                else TrJr.INSTANCE.font2.draw(batch, "0.    "+ highscoreList.get(0), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
-                if (colored==1) TrJr.INSTANCE.fontCyan2.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
-                else TrJr.INSTANCE.font2.draw(batch, "2.    "+ highscoreList.get(1), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
-                if (colored==2) TrJr.INSTANCE.fontCyan2.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
-                else TrJr.INSTANCE.font2.draw(batch, "3.    "+ highscoreList.get(2), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
-                if (colored==3) TrJr.INSTANCE.fontCyan2.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                else TrJr.INSTANCE.font2.draw(batch, "4.    "+ highscoreList.get(3), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                if (colored==4) TrJr.INSTANCE.fontCyan2.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-                else TrJr.INSTANCE.font2.draw(batch, "5.    "+ highscoreList.get(4), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-                if (colored==5) TrJr.INSTANCE.fontCyan2.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
-                else TrJr.INSTANCE.font2.draw(batch, "6.    "+ highscoreList.get(5), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
-                if (colored==6) TrJr.INSTANCE.fontCyan2.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
-                else TrJr.INSTANCE.font2.draw(batch, "7.    "+ highscoreList.get(6), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 75);
-                if (colored==7) TrJr.INSTANCE.fontCyan2.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
-                else TrJr.INSTANCE.font2.draw(batch, "8.    "+ highscoreList.get(7), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
-                if (colored==8) TrJr.INSTANCE.fontCyan2.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
-                else TrJr.INSTANCE.font2.draw(batch, "9.    "+ highscoreList.get(8), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 25);
-                if (colored==9) TrJr.INSTANCE.fontCyan2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
-                else TrJr.INSTANCE.font2.draw(batch, "10.   "+ highscoreList.get(9), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 75);
-                if (settings.getNameSet()) TrJr.INSTANCE.fontCyan2.draw(batch, "Your nickname: "+settings.getUsername(), TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 225);
-                if (!hasfailed) TrJr.INSTANCE.fontCyan2.draw(batch, "Change difficulty for other scores", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f - 325);
+                TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
+                TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney(), 55, height - 28);
+
+                // This is what happens if you don't have a Google Play dev account. You get this atrocity.
+                if (colored==0) TrJr.INSTANCE.fontCyan2.draw(batch, "0.    "+ highscoreList.get(0), width / 20f, height / 2f + 375);
+                else TrJr.INSTANCE.font2.draw(batch, "0.    "+ highscoreList.get(0), width / 20f, height / 2f + 375);
+                if (colored==1) TrJr.INSTANCE.fontCyan2.draw(batch, "2.    "+ highscoreList.get(1), width / 20f, height / 2f + 325);
+                else TrJr.INSTANCE.font2.draw(batch, "2.    "+ highscoreList.get(1), width / 20f, height / 2f + 325);
+                if (colored==2) TrJr.INSTANCE.fontCyan2.draw(batch, "3.    "+ highscoreList.get(2), width / 20f, height / 2f + 275);
+                else TrJr.INSTANCE.font2.draw(batch, "3.    "+ highscoreList.get(2), width / 20f, height / 2f + 275);
+                if (colored==3) TrJr.INSTANCE.fontCyan2.draw(batch, "4.    "+ highscoreList.get(3), width / 20f, height / 2f + 225);
+                else TrJr.INSTANCE.font2.draw(batch, "4.    "+ highscoreList.get(3), width / 20f, height / 2f + 225);
+                if (colored==4) TrJr.INSTANCE.fontCyan2.draw(batch, "5.    "+ highscoreList.get(4), width / 20f, height / 2f + 175);
+                else TrJr.INSTANCE.font2.draw(batch, "5.    "+ highscoreList.get(4), width / 20f, height / 2f + 175);
+                if (colored==5) TrJr.INSTANCE.fontCyan2.draw(batch, "6.    "+ highscoreList.get(5), width / 20f, height / 2f + 125);
+                else TrJr.INSTANCE.font2.draw(batch, "6.    "+ highscoreList.get(5), width / 20f, height / 2f + 125);
+                if (colored==6) TrJr.INSTANCE.fontCyan2.draw(batch, "7.    "+ highscoreList.get(6), width / 20f, height / 2f + 75);
+                else TrJr.INSTANCE.font2.draw(batch, "7.    "+ highscoreList.get(6), width / 20f, height / 2f + 75);
+                if (colored==7) TrJr.INSTANCE.fontCyan2.draw(batch, "8.    "+ highscoreList.get(7), width / 20f, height / 2f + 25);
+                else TrJr.INSTANCE.font2.draw(batch, "8.    "+ highscoreList.get(7), width / 20f, height / 2f + 25);
+                if (colored==8) TrJr.INSTANCE.fontCyan2.draw(batch, "9.    "+ highscoreList.get(8), width / 20f, height / 2f - 25);
+                else TrJr.INSTANCE.font2.draw(batch, "9.    "+ highscoreList.get(8), width / 20f, height / 2f - 25);
+                if (colored==9) TrJr.INSTANCE.fontCyan2.draw(batch, "10.   "+ highscoreList.get(9), width / 20f, height / 2f - 75);
+                else TrJr.INSTANCE.font2.draw(batch, "10.   "+ highscoreList.get(9), width / 20f, height / 2f - 75);
+                if (settings.getLanguage()==1){
+                    TrJr.INSTANCE.rfontCyan2.draw(batch, "Рекорды для сложности \"" + rusdifftext + "\"", width / 20f, height / 2f + 450);
+                    if (settings.getNameSet())
+                        TrJr.INSTANCE.rfontCyan2.draw(batch, "Ваш никнейм:  " + settings.getUsername(), width / 20f, height / 2f - 225);
+                    if (!hasfailed)
+                        TrJr.INSTANCE.rfontCyan3.draw(batch, "Смените сложность для других рекордов", width / 20f, height / 2f - 325);
+                } else {
+                    TrJr.INSTANCE.fontCyan2.draw(batch, "Scores for " + settings.getDifficulty() + " difficulty", width / 20f, height / 2f + 450);
+                    if (settings.getNameSet())
+                        TrJr.INSTANCE.fontCyan2.draw(batch, "Your nickname:  " + settings.getUsername(), width / 20f, height / 2f - 225);
+                    if (!hasfailed)
+                        TrJr.INSTANCE.fontCyan2.draw(batch, "Change difficulty for other scores", width / 20f, height / 2f - 325);
+                }
             }
         } else if (!isDone && !hasfailed){
-            if (width<1080) TrJr.INSTANCE.font3.draw(batch, "Downloading...", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-            else TrJr.INSTANCE.font2.draw(batch, "Downloading...", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
+            if (settings.getLanguage()==1){
+                if (width < 1080)
+                    TrJr.INSTANCE.rfont3.draw(batch, "Загрузка...", width / 20f, height / 2f + 225);
+                else
+                    TrJr.INSTANCE.rfont2.draw(batch, "Загрузка...", width / 20f, height / 2f + 375);
+            } else {
+                if (width < 1080)
+                    TrJr.INSTANCE.font3.draw(batch, "Downloading...", width / 20f, height / 2f + 225);
+                else
+                    TrJr.INSTANCE.font2.draw(batch, "Downloading...", width / 20f, height / 2f + 375);
+            }
         }
         if (hasfailed) {
-            if (width<1080) {
-                TrJr.INSTANCE.fontCyan3.draw(batch, "Download failed.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 225);
-                TrJr.INSTANCE.font3.draw(batch, "An error has occured.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 175);
-                TrJr.INSTANCE.font3.draw(batch, "Check your internet connection.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 125);
+            if (settings.getLanguage()==1){
+                if (width<1080) {
+                    TrJr.INSTANCE.rfontCyan3.draw(batch, "Не удалось загрузить рекорды.", width / 20f, height / 2f + 225);
+                    TrJr.INSTANCE.rfont3.draw(batch, "Произошла ошибка.", width / 20f, height / 2f + 175);
+                    TrJr.INSTANCE.rfont3.draw(batch, "Проверьте подключение к интернету.", width / 20f, height / 2f + 125);
+                } else {
+                    TrJr.INSTANCE.rfontCyan2.draw(batch, "Не удалось загрузить рекорды.", width / 20f, height / 2f + 375);
+                    TrJr.INSTANCE.rfont2.draw(batch, "Произошла ошибка.", width / 20f, height / 2f + 325);
+                    TrJr.INSTANCE.rfont2.draw(batch, "Проверьте подключение к интернету.", width / 20f, height / 2f + 275);
+                }
             } else {
-                TrJr.INSTANCE.fontCyan2.draw(batch, "Download failed.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 375);
-                TrJr.INSTANCE.font2.draw(batch, "An error has occured.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 325);
-                TrJr.INSTANCE.font2.draw(batch, "Check your internet connection.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 275);
+                if (width<1080) {
+                    TrJr.INSTANCE.fontCyan3.draw(batch, "Download failed.", width / 20f, height / 2f + 225);
+                    TrJr.INSTANCE.font3.draw(batch, "An error has occurred.", width / 20f, height / 2f + 175);
+                    TrJr.INSTANCE.font3.draw(batch, "Check your internet connection.", width / 20f, height / 2f + 125);
+                } else {
+                    TrJr.INSTANCE.fontCyan2.draw(batch, "Download failed.", width / 20f, height / 2f + 375);
+                    TrJr.INSTANCE.font2.draw(batch, "An error has occurred.", width / 20f, height / 2f + 325);
+                    TrJr.INSTANCE.font2.draw(batch, "Check your internet connection.", width / 20f, height / 2f + 275);
+                }
             }
         }
         stage.act(Gdx.graphics.getDeltaTime());

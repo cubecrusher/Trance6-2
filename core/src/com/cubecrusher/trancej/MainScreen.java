@@ -20,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import java.util.Locale;
+
 public class MainScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private Stage stage;
@@ -29,6 +31,7 @@ public class MainScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Sprite gamelogos;
+    private String rusdifftext;
     private boolean nameset, isScoreSent, sendFailed, iseDone, isnDone, ishDone, iscDone;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
@@ -48,20 +51,36 @@ public class MainScreen extends ScreenAdapter {
         this.isnDone = false;
         this.ishDone = false;
         this.iscDone = false;
+        if (settings.getDifficulty().equals("Beginner")) rusdifftext = "Новичок";
+        if (settings.getDifficulty().equals("Medium")) rusdifftext = "Нормальная";
+        if (settings.getDifficulty().equals("Expert")) rusdifftext = "Эксперт";
+        if (settings.getDifficulty().equals("Cursed")) rusdifftext = "Хардкор";
     }
 
     public void create(){
+        if (!settings.getLangSet()) {
+            if ((Locale.getDefault().getLanguage()).equals("ru")) settings.setLanguage(1);
+            else settings.setLanguage(0);
+            settings.setLangSet(true);
+        }
+
             Texture gamelogo = new Texture(Gdx.files.internal("textures/gamelogo.png"));
             gamelogos = new Sprite(gamelogo);
             Texture playtexture = new Texture(Gdx.files.internal("textures/new/play.png"));
             Texture opttexture = new Texture(Gdx.files.internal("textures/new/options.png"));
+            Texture rplaytexture = new Texture(Gdx.files.internal("textures/new/rplay.png"));
+            Texture rdifficultytexture = new Texture(Gdx.files.internal("textures/new/rdifficulty.png"));
             Texture scoretexture = new Texture(Gdx.files.internal("textures/new/scores.png"));
             Texture exittexture = new Texture(Gdx.files.internal("textures/new/exit.png"));
             Texture difficultytexture = new Texture(Gdx.files.internal("textures/new/difficulty.png"));
 
-
-            playtexturer = new TextureRegion(playtexture);
-            difficultytr = new TextureRegion(difficultytexture);
+            if (settings.getLanguage()==1) {
+                playtexturer = new TextureRegion(rplaytexture);
+                difficultytr = new TextureRegion(rdifficultytexture);
+            } else {
+                playtexturer = new TextureRegion(playtexture);
+                difficultytr = new TextureRegion(difficultytexture);
+            }
             opttexturer = new TextureRegion(opttexture);
             statstexturer = new TextureRegion(scoretexture);
             exittexturer = new TextureRegion(exittexture);
@@ -86,6 +105,7 @@ public class MainScreen extends ScreenAdapter {
             stage.addActor(statsbutton);
             stage.addActor(exitbutton);
             Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override
@@ -314,6 +334,13 @@ public class MainScreen extends ScreenAdapter {
         }
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            shapeRenderer.setAutoShapeType(true);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(Color.WHITE);
+            shapeRenderer.rect(0, height-height/25f, width, 10);
+            shapeRenderer.end();
+
         if (n<=2) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -326,20 +353,43 @@ public class MainScreen extends ScreenAdapter {
         if (TrJr.INSTANCE.getScrW()<1080) {
             gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()/6f*3.5f);
             if (!settings.getScoreSent() && settings.getLaunch()) {
-                if (!sendFailed) TrJr.INSTANCE.fontCyan3.draw(batch, "Sending your scores...", 20, height / 2f + 125);
-                else TrJr.INSTANCE.fontCyan3.draw(batch, "Failed to send scores. Retry later.", 20, height / 2f + 125);
+                if (settings.getLanguage()==1){
+                    if (!sendFailed)
+                        TrJr.INSTANCE.rfontCyan3.draw(batch, "Отправляем результаты...", 20, height / 2f + 125);
+                    else
+                        TrJr.INSTANCE.rfontCyan3.draw(batch, "Произошла ошибка. Попробуйте позже.", 20, height / 2f + 125);
+                } else {
+                    if (!sendFailed)
+                        TrJr.INSTANCE.fontCyan3.draw(batch, "Sending your scores...", 20, height / 2f + 125);
+                    else
+                        TrJr.INSTANCE.fontCyan3.draw(batch, "Failed to send scores. Retry later.", 20, height / 2f + 125);
+                }
             }
-            TrJr.INSTANCE.font3.draw(batch, "Difficulty: "+settings.getDifficulty(), 20, height / 2f + 35);
-            TrJr.INSTANCE.font3.draw(batch, "1.0.0a", 20, 40);
+            if (settings.getLanguage()==1) TrJr.INSTANCE.rfont3.draw(batch, "Сложность: " + rusdifftext, 20, height / 2f + 35);
+            else TrJr.INSTANCE.font3.draw(batch, "Difficulty: " + settings.getDifficulty(), 20, height / 2f + 35);
+
+            TrJr.INSTANCE.font3.draw(batch, "1.1.0a", 20, 40);
         }
         else {
+            TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
+            TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney(), 55, height - 28);
             if (!settings.getScoreSent()){
-                if (!sendFailed) TrJr.INSTANCE.fontCyan2.draw(batch, "Sending your scores...", 25, height / 2f + 175);
-                else TrJr.INSTANCE.fontCyan2.draw(batch, "Failed to send scores. Retry later.", 25, height / 2f + 175);
+                if (settings.getLanguage()==1) {
+                    if (!sendFailed)
+                        TrJr.INSTANCE.rfontCyan2.draw(batch, "Отправляем результаты...", 25, height / 2f + 175);
+                    else
+                        TrJr.INSTANCE.rfontCyan2.draw(batch, "Произошла ошибка. Попробуйте позже.", 25, height / 2f + 175);
+                } else {
+                    if (!sendFailed)
+                        TrJr.INSTANCE.fontCyan2.draw(batch, "Sending your scores...", 25, height / 2f + 175);
+                    else
+                        TrJr.INSTANCE.fontCyan2.draw(batch, "Failed to send scores. Retry later.", 25, height / 2f + 175);
+                }
             }
             gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()-512);
-            TrJr.INSTANCE.font2.draw(batch, "Difficulty: "+settings.getDifficulty(), 25, height / 2f + 125);
-            TrJr.INSTANCE.font2.draw(batch, "1.0.0a", 20, 40);
+            if (settings.getLanguage()==1) TrJr.INSTANCE.rfont2.draw(batch, "Сложность: " + rusdifftext, 25, height / 2f + 125);
+            else TrJr.INSTANCE.font2.draw(batch, "Difficulty: " + settings.getDifficulty(), 25, height / 2f + 125);
+            TrJr.INSTANCE.font2.draw(batch, "1.1.0a", 20, 40);
         }
         gamelogos.draw(batch);
         batch.end();

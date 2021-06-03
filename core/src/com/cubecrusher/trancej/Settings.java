@@ -12,8 +12,11 @@ public class Settings {
     private boolean launch;
     private boolean nameSet;
     private boolean scoreSent;
+    private boolean langSet;
     private float ehighScore, nhighScore, hhighScore, chighScore, totalTime;
     private int plays;
+    private int money;
+    private int language; //  0:eng  1:rus
     private String username, difficulty;
 
     public Settings(){
@@ -23,11 +26,14 @@ public class Settings {
         fpsOn = prefs.getBoolean("fps",false);
         speedOn = prefs.getBoolean("speed",false);
         launch = prefs.getBoolean("launch",true);
-        ehighScore = prefs.getFloat("ehighscore",0);
-        nhighScore = prefs.getFloat("nhighscore",0);
-        hhighScore = prefs.getFloat("hhighscore",0);
-        chighScore = prefs.getFloat("chighscore",0);
+        langSet = prefs.getBoolean("langset",false);
+        ehighScore = prefs.getFloat("ehighscore",0); //easy
+        nhighScore = prefs.getFloat("nhighscore",0); //normal
+        hhighScore = prefs.getFloat("hhighscore",0); //hard
+        chighScore = prefs.getFloat("chighscore",0); //cursed
         plays = prefs.getInteger("plays",0);
+        money = prefs.getInteger("money",0);
+        language = prefs.getInteger("language",1);
         difficulty = prefs.getString("difficulty", "Medium");
         username = prefs.getString("user", "-");
         totalTime = prefs.getFloat("total",0);
@@ -134,6 +140,24 @@ public class Settings {
         return plays;
     }
 
+    public void setMoney(int money){
+        this.money = money;
+        prefs.putInteger("money",money);
+        prefs.flush();
+    }
+    public int getMoney(){
+        return money;
+    }
+
+    public void setLanguage(int language){
+        this.language = language;
+        prefs.putInteger("language",language);
+        prefs.flush();
+    }
+    public int getLanguage(){
+        return language;
+    }
+
     public void setLaunch(boolean launch){
         this.launch=launch;
         prefs.putBoolean("launch",launch);
@@ -141,6 +165,15 @@ public class Settings {
     }
     public boolean getLaunch(){
         return launch;
+    }
+
+    public void setLangSet(boolean langSet){
+        this.langSet=langSet;
+        prefs.putBoolean("langset",langSet);
+        prefs.flush();
+    }
+    public boolean getLangSet(){
+        return langSet;
     }
 
     public void setTotal(float totalTime){

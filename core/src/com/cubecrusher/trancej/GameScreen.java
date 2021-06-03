@@ -235,20 +235,20 @@ public class GameScreen extends ScreenAdapter {
                 }
 
                 batch.begin();
-                if (TrJr.INSTANCE.getScrW()<1080) {
+                if (width<1080) {
                     TrJr.INSTANCE.font2.draw(batch, "" + strDouble, 45, height - 45);
                 } else {
                     TrJr.INSTANCE.font.draw(batch, "" + strDouble, 80, height - 80);
                 }
                 if (settings.getDifficulty().equals("Beginner")) {
                     if (playTime < settings.geteHighScore()) {
-                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                        if (width < 1080) {
                             TrJr.INSTANCE.font3.draw(batch, "B: " + settings.geteHighScore(), 48, height - 90);
                         } else {
                             TrJr.INSTANCE.font2.draw(batch, "B: " + settings.geteHighScore(), 80, height - 160);
                         }
                     } else {
-                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                        if (width < 1080) {
                             TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
                         } else {
                             TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
@@ -257,13 +257,13 @@ public class GameScreen extends ScreenAdapter {
                 }
                 if (settings.getDifficulty().equals("Medium")) {
                     if (playTime < settings.getnHighScore()) {
-                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                        if (width < 1080) {
                             TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getnHighScore(), 48, height - 90);
                         } else {
                             TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getnHighScore(), 80, height - 160);
                         }
                     } else {
-                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                        if (width < 1080) {
                             TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
                         } else {
                             TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
@@ -272,13 +272,13 @@ public class GameScreen extends ScreenAdapter {
                 }
                 if (settings.getDifficulty().equals("Expert")) {
                     if (playTime < settings.gethHighScore()) {
-                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                        if (width < 1080) {
                             TrJr.INSTANCE.font3.draw(batch, "B: " + settings.gethHighScore(), 48, height - 90);
                         } else {
                             TrJr.INSTANCE.font2.draw(batch, "B: " + settings.gethHighScore(), 80, height - 160);
                         }
                     } else {
-                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                        if (width < 1080) {
                             TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
                         } else {
                             TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
@@ -287,13 +287,13 @@ public class GameScreen extends ScreenAdapter {
                 }
                 if (settings.getDifficulty().equals("Cursed")) {
                     if (playTime < settings.getcHighScore()) {
-                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                        if (width < 1080) {
                             TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getcHighScore(), 48, height - 90);
                         } else {
                             TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getcHighScore(), 80, height - 160);
                         }
                     } else {
-                        if (TrJr.INSTANCE.getScrW() < 1080) {
+                        if (width < 1080) {
                             TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
                         } else {
                             TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
