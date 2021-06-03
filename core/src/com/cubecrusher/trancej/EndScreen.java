@@ -332,6 +332,8 @@ public class EndScreen extends ScreenAdapter {
                     TrJr.INSTANCE.font2.draw(batch, "Time: " + time, width / 20f, height / 2f + 75);
                 }
                 uishown=true;
+                TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+                TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney()+" (+"+newMoney+")", 35, height - 14);
                 stage.act(Gdx.graphics.getDeltaTime());
                 stage.draw();
             }

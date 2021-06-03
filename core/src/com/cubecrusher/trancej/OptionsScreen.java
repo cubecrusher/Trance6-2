@@ -94,15 +94,16 @@ public class OptionsScreen extends ScreenAdapter {
         soundbutton.setPosition(-20, height / 2f - 100 + height/12f);
         soundbutton.setSize(width/4f,height/12f);
 
-        musicbutton.setPosition(-20, height / 2f + 75 - height/12f);
-        musicbutton.setSize(width/4f,height/12f);
-
         langbutton.setPosition(-20, height / 2f - 150 - height/12f);
         langbutton.setSize(width/4f,height/12f);
         if (width>=1080) {
+            musicbutton.setPosition(-20, height / 2f + 75 - height/12f);
+            musicbutton.setSize(width/4f,height/12f);
             backbutton.setPosition(0, height / 24f);
             creditsbutton.setPosition(width - 250, height/24f);
         } else {
+            musicbutton.setPosition(-20, height / 2f - 20 - height/12f);
+            musicbutton.setSize(width/4f,height/12f);
             backbutton.setPosition(-20, height / 12f);
             backbutton.setSize(width / 4f, height / 12f);
             creditsbutton.setPosition(width - width/4f+20, height/12f);
@@ -200,32 +201,32 @@ public class OptionsScreen extends ScreenAdapter {
         if (width<1080) {
             if (settings.getLanguage()==1){
                 if (settings.isSoundOn())
-                    TrJr.INSTANCE.rfont2.draw(batch, "Звук ВКЛ", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 25);
+                    TrJr.INSTANCE.rfont2.draw(batch, "Звук ВКЛ", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
                 else
-                    TrJr.INSTANCE.rfont2.draw(batch, "Звук ВЫКЛ", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 25);
+                    TrJr.INSTANCE.rfont2.draw(batch, "Звук ВЫКЛ", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
 
                 if (settings.isMusicOn())
-                    TrJr.INSTANCE.rfont2.draw(batch, "Музыка ВКЛ", width / 5f * 2, height / 2f - height / 12f * 2 + 25);
+                    TrJr.INSTANCE.rfont2.draw(batch, "Музыка ВКЛ", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
                 else
-                    TrJr.INSTANCE.rfont2.draw(batch, "Музыка ВЫКЛ", width / 5f * 2, height / 2f - height / 12f * 2 + 25);
+                    TrJr.INSTANCE.rfont2.draw(batch, "Музыка ВЫКЛ", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
 
-                TrJr.INSTANCE.rfont2.draw(batch, "Русский", width / 5f * 2, height / 2f - 100 - height / 12f * 2 - 25);
+                TrJr.INSTANCE.rfont2.draw(batch, "Русский", width / 5f * 2, height / 2f - height / 12f * 2 + 25);
             } else {
                 if (settings.isSoundOn())
-                    TrJr.INSTANCE.font2.draw(batch, "Sound ON", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 25);
+                    TrJr.INSTANCE.font2.draw(batch, "Sound ON", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
                 else
-                    TrJr.INSTANCE.font2.draw(batch, "Sound OFF", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 25);
+                    TrJr.INSTANCE.font2.draw(batch, "Sound OFF", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
 
                 if (settings.isMusicOn())
-                    TrJr.INSTANCE.font2.draw(batch, "Music ON", width / 5f * 2, height / 2f - height / 12f * 2 + 25);
+                    TrJr.INSTANCE.font2.draw(batch, "Music ON", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
                 else
-                    TrJr.INSTANCE.font2.draw(batch, "Music OFF", width / 5f * 2, height / 2f - height / 12f * 2 + 25);
+                    TrJr.INSTANCE.font2.draw(batch, "Music OFF", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
 
-                TrJr.INSTANCE.font2.draw(batch, "English", width / 5f * 2, height / 2f - 100 - height / 12f * 2 - 25);
+                TrJr.INSTANCE.font2.draw(batch, "English", width / 5f * 2, height / 2f - height / 12f * 2 + 25);
             }
 
-            TrJr.INSTANCE.fontCyan3.draw(batch, "$", 20, height - 14);
-            TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 30, height - 20);
+            TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+            TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
         }
         else {
             if (settings.getLanguage()==1) {

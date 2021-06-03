@@ -149,8 +149,8 @@ public class StatsScreen extends ScreenAdapter {
                 TrJr.INSTANCE.rfont3.draw(batch, "Среднее время: " + ((int) (settings.getTotal() / settings.getPlays() * 100)) / 100f, width / 20f, height / 3f * 2 - 270);
                 TrJr.INSTANCE.rfont3.draw(batch, "Общее время: " + settings.getTotal(), width / 20f, height / 3f * 2 - 315);
 
-                TrJr.INSTANCE.fontCyan3.draw(batch, "$", 20, height - 14);
-                TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 30, height - 20);
+                TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+                TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
             } else {
                 TrJr.INSTANCE.rfontCyan2.draw(batch, "Никнейм: " + settings.getUsername(), width / 20f, height / 3f * 2);
                 TrJr.INSTANCE.rfont2.draw(batch, "Попыток: " + settings.getPlays(), width / 20f, height / 3f * 2 - 50);

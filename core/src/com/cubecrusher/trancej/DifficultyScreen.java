@@ -215,8 +215,8 @@ public class DifficultyScreen extends ScreenAdapter {
             else
                 TrJr.INSTANCE.font3.draw(batch, "Difficulty: "+settings.getDifficulty(), 20, height / 2f + 135);
 
-            TrJr.INSTANCE.fontCyan3.draw(batch, "$", 20, height - 14);
-            TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 30, height - 20);
+            TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+            TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
         }
         else {
             difficulty.setPosition(width/2f-284, height-512);

@@ -172,7 +172,7 @@ public class GameScreen extends ScreenAdapter {
             if (!hasCollided) {
                 update();
                 this.playTime += delta;
-                this.strDouble = ((int)(playTime*100))/100f;
+                this.strDouble = ((int) (playTime * 100)) / 100f;
                 if (settings.getDifficulty().equals("Beginner")) {
                     if (this.strDouble > settings.geteHighScore()) highScore = playTime;
                 }
@@ -206,7 +206,7 @@ public class GameScreen extends ScreenAdapter {
 
                 String velocityg = String.format("%.0f", velocity * Gdx.graphics.getFramesPerSecond());
 
-                if (playTime>=0) {
+                if (playTime >= 0) {
                     this.obstacle.render();
                     this.obstacle2.render();
                     this.obstacle3.render();
@@ -235,128 +235,220 @@ public class GameScreen extends ScreenAdapter {
                 }
 
                 batch.begin();
-                if (width<1080) {
-                    TrJr.INSTANCE.font2.draw(batch, "" + strDouble, 45, height - 45);
-                } else {
-                    TrJr.INSTANCE.font.draw(batch, "" + strDouble, 80, height - 80);
-                }
-                if (settings.getDifficulty().equals("Beginner")) {
-                    if (playTime < settings.geteHighScore()) {
-                        if (width < 1080) {
-                            TrJr.INSTANCE.font3.draw(batch, "B: " + settings.geteHighScore(), 48, height - 90);
-                        } else {
-                            TrJr.INSTANCE.font2.draw(batch, "B: " + settings.geteHighScore(), 80, height - 160);
-                        }
+                if (width < 1080) {
+                        TrJr.INSTANCE.font2.draw(batch, "" + strDouble, 45, height - 45);
                     } else {
-                        if (width < 1080) {
-                            TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
-                        } else {
-                            TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
-                        }
+                        TrJr.INSTANCE.font.draw(batch, "" + strDouble, 80, height - 80);
                     }
-                }
-                if (settings.getDifficulty().equals("Medium")) {
-                    if (playTime < settings.getnHighScore()) {
-                        if (width < 1080) {
-                            TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getnHighScore(), 48, height - 90);
-                        } else {
-                            TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getnHighScore(), 80, height - 160);
-                        }
-                    } else {
-                        if (width < 1080) {
-                            TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
-                        } else {
-                            TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
-                        }
-                    }
-                }
-                if (settings.getDifficulty().equals("Expert")) {
-                    if (playTime < settings.gethHighScore()) {
-                        if (width < 1080) {
-                            TrJr.INSTANCE.font3.draw(batch, "B: " + settings.gethHighScore(), 48, height - 90);
-                        } else {
-                            TrJr.INSTANCE.font2.draw(batch, "B: " + settings.gethHighScore(), 80, height - 160);
-                        }
-                    } else {
-                        if (width < 1080) {
-                            TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
-                        } else {
-                            TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
-                        }
-                    }
-                }
-                if (settings.getDifficulty().equals("Cursed")) {
-                    if (playTime < settings.getcHighScore()) {
-                        if (width < 1080) {
-                            TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getcHighScore(), 48, height - 90);
-                        } else {
-                            TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getcHighScore(), 80, height - 160);
-                        }
-                    } else {
-                        if (width < 1080) {
-                            TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
-                        } else {
-                            TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
-                        }
-                    }
-                }
-
-                if (playTime<=-1.5) TrJr.INSTANCE.fontBig.draw(batch, "3", width/2f-64, height / 1.5f);
-                if (playTime>=-1.5 && playTime<-1) TrJr.INSTANCE.fontBig.draw(batch, "2", width/2f-64, height / 1.5f);
-                if (playTime>=-1 && playTime<-0.5) TrJr.INSTANCE.fontBig.draw(batch, "1", width/2f-56, height / 1.5f);
-                if (playTime>=-0.5 && playTime<0) TrJr.INSTANCE.fontCyanBig.draw(batch, "GO", width/2f-128, height / 1.5f);
-
-                if (playTime <= 0) {
-                    TrJr.INSTANCE.font2.draw(batch, "Control area", 20, height / 2f + 40);
-                }
-
-                if (settings.isFpsOn()) {
-                    TrJr.INSTANCE.font2.draw(batch, "F: " + Gdx.graphics.getFramesPerSecond(), 80, height - 195);
-                }
-
-                if (settings.isSpeedOn()) {
-                    TrJr.INSTANCE.font2.draw(batch, "V: " + velocityg, 80, height - 230);
-                }
-                if (player.oob && playTime > 0) {
-                    TrJr.INSTANCE.font2.draw(batch, "Move down", 20, height / 2f + 40);
-                }
-                batch.end();
-            } else {
-                this.player.renderOver();
-                Assets.stopAllGameMusic();
-                if (settings.isSoundOn()) Assets.playSound(Assets.gameOver);
-                if (player.nn > 6000) {
-                    settings.setPlays(plays);
-                    EndScreen.time = strDouble;
-                    totalTime+=strDouble;
-                    settings.setTotal(totalTime);
+                if (settings.getLanguage()==1) {
                     if (settings.getDifficulty().equals("Beginner")) {
-                        if (playTime > this.ehighScoreg) {
-                            settings.seteHighScore(strDouble);
-                            EndScreen.newBest = true;
+                        if (playTime < settings.geteHighScore()) {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.rfont3.draw(batch, "Р: " + settings.geteHighScore(), 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.rfont2.draw(batch, "Р: " + settings.geteHighScore(), 80, height - 160);
+                            }
+                        } else {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.rfontCyan3.draw(batch, "Рекорд!", 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.rfontCyan2.draw(batch, "Рекорд!", 80, height - 160);
+                            }
                         }
                     }
                     if (settings.getDifficulty().equals("Medium")) {
-                        if (playTime > this.nhighScoreg) {
-                            settings.setnHighScore(strDouble);
-                            EndScreen.newBest = true;
+                        if (playTime < settings.getnHighScore()) {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.rfont3.draw(batch, "Л: " + settings.getnHighScore(), 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.rfont2.draw(batch, "Л: " + settings.getnHighScore(), 80, height - 160);
+                            }
+                        } else {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.rfontCyan3.draw(batch, "Рекорд!", 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.rfontCyan2.draw(batch, "Рекорд!", 80, height - 160);
+                            }
                         }
                     }
                     if (settings.getDifficulty().equals("Expert")) {
-                        if (playTime > this.hhighScoreg) {
-                            settings.sethHighScore(strDouble);
-                            EndScreen.newBest = true;
+                        if (playTime < settings.gethHighScore()) {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.rfont3.draw(batch, "Л: " + settings.gethHighScore(), 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.rfont2.draw(batch, "Л: " + settings.gethHighScore(), 80, height - 160);
+                            }
+                        } else {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.rfontCyan3.draw(batch, "Рекорд!", 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.rfontCyan2.draw(batch, "Рекорд!", 80, height - 160);
+                            }
                         }
                     }
                     if (settings.getDifficulty().equals("Cursed")) {
-                        if (playTime > this.chighScoreg) {
-                            settings.setcHighScore(strDouble);
-                            EndScreen.newBest = true;
+                        if (playTime < settings.getcHighScore()) {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.rfont3.draw(batch, "Л: " + settings.getcHighScore(), 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.rfont2.draw(batch, "Л: " + settings.getcHighScore(), 80, height - 160);
+                            }
+                        } else {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.rfontCyan3.draw(batch, "Рекорд!", 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.rfontCyan2.draw(batch, "Рекорд!", 80, height - 160);
+                            }
                         }
                     }
-                    TrJr.INSTANCE.setScreen(new EndScreen(camerag));
+
+                    if (playTime <= -1.5)
+                        TrJr.INSTANCE.fontBig.draw(batch, "3", width / 2f - 64, height / 1.5f);
+                    if (playTime >= -1.5 && playTime < -1)
+                        TrJr.INSTANCE.fontBig.draw(batch, "2", width / 2f - 64, height / 1.5f);
+                    if (playTime >= -1 && playTime < -0.5)
+                        TrJr.INSTANCE.fontBig.draw(batch, "1", width / 2f - 56, height / 1.5f);
+                    if (playTime >= -0.5 && playTime < 0)
+                        TrJr.INSTANCE.fontCyanBig.draw(batch, "GO", width / 2f - 128, height / 1.5f);
+
+                    if (playTime <= 0) {
+                        TrJr.INSTANCE.rfont2.draw(batch, "Контроль", 20, height / 2f + 40);
+                    }
+
+                    if (settings.isFpsOn()) {
+                        TrJr.INSTANCE.rfont2.draw(batch, "F: " + Gdx.graphics.getFramesPerSecond(), 80, height - 195);
+                    }
+
+                    if (settings.isSpeedOn()) {
+                        TrJr.INSTANCE.rfont2.draw(batch, "V: " + velocityg, 80, height - 230);
+                    }
+                    if (player.oob && playTime > 0) {
+                        TrJr.INSTANCE.rfont2.draw(batch, "Палец ниже", 20, height / 2f + 40);
+                    }
+                    batch.end();
+                } else {
+                    if (settings.getDifficulty().equals("Beginner")) {
+                        if (playTime < settings.geteHighScore()) {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.font3.draw(batch, "B: " + settings.geteHighScore(), 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.font2.draw(batch, "B: " + settings.geteHighScore(), 80, height - 160);
+                            }
+                        } else {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
+                            }
+                        }
+                    }
+                    if (settings.getDifficulty().equals("Medium")) {
+                        if (playTime < settings.getnHighScore()) {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getnHighScore(), 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getnHighScore(), 80, height - 160);
+                            }
+                        } else {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
+                            }
+                        }
+                    }
+                    if (settings.getDifficulty().equals("Expert")) {
+                        if (playTime < settings.gethHighScore()) {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.font3.draw(batch, "B: " + settings.gethHighScore(), 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.font2.draw(batch, "B: " + settings.gethHighScore(), 80, height - 160);
+                            }
+                        } else {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
+                            }
+                        }
+                    }
+                    if (settings.getDifficulty().equals("Cursed")) {
+                        if (playTime < settings.getcHighScore()) {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.font3.draw(batch, "B: " + settings.getcHighScore(), 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.font2.draw(batch, "B: " + settings.getcHighScore(), 80, height - 160);
+                            }
+                        } else {
+                            if (width < 1080) {
+                                TrJr.INSTANCE.fontCyan3.draw(batch, "New best!", 48, height - 90);
+                            } else {
+                                TrJr.INSTANCE.fontCyan2.draw(batch, "New best!", 80, height - 160);
+                            }
+                        }
+                    }
+
+                    if (playTime <= -1.5)
+                        TrJr.INSTANCE.fontBig.draw(batch, "3", width / 2f - 64, height / 1.5f);
+                    if (playTime >= -1.5 && playTime < -1)
+                        TrJr.INSTANCE.fontBig.draw(batch, "2", width / 2f - 64, height / 1.5f);
+                    if (playTime >= -1 && playTime < -0.5)
+                        TrJr.INSTANCE.fontBig.draw(batch, "1", width / 2f - 56, height / 1.5f);
+                    if (playTime >= -0.5 && playTime < 0)
+                        TrJr.INSTANCE.fontCyanBig.draw(batch, "GO", width / 2f - 128, height / 1.5f);
+
+                    if (playTime <= 0) {
+                        TrJr.INSTANCE.font2.draw(batch, "Control area", 20, height / 2f + 40);
+                    }
+
+                    if (settings.isFpsOn()) {
+                        TrJr.INSTANCE.font2.draw(batch, "F: " + Gdx.graphics.getFramesPerSecond(), 80, height - 195);
+                    }
+
+                    if (settings.isSpeedOn()) {
+                        TrJr.INSTANCE.font2.draw(batch, "V: " + velocityg, 80, height - 230);
+                    }
+                    if (player.oob && playTime > 0) {
+                        TrJr.INSTANCE.font2.draw(batch, "Move down", 20, height / 2f + 40);
+                    }
+                    batch.end();
                 }
-            }
+                } else {
+                    this.player.renderOver();
+                    Assets.stopAllGameMusic();
+                    if (settings.isSoundOn()) Assets.playSound(Assets.gameOver);
+                    if (player.nn > 6000) {
+                        settings.setPlays(plays);
+                        EndScreen.time = strDouble;
+                        totalTime += strDouble;
+                        settings.setTotal(totalTime);
+                        if (settings.getDifficulty().equals("Beginner")) {
+                            if (playTime > this.ehighScoreg) {
+                                settings.seteHighScore(strDouble);
+                                EndScreen.newBest = true;
+                            }
+                        }
+                        if (settings.getDifficulty().equals("Medium")) {
+                            if (playTime > this.nhighScoreg) {
+                                settings.setnHighScore(strDouble);
+                                EndScreen.newBest = true;
+                            }
+                        }
+                        if (settings.getDifficulty().equals("Expert")) {
+                            if (playTime > this.hhighScoreg) {
+                                settings.sethHighScore(strDouble);
+                                EndScreen.newBest = true;
+                            }
+                        }
+                        if (settings.getDifficulty().equals("Cursed")) {
+                            if (playTime > this.chighScoreg) {
+                                settings.setcHighScore(strDouble);
+                                EndScreen.newBest = true;
+                            }
+                        }
+                        TrJr.INSTANCE.setScreen(new EndScreen(camerag));
+                    }
+                }
     }
 
 }

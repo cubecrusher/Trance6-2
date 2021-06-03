@@ -351,6 +351,8 @@ public class MainScreen extends ScreenAdapter {
         }
         batch.begin();
         if (TrJr.INSTANCE.getScrW()<1080) {
+            TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+            TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
             gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()/6f*3.5f);
             if (!settings.getScoreSent() && settings.getLaunch()) {
                 if (settings.getLanguage()==1){
@@ -368,7 +370,7 @@ public class MainScreen extends ScreenAdapter {
             if (settings.getLanguage()==1) TrJr.INSTANCE.rfont3.draw(batch, "Сложность: " + rusdifftext, 20, height / 2f + 35);
             else TrJr.INSTANCE.font3.draw(batch, "Difficulty: " + settings.getDifficulty(), 20, height / 2f + 35);
 
-            TrJr.INSTANCE.font3.draw(batch, "1.1.0a", 20, 40);
+            TrJr.INSTANCE.font3.draw(batch, "1.1.1a", 20, 40);
         }
         else {
             TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
@@ -389,7 +391,7 @@ public class MainScreen extends ScreenAdapter {
             gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()-512);
             if (settings.getLanguage()==1) TrJr.INSTANCE.rfont2.draw(batch, "Сложность: " + rusdifftext, 25, height / 2f + 125);
             else TrJr.INSTANCE.font2.draw(batch, "Difficulty: " + settings.getDifficulty(), 25, height / 2f + 125);
-            TrJr.INSTANCE.font2.draw(batch, "1.1.0a", 20, 40);
+            TrJr.INSTANCE.font2.draw(batch, "1.1.1a", 20, 40);
         }
         gamelogos.draw(batch);
         batch.end();
