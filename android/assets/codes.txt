@@ -1,0 +1,23 @@
+AC
+012345678
+0= easytime
+1= mediumtime
+2= hardtime
+3= cursedtime
+4= 10kbux
+5= 1mbux
+6= 1kdeaths
+7= fastdeath
+8= secret
+
+STORE
+012345678
+0= shopblue
+1= shopred
+2= shopgreen
+3= shopyellow
+4= mdiff
+5= hdiff
+6= vdiff
+7= money+
+8= money++

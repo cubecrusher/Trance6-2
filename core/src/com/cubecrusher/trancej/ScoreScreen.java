@@ -414,15 +414,27 @@ public class ScoreScreen extends ScreenAdapter {
             }
         } else if (!isDone && !hasfailed){
             if (settings.getLanguage()==1){
-                if (width < 1080)
+                if (width < 1080) {
                     TrJr.INSTANCE.rfont3.draw(batch, "Загрузка...", width / 20f, height / 2f + 225);
-                else
+                    TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+                    TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
+                }
+                else {
                     TrJr.INSTANCE.rfont2.draw(batch, "Загрузка...", width / 20f, height / 2f + 375);
+                    TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
+                    TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney(), 55, height - 28);
+                }
             } else {
-                if (width < 1080)
+                if (width < 1080) {
                     TrJr.INSTANCE.font3.draw(batch, "Downloading...", width / 20f, height / 2f + 225);
-                else
+                    TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+                    TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
+                }
+                else {
                     TrJr.INSTANCE.font2.draw(batch, "Downloading...", width / 20f, height / 2f + 375);
+                    TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
+                    TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney(), 55, height - 28);
+                }
             }
         }
         if (hasfailed) {
@@ -431,20 +443,28 @@ public class ScoreScreen extends ScreenAdapter {
                     TrJr.INSTANCE.rfontCyan3.draw(batch, "Не удалось загрузить рекорды.", width / 20f, height / 2f + 225);
                     TrJr.INSTANCE.rfont3.draw(batch, "Произошла ошибка.", width / 20f, height / 2f + 175);
                     TrJr.INSTANCE.rfont3.draw(batch, "Проверьте подключение к интернету.", width / 20f, height / 2f + 125);
+                    TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+                    TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
                 } else {
                     TrJr.INSTANCE.rfontCyan2.draw(batch, "Не удалось загрузить рекорды.", width / 20f, height / 2f + 375);
                     TrJr.INSTANCE.rfont2.draw(batch, "Произошла ошибка.", width / 20f, height / 2f + 325);
                     TrJr.INSTANCE.rfont2.draw(batch, "Проверьте подключение к интернету.", width / 20f, height / 2f + 275);
+                    TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
+                    TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney(), 55, height - 28);
                 }
             } else {
                 if (width<1080) {
                     TrJr.INSTANCE.fontCyan3.draw(batch, "Download failed.", width / 20f, height / 2f + 225);
                     TrJr.INSTANCE.font3.draw(batch, "An error has occurred.", width / 20f, height / 2f + 175);
                     TrJr.INSTANCE.font3.draw(batch, "Check your internet connection.", width / 20f, height / 2f + 125);
+                    TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+                    TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
                 } else {
                     TrJr.INSTANCE.fontCyan2.draw(batch, "Download failed.", width / 20f, height / 2f + 375);
                     TrJr.INSTANCE.font2.draw(batch, "An error has occurred.", width / 20f, height / 2f + 325);
                     TrJr.INSTANCE.font2.draw(batch, "Check your internet connection.", width / 20f, height / 2f + 275);
+                    TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
+                    TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney(), 55, height - 28);
                 }
             }
         }

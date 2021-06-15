@@ -89,9 +89,9 @@ public class DifficultyScreen extends ScreenAdapter {
         stage = new Stage(new ScreenViewport());
 
         stage.addActor(easybutton);
-        stage.addActor(normalbutton);
-        stage.addActor(hardbutton);
-        stage.addActor(cursedbutton);
+        if (settings.getStoreinfo().charAt(4)=='1') stage.addActor(normalbutton);
+        if (settings.getStoreinfo().charAt(5)=='1') stage.addActor(hardbutton);
+        if (settings.getStoreinfo().charAt(6)=='1') stage.addActor(cursedbutton);
         stage.addActor(backbutton);
         Gdx.input.setInputProcessor(stage);
     }

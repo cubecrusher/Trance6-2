@@ -87,10 +87,14 @@ public class Player {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             if (settings.getDifficulty().matches("Beginner")) shapeRenderer.setColor(Color.GREEN);
             if (settings.getDifficulty().matches("Medium")) shapeRenderer.setColor(toRGB(255,216,0));
-            if (settings.getDifficulty().matches("Expert")) shapeRenderer.setColor(Color.RED);
+            if (settings.getDifficulty().matches("Expert")) shapeRenderer.setColor(toRGB(128,0,0));
             if (settings.getDifficulty().matches("Cursed")) shapeRenderer.setColor(toRGB(178,0,255));
             shapeRenderer.triangle(x, lowerBound-10, x + width/2f, (float) (lowerBound + Math.sqrt( (width/2f)*(width/2f)-(width/2f)*(width/2f)/4f )*2) - 10, x + width, lowerBound - 10);
-            shapeRenderer.setColor(Color.WHITE);
+            if (settings.getColor()==0) shapeRenderer.setColor(Color.WHITE);
+            if (settings.getColor()==1) shapeRenderer.setColor(Color.BLUE);
+            if (settings.getColor()==2) shapeRenderer.setColor(Color.RED);
+            if (settings.getColor()==3) shapeRenderer.setColor(Color.GREEN);
+            if (settings.getColor()==4) shapeRenderer.setColor(Color.YELLOW);
             shapeRenderer.triangle(x, lowerBound, x + width/2f, (float) (lowerBound + Math.sqrt( (width/2f)*(width/2f)-(width/2f)*(width/2f)/4f )*2), x + width, lowerBound);
             shapeRenderer.end();
         }
@@ -100,7 +104,11 @@ public class Player {
             nn += 150;
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
+            if (settings.getColor()==0) shapeRenderer.setColor(Color.WHITE);
+            if (settings.getColor()==1) shapeRenderer.setColor(Color.BLUE);
+            if (settings.getColor()==2) shapeRenderer.setColor(Color.RED);
+            if (settings.getColor()==3) shapeRenderer.setColor(Color.GREEN);
+            if (settings.getColor()==4) shapeRenderer.setColor(Color.YELLOW);
             shapeRenderer.triangle(x - nn, lowerBound - nn, x + width/2f, (float) (lowerBound + Math.sqrt( (width/2f)*(width/2f)-(width/2f)*(width/2f)/4f )*2) + nn, x + width + nn, lowerBound - nn);
             shapeRenderer.end();
             if (nn>5000) {

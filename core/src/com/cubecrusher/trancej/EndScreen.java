@@ -36,7 +36,7 @@ public class EndScreen extends ScreenAdapter {
     private ImageButton playbutton, backbutton;
     private SpriteBatch batch;
     private Sprite gameovers;
-    private String mockery;
+    private String mockery, acinfo;
     private double mockeryd = Math.random();
     private int height = TrJr.INSTANCE.getScrH();
     private int width = TrJr.INSTANCE.getScrW();
@@ -45,6 +45,16 @@ public class EndScreen extends ScreenAdapter {
     private int spritey = 0, spritey2 = 0;
     int a = 0, newMoney = 0;
 
+    public String replacechar(String str, int index, char replace){
+        if(str==null){
+            return str;
+        }else if(index<0 || index>=str.length()){
+            return str;
+        }
+        char[] chars = str.toCharArray();
+        chars[index] = replace;
+        return String.valueOf(chars);
+    }
 
     public EndScreen(OrthographicCamera camera){
         this.settings = new Settings();
@@ -56,6 +66,7 @@ public class EndScreen extends ScreenAdapter {
         this.moneyAdded = false;
         this.uishown = false;
         this.viewport = new FitViewport(800,400, camera);
+        this.acinfo = settings.getAcinfo();
 
         if (settings.getLanguage()==1){
             if (mockeryd <= 0.1) mockery = "(!) Игра окончена.";
@@ -332,6 +343,26 @@ public class EndScreen extends ScreenAdapter {
                     TrJr.INSTANCE.font2.draw(batch, "Time: " + time, width / 20f, height / 2f + 75);
                 }
                 uishown=true;
+                if (time<1) {
+                    settings.setAcinfo(replacechar(acinfo,7,'1'));
+                    acinfo = settings.getStoreinfo();
+                }
+                if (time>=10 && settings.getDifficulty().equals("Cursed")) {
+                    settings.setAcinfo(replacechar(acinfo,3,'1'));
+                    acinfo = settings.getStoreinfo();
+                }
+                if (time>=45 && settings.getDifficulty().equals("Expert")) {
+                    settings.setAcinfo(replacechar(acinfo,2,'1'));
+                    acinfo = settings.getStoreinfo();
+                }
+                if (time>=60 && settings.getDifficulty().equals("Medium")) {
+                    settings.setAcinfo(replacechar(acinfo,1,'1'));
+                    acinfo = settings.getStoreinfo();
+                }
+                if (time>=120 && settings.getDifficulty().equals("Beginner")) {
+                    settings.setAcinfo(replacechar(acinfo,0,'1'));
+                    acinfo = settings.getStoreinfo();
+                }
                 TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
                 TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney()+" (+"+newMoney+")", 35, height - 14);
                 stage.act(Gdx.graphics.getDeltaTime());

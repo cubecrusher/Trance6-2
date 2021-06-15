@@ -16,8 +16,15 @@ public class Settings {
     private float ehighScore, nhighScore, hhighScore, chighScore, totalTime;
     private int plays;
     private int money;
+    private int color;
     private int language; //  0:eng  1:rus
     private String username, difficulty;
+
+    // ACHIEVEMENTS
+    private String acinfo;
+
+    // STORE
+    private String storeinfo;
 
     public Settings(){
         prefs = Gdx.app.getPreferences("TranceConfig");
@@ -33,9 +40,12 @@ public class Settings {
         chighScore = prefs.getFloat("chighscore",0); //cursed
         plays = prefs.getInteger("plays",0);
         money = prefs.getInteger("money",0);
+        color = prefs.getInteger("color",0); // 0=white, 1=blue, 2=red, 3=green, 4=yellow
         language = prefs.getInteger("language",1);
-        difficulty = prefs.getString("difficulty", "Medium");
+        difficulty = prefs.getString("difficulty", "Beginner");
         username = prefs.getString("user", "-");
+        acinfo = prefs.getString("acinfo", "000000000"); // top sekret! achievement codes
+        storeinfo = prefs.getString("storeinfo", "000000000"); // top sekret! shop codes
         totalTime = prefs.getFloat("total",0);
         nameSet = prefs.getBoolean("nameset",false);
         scoreSent = prefs.getBoolean("scoreSent",false);
@@ -202,4 +212,32 @@ public class Settings {
     public boolean getScoreSent(){
         return scoreSent;
     }
+
+    public void setStoreinfo(String storeinfo){
+        this.storeinfo=storeinfo;
+        prefs.putString("storeinfo",storeinfo);
+        prefs.flush();
+    }
+    public String getStoreinfo(){
+        return storeinfo;
+    }
+
+    public void setAcinfo(String acinfo){
+        this.acinfo=acinfo;
+        prefs.putString("acinfo",acinfo);
+        prefs.flush();
+    }
+    public String getAcinfo(){
+        return acinfo;
+    }
+
+    public void setColor(int color){
+        this.color = color;
+        prefs.putInteger("color",color);
+        prefs.flush();
+    }
+    public int getColor(){
+        return color;
+    }
+
 }

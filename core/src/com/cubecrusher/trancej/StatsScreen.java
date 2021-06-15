@@ -34,8 +34,8 @@ public class StatsScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Sprite stats;
-    private int height = Gdx.graphics.getHeight();
-    private int width = Gdx.graphics.getWidth();
+    private int height = TrJr.INSTANCE.getScrH();
+    private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
     private int n = 0;
 
@@ -44,13 +44,13 @@ public class StatsScreen extends ScreenAdapter {
         this.settings = new Settings();
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
-        this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.camera.position.set(new Vector3(width/2f, height/2f,0));
         this.viewport = new FitViewport(800,400, camera);
         this.batch = new SpriteBatch();
     }
 
     public void create(){
-        Texture scoretexture = new Texture(Gdx.files.internal("textures/new/stats.png"));
+        Texture scoretexture = new Texture(Gdx.files.internal("textures/new/scores.png"));
         Texture statss = new Texture(Gdx.files.internal("textures/stats.png"));
         stats = new Sprite(statss);
         Texture backtexture = new Texture(Gdx.files.internal("textures/new/back.png"));
@@ -75,13 +75,13 @@ public class StatsScreen extends ScreenAdapter {
     @Override
     public void show(){
         create();
-        if (TrJr.INSTANCE.getScrW()>=1080) {
-            scorebutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+250);
-            scorebutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
+        if (width>=1080) {
+            scorebutton.setPosition(-20, height/24f+150);
+            scorebutton.setSize(width/4f,height/12f);
             backbutton.setPosition(0, height / 24f);
         } else {
-            scorebutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f * 2.5f);
-            scorebutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
+            scorebutton.setPosition(-20, height / 12f * 2.5f);
+            scorebutton.setSize(width / 4f, height / 12f);
             backbutton.setPosition(-20, height / 12f);
             backbutton.setSize(width / 4f, height / 12f);
         }
@@ -136,7 +136,7 @@ public class StatsScreen extends ScreenAdapter {
         batch.begin();
 
 
-        stats.setPosition(width / 2f - 193, height - TrJr.INSTANCE.getScrH() / 4.5f);
+        stats.setPosition(width / 2f - 193, height - height / 4.5f);
         stats.draw(batch);
         if (settings.getLanguage()==1){
             if (width < 1080) {
@@ -175,8 +175,8 @@ public class StatsScreen extends ScreenAdapter {
                 TrJr.INSTANCE.font3.draw(batch, "Average: " + ((int) (settings.getTotal() / settings.getPlays() * 100)) / 100f, width / 20f, height / 3f * 2 - 270);
                 TrJr.INSTANCE.font3.draw(batch, "Total: " + settings.getTotal(), width / 20f, height / 3f * 2 - 315);
 
-                TrJr.INSTANCE.fontCyan3.draw(batch, "$", 20, height - 14);
-                TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 30, height - 20);
+                TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+                TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
             } else {
                 TrJr.INSTANCE.fontCyan2.draw(batch, "Nickname: " + settings.getUsername(), width / 20f, height / 3f * 2);
                 TrJr.INSTANCE.font2.draw(batch, "Attempts: " + settings.getPlays(), width / 20f, height / 3f * 2 - 50);

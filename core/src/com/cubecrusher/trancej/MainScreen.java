@@ -25,9 +25,9 @@ import java.util.Locale;
 public class MainScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private Stage stage;
-    private TextureRegion playtexturer, opttexturer, statstexturer, exittexturer, difficultytr;
-    private TextureRegionDrawable playtexturerd, opttexturerd, statstexturerd, exittexturerd, difficultytrd;
-    private ImageButton playbutton, optbutton, statsbutton, exitbutton, difficultybutton;
+    private TextureRegion playtexturer, opttexturer, statstexturer, exittexturer, difficultytr, shoptr, miletr;
+    private TextureRegionDrawable playtexturerd, opttexturerd, statstexturerd, exittexturerd, difficultytrd, shoptrd, miletrd;
+    private ImageButton playbutton, optbutton, statsbutton, exitbutton, difficultybutton, shopbutton, milebutton;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
     private Sprite gamelogos;
@@ -68,34 +68,45 @@ public class MainScreen extends ScreenAdapter {
             gamelogos = new Sprite(gamelogo);
             Texture playtexture = new Texture(Gdx.files.internal("textures/new/play.png"));
             Texture opttexture = new Texture(Gdx.files.internal("textures/new/options.png"));
+            Texture shoptexture = new Texture(Gdx.files.internal("textures/new/shop.png"));
+            Texture actexture = new Texture(Gdx.files.internal("textures/new/milestone.png"));
             Texture rplaytexture = new Texture(Gdx.files.internal("textures/new/rplay.png"));
             Texture rdifficultytexture = new Texture(Gdx.files.internal("textures/new/rdifficulty.png"));
-            Texture scoretexture = new Texture(Gdx.files.internal("textures/new/scores.png"));
+            Texture scoretexture = new Texture(Gdx.files.internal("textures/new/stats.png"));
             Texture exittexture = new Texture(Gdx.files.internal("textures/new/exit.png"));
             Texture difficultytexture = new Texture(Gdx.files.internal("textures/new/difficulty.png"));
+            Texture rshoptexture = new Texture(Gdx.files.internal("textures/new/rshop.png"));
 
             if (settings.getLanguage()==1) {
                 playtexturer = new TextureRegion(rplaytexture);
                 difficultytr = new TextureRegion(rdifficultytexture);
+                shoptr = new TextureRegion(rshoptexture);
             } else {
                 playtexturer = new TextureRegion(playtexture);
                 difficultytr = new TextureRegion(difficultytexture);
+                shoptr = new TextureRegion(shoptexture);
             }
             opttexturer = new TextureRegion(opttexture);
             statstexturer = new TextureRegion(scoretexture);
             exittexturer = new TextureRegion(exittexture);
+            miletr = new TextureRegion(actexture);
+            shoptr = new TextureRegion(shoptr);
 
             playtexturerd = new TextureRegionDrawable(playtexturer);
             difficultytrd = new TextureRegionDrawable(difficultytr);
             opttexturerd = new TextureRegionDrawable(opttexturer);
             statstexturerd = new TextureRegionDrawable(statstexturer);
             exittexturerd = new TextureRegionDrawable(exittexturer);
+            miletrd = new TextureRegionDrawable(miletr);
+            shoptrd = new TextureRegionDrawable(shoptr);
 
             playbutton = new ImageButton(playtexturerd);
             difficultybutton = new ImageButton(difficultytrd);
             optbutton = new ImageButton(opttexturerd);
             statsbutton = new ImageButton(statstexturerd);
             exitbutton = new ImageButton(exittexturerd);
+            milebutton = new ImageButton(miletrd);
+            shopbutton = new ImageButton(shoptrd);
 
             stage = new Stage(new ScreenViewport());
 
@@ -104,6 +115,8 @@ public class MainScreen extends ScreenAdapter {
             stage.addActor(optbutton);
             stage.addActor(statsbutton);
             stage.addActor(exitbutton);
+            stage.addActor(milebutton);
+            stage.addActor(shopbutton);
             Gdx.input.setInputProcessor(stage);
 
     }
@@ -119,14 +132,20 @@ public class MainScreen extends ScreenAdapter {
             difficultybutton.setPosition(-5, height / 2f - 275);
             difficultybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
 
+            shopbutton.setPosition(-5, height / 2f - 450);
+            shopbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+
             if (TrJr.INSTANCE.getScrW()>=1080) {
                 difficultybutton.setPosition(-5, height / 2f - 275);
                 difficultybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
 
                 optbutton.setPosition(0, TrJr.INSTANCE.getScrH() / 24f);
 
-                statsbutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+250);
+                statsbutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+150);
                 statsbutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
+
+                milebutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+325);
+                milebutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
 
                 exitbutton.setPosition(width - 250, TrJr.INSTANCE.getScrH()/24f);
             }
@@ -171,12 +190,30 @@ public class MainScreen extends ScreenAdapter {
                 }
             });
 
+            shopbutton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
+                    Gdx.input.setInputProcessor(null);
+                    TrJr.INSTANCE.setScreen(new ShopScreen(camera));
+                }
+            });
+
             statsbutton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
                     Gdx.input.setInputProcessor(null);
                     TrJr.INSTANCE.setScreen(new StatsScreen(camera));
+                }
+            });
+
+            milebutton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                    if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
+                    Gdx.input.setInputProcessor(null);
+                    TrJr.INSTANCE.setScreen(new AcScreen(camera));
                 }
             });
 
