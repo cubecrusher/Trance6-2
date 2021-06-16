@@ -33,8 +33,8 @@ public class MainScreen extends ScreenAdapter {
     private Sprite gamelogos;
     private String rusdifftext;
     private boolean nameset, isScoreSent, sendFailed, iseDone, isnDone, ishDone, iscDone;
-    private int height = Gdx.graphics.getHeight();
-    private int width = Gdx.graphics.getWidth();
+    private int height = TrJr.INSTANCE.getScrH();
+    private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
     int n=0;
 
@@ -42,7 +42,7 @@ public class MainScreen extends ScreenAdapter {
         this.settings = new Settings();
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
-        this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.camera.position.set(new Vector3(width/2f, height/2f,0));
         this.batch = new SpriteBatch();
         this.nameset = settings.getNameSet();
         this.isScoreSent = false;
@@ -126,41 +126,41 @@ public class MainScreen extends ScreenAdapter {
         if (settings.isMusicOn()) Assets.playMusic(Assets.mainMenu);
             create();
 
-            playbutton.setPosition(-5, height / 2f - 100);
-            playbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+            playbutton.setPosition(-5, height / 2f);
+            playbutton.setSize(width-80,height/12f);
 
-            difficultybutton.setPosition(-5, height / 2f - 275);
-            difficultybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+            difficultybutton.setPosition(-5, height / 2f - 175);
+            difficultybutton.setSize(width-80,height/12f);
 
-            shopbutton.setPosition(-5, height / 2f - 450);
-            shopbutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+            shopbutton.setPosition(-5, height / 2f - 350);
+            shopbutton.setSize(width-80,height/12f);
 
-            if (TrJr.INSTANCE.getScrW()>=1080) {
-                difficultybutton.setPosition(-5, height / 2f - 275);
-                difficultybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+            if (width>=1080) {
+                difficultybutton.setPosition(-5, height / 2f - 175);
+                difficultybutton.setSize(width-80,height/12f);
 
-                optbutton.setPosition(0, TrJr.INSTANCE.getScrH() / 24f);
+                optbutton.setPosition(0, height / 24f);
 
-                statsbutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+150);
-                statsbutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
+                statsbutton.setPosition(-20, height/24f+150);
+                statsbutton.setSize(width/4f,height/12f);
 
-                milebutton.setPosition(-20, TrJr.INSTANCE.getScrH()/24f+325);
-                milebutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
+                milebutton.setPosition(-20, height/24f+325);
+                milebutton.setSize(width/4f,height/12f);
 
-                exitbutton.setPosition(width - 250, TrJr.INSTANCE.getScrH()/24f);
+                exitbutton.setPosition(width - 250, height/24f);
             }
             else {
                 difficultybutton.setPosition(-5, height / 2f - 200);
-                difficultybutton.setSize(width-80,TrJr.INSTANCE.getScrH()/12f);
+                difficultybutton.setSize(width-80,height/12f);
 
-                optbutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f);
-                optbutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
+                optbutton.setPosition(-20, height / 12f);
+                optbutton.setSize(width / 4f, height / 12f);
 
-                statsbutton.setPosition(-20, TrJr.INSTANCE.getScrH() / 12f * 2.5f);
-                statsbutton.setSize(TrJr.INSTANCE.getScrW() / 4f, TrJr.INSTANCE.getScrH() / 12f);
+                statsbutton.setPosition(-20, height / 12f * 2.5f);
+                statsbutton.setSize(width / 4f, height / 12f);
 
-                exitbutton.setPosition(width - TrJr.INSTANCE.getScrW()/4f+20, TrJr.INSTANCE.getScrH()/12f);
-                exitbutton.setSize(TrJr.INSTANCE.getScrW()/4f,TrJr.INSTANCE.getScrH()/12f);
+                exitbutton.setPosition(width - width/4f+20, height/12f);
+                exitbutton.setSize(width/4f,height/12f);
             }
             playbutton.addListener(new ChangeListener() {
                 @Override
@@ -387,10 +387,10 @@ public class MainScreen extends ScreenAdapter {
             n++;
         }
         batch.begin();
-        if (TrJr.INSTANCE.getScrW()<1080) {
+        if (width<1080) {
             TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
             TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
-            gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()/6f*3.5f);
+            gamelogos.setPosition(width/2f-282, height/6f*3.5f);
             if (!settings.getScoreSent() && settings.getLaunch()) {
                 if (settings.getLanguage()==1){
                     if (!sendFailed)
@@ -407,7 +407,7 @@ public class MainScreen extends ScreenAdapter {
             if (settings.getLanguage()==1) TrJr.INSTANCE.rfont3.draw(batch, "Сложность: " + rusdifftext, 20, height / 2f + 35);
             else TrJr.INSTANCE.font3.draw(batch, "Difficulty: " + settings.getDifficulty(), 20, height / 2f + 35);
 
-            TrJr.INSTANCE.font3.draw(batch, "1.1.1a", 20, 40);
+            TrJr.INSTANCE.font3.draw(batch, "1.2.0a", 20, 40);
         }
         else {
             TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
@@ -415,20 +415,20 @@ public class MainScreen extends ScreenAdapter {
             if (!settings.getScoreSent()){
                 if (settings.getLanguage()==1) {
                     if (!sendFailed)
-                        TrJr.INSTANCE.rfontCyan2.draw(batch, "Отправляем результаты...", 25, height / 2f + 175);
+                        TrJr.INSTANCE.rfontCyan2.draw(batch, "Отправляем результаты...", 25, height / 2f + 275);
                     else
-                        TrJr.INSTANCE.rfontCyan2.draw(batch, "Произошла ошибка. Попробуйте позже.", 25, height / 2f + 175);
+                        TrJr.INSTANCE.rfontCyan2.draw(batch, "Произошла ошибка. Попробуйте позже.", 25, height / 2f + 275);
                 } else {
                     if (!sendFailed)
-                        TrJr.INSTANCE.fontCyan2.draw(batch, "Sending your scores...", 25, height / 2f + 175);
+                        TrJr.INSTANCE.fontCyan2.draw(batch, "Sending your scores...", 25, height / 2f + 275);
                     else
-                        TrJr.INSTANCE.fontCyan2.draw(batch, "Failed to send scores. Retry later.", 25, height / 2f + 175);
+                        TrJr.INSTANCE.fontCyan2.draw(batch, "Failed to send scores. Retry later.", 25, height / 2f + 275);
                 }
             }
-            gamelogos.setPosition(TrJr.INSTANCE.getScrW()/2f-282, TrJr.INSTANCE.getScrH()-512);
-            if (settings.getLanguage()==1) TrJr.INSTANCE.rfont2.draw(batch, "Сложность: " + rusdifftext, 25, height / 2f + 125);
-            else TrJr.INSTANCE.font2.draw(batch, "Difficulty: " + settings.getDifficulty(), 25, height / 2f + 125);
-            TrJr.INSTANCE.font2.draw(batch, "1.1.1a", 20, 40);
+            gamelogos.setPosition(width/2f-282, height-512);
+            if (settings.getLanguage()==1) TrJr.INSTANCE.rfont2.draw(batch, "Сложность: " + rusdifftext, 25, height / 2f + 225);
+            else TrJr.INSTANCE.font2.draw(batch, "Difficulty: " + settings.getDifficulty(), 25, height / 2f + 225);
+            TrJr.INSTANCE.font2.draw(batch, "1.2.0a", 20, 40);
         }
         gamelogos.draw(batch);
         batch.end();

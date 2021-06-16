@@ -134,7 +134,6 @@ public class AcScreen extends ScreenAdapter {
     public void show(){
         if (settings.isMusicOn()) Assets.playMusic(Assets.mainMenu);
         create();
-        settings.setAcinfo("000000000");
         if (settings.getPlays()>=1000) {
             settings.setAcinfo(replacechar(acinfo,6,'1'));
             acinfo = settings.getAcinfo();
@@ -250,7 +249,7 @@ public class AcScreen extends ScreenAdapter {
                     itemname = "Средний класс";
                     itemdesc = "Имеется 10к$ в запасе";
                 } else {
-                    itemname = "Can afford milk";
+                    itemname = "Getting there";
                     itemdesc = "Have 10k$ at once";
                 }
             }
@@ -390,7 +389,7 @@ public class AcScreen extends ScreenAdapter {
         batch.begin();
         mile.setPosition(width / 2f - 345, height - height / 4.5f);
         mile.draw(batch);
-        if (width < 1080) {
+        if (width < 1080) {  // I didn't bother doing the lil' screen support so obviously it will look like ass
             TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
             TrJr.INSTANCE.font3.draw(batch, "" + settings.getMoney(), 35, height - 14);
 

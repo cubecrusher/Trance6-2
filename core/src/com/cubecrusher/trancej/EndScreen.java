@@ -307,19 +307,36 @@ public class EndScreen extends ScreenAdapter {
         }
 
     if (!moneyAdded) {
-        if (settings.getDifficulty().equals("Beginner")) {
-            settings.setMoney(settings.getMoney() + (Math.round(time)) / 2);
-            newMoney+=Math.round(time)/2;
+        if (settings.getDifficulty().equals("Beginner")) {  // Lazy to do this for everything else for today
+            if (settings.getStoreinfo().charAt(7)=='1') {
+                settings.setMoney(settings.getMoney() + (Math.round(time)) / 2 + (settings.getMoney() + (Math.round(time)) / 2)/2);
+                newMoney+=Math.round(time)/2+(Math.round(time)/2)/2;
+            }
+            else if (settings.getStoreinfo().charAt(8)=='1') {
+                settings.setMoney(5*(settings.getMoney() + (Math.round(time)) / 2));
+                newMoney+=5*Math.round(time);
+            }
+            else if (settings.getStoreinfo().charAt(8)=='1' && settings.getStoreinfo().charAt(7)=='1') {
+                settings.setMoney(5*(settings.getMoney() + (Math.round(time)) / 2)+(settings.getMoney() + (Math.round(time)) / 2)/2);
+                newMoney+=5*Math.round(time)/2+(Math.round(time)/2)/2;
+            }
+            else {
+                settings.setMoney(settings.getMoney() + (Math.round(time)) / 2);
+                newMoney+=Math.round(time)/2;
+            }
         }
         if (settings.getDifficulty().equals("Medium")) {
+            if (settings.getStoreinfo().charAt(7)=='1')
             settings.setMoney(settings.getMoney() + (Math.round(time)));
             newMoney+=Math.round(time);
         }
         if (settings.getDifficulty().equals("Expert")) {
+            if (settings.getStoreinfo().charAt(7)=='1')
             settings.setMoney(settings.getMoney() + (Math.round(time)) * 2);
             newMoney+=Math.round(time)*2;
         }
         if (settings.getDifficulty().equals("Cursed")) {
+            if (settings.getStoreinfo().charAt(7)=='1')
             settings.setMoney(settings.getMoney() + (Math.round(time)) * 4);
             newMoney+=Math.round(time)*4;
         }
