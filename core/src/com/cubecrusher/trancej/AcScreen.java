@@ -88,7 +88,7 @@ public class AcScreen extends ScreenAdapter {
         acmedtr = new TextureRegion(acmed);
         aceasytr = new TextureRegion(aceasy);
         acdeathtr = new TextureRegion(acdeath);
-        if (settings.getAcinfo().charAt(8)==1) acsecretr = new TextureRegion(acsecret);
+        if (settings.getAcinfo().charAt(8)=='1') acsecretr = new TextureRegion(acsecret);
         else acsecretr = new TextureRegion(acunk);
 
         backtexturer = new TextureRegion(backtexture);
