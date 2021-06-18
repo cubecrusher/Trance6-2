@@ -199,16 +199,16 @@ public class ShopScreen extends ScreenAdapter {
                     itemdesc = "500$ - стань синим!";
                     if (settings.getStoreinfo().charAt(0)=='0') itemdesc2 = "Нажми чтобы купить";
                     else {
-                        if (settings.getColor()==1) itemdesc2 = "Нажми снова чтобы стать белым";
-                        else itemdesc2 = "Нажми снова чтобы стать синим";
+                        if (settings.getColor()==1) itemdesc2 = "Нажми снова чтобы стать синим";
+                        else itemdesc2 = "Нажми снова чтобы стать белым";
                     }
                 } else {
                     itemname = "Blue ship";
                     itemdesc = "500$ - become blue!";
                     if (settings.getStoreinfo().charAt(0)=='0') itemdesc2 = "Click to purchase";
                     else {
-                        if (settings.getColor()==1) itemdesc2 = "Click again to reset to White";
-                        else itemdesc2 = "Click again to become Blue";
+                        if (settings.getColor()==1) itemdesc2 = "Click again to become Blue";
+                        else itemdesc2 = "Click again to become White";
                     }
                 }
                 if (settings.getStoreinfo().charAt(0)=='1') {
@@ -235,16 +235,16 @@ public class ShopScreen extends ScreenAdapter {
                     itemdesc = "500$ - стань красным!";
                     if (settings.getStoreinfo().charAt(1)=='0') itemdesc2 = "Нажми чтобы купить";
                     else {
-                        if (settings.getColor()==2) itemdesc2 = "Нажми снова чтобы стать белым";
-                        else itemdesc2 = "Нажми снова чтобы стать красным";
+                        if (settings.getColor()==2) itemdesc2 = "Нажми снова чтобы стать красным";
+                        else itemdesc2 = "Нажми снова чтобы стать белым";
                     }
                 } else {
                     itemname = "Red ship";
                     itemdesc = "500$ - become red!";
                     if (settings.getStoreinfo().charAt(1)=='0') itemdesc2 = "Click to purchase";
                     else {
-                        if (settings.getColor()==2) itemdesc2 = "Click again to reset to White";
-                        else itemdesc2 = "Click again to become Red";
+                        if (settings.getColor()==2) itemdesc2 = "Click again to become Red";
+                        else itemdesc2 = "Click again to become White";
                     }
                 }
                 if (settings.getStoreinfo().charAt(1)=='1') {
@@ -272,16 +272,16 @@ public class ShopScreen extends ScreenAdapter {
                     itemdesc = "500$ - стань зелёным!";
                     if (settings.getStoreinfo().charAt(2)=='0') itemdesc2 = "Нажми чтобы купить";
                     else {
-                        if (settings.getColor()==3) itemdesc2 = "Нажми снова чтобы стать белым";
-                        else itemdesc2 = "Нажми снова чтобы стать зелёным";
+                        if (settings.getColor()==3) itemdesc2 = "Нажми снова чтобы стать зелёным";
+                        else itemdesc2 = "Нажми снова чтобы стать белым";
                     }
                 } else {
                     itemname = "Green ship";
                     itemdesc = "500$ - become green!";
                     if (settings.getStoreinfo().charAt(2)=='0') itemdesc2 = "Click to purchase";
                     else {
-                        if (settings.getColor()==3) itemdesc2 = "Click again to reset to White";
-                        else itemdesc2 = "Click again to become Green";
+                        if (settings.getColor()==3) itemdesc2 = "Click again to become Green";
+                        else itemdesc2 = "Click again to become White";
                     }
                 }
                 if (settings.getStoreinfo().charAt(2)=='1') {
@@ -317,8 +317,8 @@ public class ShopScreen extends ScreenAdapter {
                     itemdesc = "500$ - become yellow!";
                     if (settings.getStoreinfo().charAt(3)=='0') itemdesc2 = "Click to purchase";
                     else {
-                        if (settings.getColor()==4) itemdesc2 = "Click again to reset to White";
-                        else itemdesc2 = "Click again to become Yellow";
+                        if (settings.getColor()==4) itemdesc2 = "Click again to become Yellow";
+                        else itemdesc2 = "Click again to become White";
                     }
                 }
                 if (settings.getStoreinfo().charAt(3)=='1') {
@@ -345,12 +345,13 @@ public class ShopScreen extends ScreenAdapter {
                     itemname = "Сложность 'Нормальная'";
                     itemdesc = "50$ - 2х денег";
                     if (settings.getStoreinfo().charAt(4)=='0') itemdesc2 = "Нажми чтобы купить";
+                    else itemdesc2="";
                 } else {
                     itemname = "Normal difficulty";
                     itemdesc = "50$ - 2x money";
                     if (settings.getStoreinfo().charAt(4)=='0') itemdesc2 = "Click to purchase";
+                    else itemdesc2="";
                 }
-                itemdesc2 = "";
                 if (settings.getStoreinfo().charAt(4) == '1') mdbtn.getColor().a = 1f;
             }
         });
@@ -371,12 +372,13 @@ public class ShopScreen extends ScreenAdapter {
                     itemname = "Сложность 'Эксперт'";
                     itemdesc = "250$ - 4х денег";
                     if (settings.getStoreinfo().charAt(5)=='0') itemdesc2 = "Нажми чтобы купить";
+                    else itemdesc2="";
                 } else {
                     itemname = "Expert difficulty";
                     itemdesc = "250$ - 4x money";
                     if (settings.getStoreinfo().charAt(5)=='0') itemdesc2 = "Click to purchase";
+                    else itemdesc2="";
                 }
-                itemdesc2 = "";
                 if (settings.getStoreinfo().charAt(5) == '1') hdbtn.getColor().a = 1f;
             }
         });
@@ -397,12 +399,13 @@ public class ShopScreen extends ScreenAdapter {
                     itemname = "Сложность 'Хардкор'";
                     itemdesc = "1000$ - 16х денег";
                     if (settings.getStoreinfo().charAt(6)=='0') itemdesc2 = "Нажми чтобы купить";
+                    else itemdesc2="";
                 } else {
                     itemname = "Cursed difficulty";
                     itemdesc = "1000$ - 16x money";
                     if (settings.getStoreinfo().charAt(6)=='0') itemdesc2 = "Click to purchase";
+                    else itemdesc2="";
                 }
-                itemdesc2 = "";
                 if (settings.getStoreinfo().charAt(6) == '1') vdbtn.getColor().a = 1f;
             }
         });
@@ -423,12 +426,13 @@ public class ShopScreen extends ScreenAdapter {
                     itemname = "Зарплата+";
                     itemdesc = "500$ - добавка 50%";
                     if (settings.getStoreinfo().charAt(7)=='0') itemdesc2 = "Нажми чтобы купить";
+                    else itemdesc2="";
                 } else {
                     itemname = "Money+";
                     itemdesc = "500$ - income increase by 50%";
                     if (settings.getStoreinfo().charAt(7)=='0') itemdesc2 = "Click to purchase";
+                    else itemdesc2="";
                 }
-                itemdesc2 = "";
                 if (settings.getStoreinfo().charAt(7) == '1') money1btn.getColor().a = 1f;
             }
         });
@@ -449,12 +453,13 @@ public class ShopScreen extends ScreenAdapter {
                     itemname = "Зарплата++";
                     itemdesc = "1500$ - добавка 250%";
                     if (settings.getStoreinfo().charAt(8)=='0') itemdesc2 = "Нажми чтобы купить";
+                    else itemdesc2="";
                 } else {
                     itemname = "Money++";
                     itemdesc = "1500$ - income increase by 250%";
                     if (settings.getStoreinfo().charAt(8)=='0') itemdesc2 = "Click to purchase";
+                    else itemdesc2="";
                 }
-                itemdesc2 = "";
                 if (settings.getStoreinfo().charAt(8) == '1') money2btn.getColor().a = 1f;
             }
         });
