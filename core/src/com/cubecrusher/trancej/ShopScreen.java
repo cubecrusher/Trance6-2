@@ -414,23 +414,23 @@ public class ShopScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
-                if (pressn==8) {
+                /*if (pressn==8) {
                     if (settings.getMoney() >= 500 && settings.getStoreinfo().charAt(7) != '1') {
                         settings.setMoney(settings.getMoney() - 500);
                         settings.setStoreinfo(replacechar(shopstats, 7, '1'));
                         shopstats = settings.getStoreinfo();
                     }
-                }
+                }*/
                 pressn=8;
                 if (settings.getLanguage()==1){
                     itemname = "Зарплата+";
-                    itemdesc = "500$ - добавка 50%";
-                    if (settings.getStoreinfo().charAt(7)=='0') itemdesc2 = "Нажми чтобы купить";
+                    itemdesc = "Не работает";
+                    if (settings.getStoreinfo().charAt(7)=='0') itemdesc2 = "";
                     else itemdesc2="";
                 } else {
                     itemname = "Money+";
-                    itemdesc = "500$ - income increase by 50%";
-                    if (settings.getStoreinfo().charAt(7)=='0') itemdesc2 = "Click to purchase";
+                    itemdesc = "Does not work";
+                    if (settings.getStoreinfo().charAt(7)=='0') itemdesc2 = "";
                     else itemdesc2="";
                 }
                 if (settings.getStoreinfo().charAt(7) == '1') money1btn.getColor().a = 1f;
@@ -441,23 +441,23 @@ public class ShopScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
-                if (pressn==9) {
+                /*if (pressn==9) {
                     if (settings.getMoney() >= 1500 && settings.getStoreinfo().charAt(8) != '1') {
                         settings.setMoney(settings.getMoney() - 1500);
                         settings.setStoreinfo(replacechar(shopstats, 8, '1'));
                         shopstats = settings.getStoreinfo();
                     }
-                }
+                }*/
                 pressn=9;
                 if (settings.getLanguage()==1){
                     itemname = "Зарплата++";
-                    itemdesc = "1500$ - добавка 250%";
-                    if (settings.getStoreinfo().charAt(8)=='0') itemdesc2 = "Нажми чтобы купить";
+                    itemdesc = "Не работает";
+                    if (settings.getStoreinfo().charAt(8)=='0') itemdesc2 = "";
                     else itemdesc2="";
                 } else {
                     itemname = "Money++";
-                    itemdesc = "1500$ - income increase by 250%";
-                    if (settings.getStoreinfo().charAt(8)=='0') itemdesc2 = "Click to purchase";
+                    itemdesc = "Does not work";
+                    if (settings.getStoreinfo().charAt(8)=='0') itemdesc2 = "";
                     else itemdesc2="";
                 }
                 if (settings.getStoreinfo().charAt(8) == '1') money2btn.getColor().a = 1f;
