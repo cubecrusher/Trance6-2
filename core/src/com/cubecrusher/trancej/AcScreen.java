@@ -34,12 +34,17 @@ public class AcScreen extends ScreenAdapter {
     private int height = TrJr.INSTANCE.getScrH();
     private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
-    int n=0;
+    int n = 0;
 
-    public String replacechar(String str, int index, char replace){
-        if(str==null){
+    // В очень узких кругах (в котором состою только я) этот экран именуется "Магаз 2",
+    // Т.к. код просто скопирован оттуда и изменён под достижения.
+    // Опять же, похожая схема хранения достижений - 9 цифр.
+    // Коды в assets/codes.txt, чтобы понять что за что отвечает
+
+    public String replacechar(String str, int index, char replace) {
+        if (str == null) {
             return str;
-        }else if(index<0 || index>=str.length()){
+        } else if (index < 0 || index >= str.length()) {
             return str;
         }
         char[] chars = str.toCharArray();
@@ -154,21 +159,25 @@ public class AcScreen extends ScreenAdapter {
             settings.setAcinfo(replacechar(acinfo,2,'1'));
             acinfo = settings.getAcinfo();
         }
-        if (settings.getnHighScore()>=60) {
-            settings.setAcinfo(replacechar(acinfo,1,'1'));
+        if (settings.getnHighScore() >= 60) {
+            settings.setAcinfo(replacechar(acinfo, 1, '1'));
             acinfo = settings.getAcinfo();
         }
-        if (settings.geteHighScore()>=120) {
-            settings.setAcinfo(replacechar(acinfo,0,'1'));
+        if (settings.geteHighScore() >= 120) {
+            settings.setAcinfo(replacechar(acinfo, 0, '1'));
             acinfo = settings.getAcinfo();
+        }
+        if (settings.getAcinfo().equals("111111110")) {
+            settings.setAcinfo(replacechar(acinfo, 8, '1'));
         }
 
-        if (width>=1080) {
+        if (width >= 1080) {
+
             ac1kbtn.setPosition(100, height / 2f + 175);
-            if (settings.getAcinfo().charAt(6)=='0') ac1kbtn.getColor().a = .5f;
+            if (settings.getAcinfo().charAt(6) == '0') ac1kbtn.getColor().a = .5f;
 
             ac1mbbtn.setPosition(100, height / 2f - 125);
-            if (settings.getAcinfo().charAt(5)=='0') ac1mbbtn.getColor().a = .5f;
+            if (settings.getAcinfo().charAt(5) == '0') ac1mbbtn.getColor().a = .5f;
 
             ac10kbtn.setPosition(100, height / 2f - 425);
             if (settings.getAcinfo().charAt(4)=='0') ac10kbtn.getColor().a = .5f;
@@ -193,23 +202,45 @@ public class AcScreen extends ScreenAdapter {
 
             backbutton.setPosition(0, height / 24f);
         } else {
-            /*
-            bluebtn.setPosition(-5, height / 2f);
-            bluebtn.setSize(width-80,height/12f);
 
-            redbtn.setPosition(-5, height / 2f - 100);
-            redbtn.setSize(width-80,height/12f);
+            ac1kbtn.setPosition(-140, height / 2f + 80);
+            ac1kbtn.setSize(width - 80, height / 12f);
+            if (settings.getAcinfo().charAt(0) == '0') ac1kbtn.getColor().a = .5f;
 
-            greenbtn.setPosition(-5, height / 2f - 200);
-            greenbtn.setSize(width-80,height/12f);
+            ac1mbbtn.setPosition(-140, height / 2f - 80);
+            ac1mbbtn.setSize(width - 80, height / 12f);
+            if (settings.getAcinfo().charAt(1) == '0') ac1mbbtn.getColor().a = .5f;
 
-            yellowbtn.setPosition(-5, height / 2f - 300);
-            yellowbtn.setSize(width-80,height/12f);
+            ac10kbtn.setPosition(-140, height / 2f - 240);
+            ac10kbtn.setSize(width - 80, height / 12f);
+            if (settings.getAcinfo().charAt(2) == '0') ac10kbtn.getColor().a = .5f;
+
+            accursedbtn.setPosition(40, height / 2f + 80);
+            accursedbtn.setSize(width - 80, height / 12f);
+            if (settings.getAcinfo().charAt(3) == '0') accursedbtn.getColor().a = .5f;
+
+            achardbtn.setPosition(40, height / 2f - 80);
+            achardbtn.setSize(width - 80, height / 12f);
+            if (settings.getAcinfo().charAt(4) == '0') achardbtn.getColor().a = .5f;
+
+            acmedbtn.setPosition(40, height / 2f - 240);
+            acmedbtn.setSize(width - 80, height / 12f);
+            if (settings.getAcinfo().charAt(5) == '0') acmedbtn.getColor().a = .5f;
+
+            aceasybtn.setPosition(220, height / 2f + 80);
+            aceasybtn.setSize(width - 80, height / 12f);
+            if (settings.getAcinfo().charAt(6) == '0') aceasybtn.getColor().a = .5f;
+
+            acdeathbtn.setPosition(220, height / 2f - 80);
+            acdeathbtn.setSize(width - 80, height / 12f);
+            if (settings.getAcinfo().charAt(7) == '0') acdeathbtn.getColor().a = .5f;
+
+            acsecretbtn.setPosition(220, height / 2f - 240);
+            acsecretbtn.setSize(width - 80, height / 12f);
+            if (settings.getAcinfo().charAt(8) == '0') acsecretbtn.getColor().a = .5f;
 
             backbutton.setPosition(-20, height / 12f);
             backbutton.setSize(width / 4f, height / 12f);
-
-             */
         }
 
         ac1kbtn.addListener(new ChangeListener() {
@@ -332,10 +363,10 @@ public class AcScreen extends ScreenAdapter {
                 if (settings.getAcinfo().charAt(8)==1) {
                     if (settings.getLanguage() == 1) {
                         itemname = "Секрет";
-                        itemdesc = "Разведчик - шпион!";
+                        itemdesc = "Стоило ли это того?";
                     } else {
                         itemname = "Secret";
-                        itemdesc = "That scout is a bloody spy!";
+                        itemdesc = "Disappointment!";
                     }
                 } else {
                     if (settings.getLanguage() == 1) {
@@ -389,16 +420,16 @@ public class AcScreen extends ScreenAdapter {
         batch.begin();
         mile.setPosition(width / 2f - 345, height - height / 4.5f);
         mile.draw(batch);
-        if (width < 1080) {  // I didn't bother doing the lil' screen support so obviously it will look like ass
+        if (width < 1080) {
             TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
             TrJr.INSTANCE.font3.draw(batch, "" + settings.getMoney(), 35, height - 14);
 
-            if (settings.getLanguage()==1){
-                TrJr.INSTANCE.rfontCyan.draw(batch, itemname, 20, height / 2f - 425 - 50);
-                TrJr.INSTANCE.rfont2.draw(batch, itemdesc, 55, height / 2f - 425 - 75);
+            if (settings.getLanguage() == 1) {
+                TrJr.INSTANCE.rfontCyan2.draw(batch, "" + itemname, 20, height / 2f - 425 + 100);
+                TrJr.INSTANCE.rfont3.draw(batch, "" + itemdesc, 20, height / 2f - 425 + 50);
             } else {
-                TrJr.INSTANCE.fontCyan.draw(batch, itemname, 20, height / 2f - 425 - 50);
-                TrJr.INSTANCE.font2.draw(batch, itemdesc, 55, height / 2f - 425 - 75);
+                TrJr.INSTANCE.fontCyan2.draw(batch, "" + itemname, 20, height / 2f - 425 + 100);
+                TrJr.INSTANCE.font3.draw(batch, "" + itemdesc, 20, height / 2f - 425 + 50);
             }
 
         } else {

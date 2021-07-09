@@ -15,15 +15,17 @@ public class Player {
     public Polygon polygon;
     protected ShapeRenderer shapeRenderer;
     private Settings settings;
-    public float lowerBound = TrJr.INSTANCE.getScrH()/10f;
+    public float lowerBound = TrJr.INSTANCE.getScrH() / 10f;
     protected float touchpt;
     protected float[] vertices = new float[6];
     public int nn = 0;
     public boolean white = true, oob = false;
 
-    public Player(GameScreen gameScreen){
+    // Класс треугольника. Всё довольно просто.
+
+    public Player(GameScreen gameScreen) {
         this.settings = new Settings();
-        this.x = TrJr.INSTANCE.getScrW()/2f;
+        this.x = TrJr.INSTANCE.getScrW() / 2f;
         this.y = lowerBound;
 
         vertices[0] = x;

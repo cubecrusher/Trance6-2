@@ -13,6 +13,7 @@ public class Settings {
     private boolean nameSet;
     private boolean scoreSent;
     private boolean langSet;
+    private boolean epilepsy;
     private float ehighScore, nhighScore, hhighScore, chighScore, totalTime;
     private int plays;
     private int money;
@@ -20,35 +21,40 @@ public class Settings {
     private int language; //  0:eng  1:rus
     private String username, difficulty;
 
-    // ACHIEVEMENTS
+    // Экран настроек! Это самая вкусная часть игры. Если знать что делать, можно сразу пройти игру
+    // Не играя в неё. Без рут прав изменить нельзя, поэтому всё хорошо.
+
+
+    // Достижения
     private String acinfo;
 
-    // STORE
+    // Магаз
     private String storeinfo;
 
-    public Settings(){
+    public Settings() {
         prefs = Gdx.app.getPreferences("TranceConfig");
-        soundOn = prefs.getBoolean("sound",true);
-        musicOn = prefs.getBoolean("music", true);
-        fpsOn = prefs.getBoolean("fps",false);
-        speedOn = prefs.getBoolean("speed",false);
-        launch = prefs.getBoolean("launch",true);
-        langSet = prefs.getBoolean("langset",false);
-        ehighScore = prefs.getFloat("ehighscore",0); //easy
-        nhighScore = prefs.getFloat("nhighscore",0); //normal
-        hhighScore = prefs.getFloat("hhighscore",0); //hard
-        chighScore = prefs.getFloat("chighscore",0); //cursed
-        plays = prefs.getInteger("plays",0);
-        money = prefs.getInteger("money",0);
-        color = prefs.getInteger("color",0); // 0=white, 1=blue, 2=red, 3=green, 4=yellow
-        language = prefs.getInteger("language",1);
-        difficulty = prefs.getString("difficulty", "Beginner");
-        username = prefs.getString("user", "-");
-        acinfo = prefs.getString("acinfo", "000000000"); // top sekret! achievement codes
-        storeinfo = prefs.getString("storeinfo", "000000000"); // top sekret! shop codes
-        totalTime = prefs.getFloat("total",0);
-        nameSet = prefs.getBoolean("nameset",false);
-        scoreSent = prefs.getBoolean("scoreSent",false);
+        soundOn = prefs.getBoolean("sound", true); // звук
+        musicOn = prefs.getBoolean("music", true); // музыка
+        fpsOn = prefs.getBoolean("fps", false); // fps - debug
+        speedOn = prefs.getBoolean("speed", false); // скорость - debug
+        launch = prefs.getBoolean("launch", true); // первораз для неймсет
+        langSet = prefs.getBoolean("langset", false); // первораз для лангсет
+        epilepsy = prefs.getBoolean("epilepsy", false); // ldm режим
+        ehighScore = prefs.getFloat("ehighscore", 0); // легк
+        nhighScore = prefs.getFloat("nhighscore", 0); // норм
+        hhighScore = prefs.getFloat("hhighscore", 0); // хард
+        chighScore = prefs.getFloat("chighscore", 0); // хардкор
+        plays = prefs.getInteger("plays", 0); // попытки
+        money = prefs.getInteger("money", 0); // деньги
+        color = prefs.getInteger("color", 0); // 0=белый, 1=синий, 2=красный, 3=зеленый, 4=желтый
+        language = prefs.getInteger("language", 1); // 1=english, 0=русский
+        difficulty = prefs.getString("difficulty", "Beginner"); // сложность
+        username = prefs.getString("user", " "); // никнейм
+        acinfo = prefs.getString("acinfo", "000000000"); // достижения
+        storeinfo = prefs.getString("storeinfo", "000000000"); // магаз
+        totalTime = prefs.getFloat("total", 0); // суммвремя
+        nameSet = prefs.getBoolean("nameset", false); // никнейм уже есть?
+        scoreSent = prefs.getBoolean("scoreSent", false); // отправлен ли результат? (так себе)
     }
 
     public void setSound(boolean soundOn){
@@ -61,8 +67,8 @@ public class Settings {
     }
 
     public void setMusic(boolean musicOn){
-        this.musicOn=musicOn;
-        prefs.putBoolean("music",soundOn);
+        this.musicOn = musicOn;
+        prefs.putBoolean("music", musicOn);
         prefs.flush();
     }
     public boolean isMusicOn(){
@@ -78,21 +84,33 @@ public class Settings {
         return fpsOn;
     }
 
-    public void setSpeed(boolean speedOn){
-        this.speedOn=speedOn;
-        prefs.putBoolean("sound",speedOn);
+    public void setSpeed(boolean speedOn) {
+        this.speedOn = speedOn;
+        prefs.putBoolean("sound", speedOn);
         prefs.flush();
     }
-    public boolean isSpeedOn(){
+
+    public boolean isSpeedOn() {
         return speedOn;
     }
 
-    public void seteHighScore(float ehighScore){
-        this.ehighScore=ehighScore;
-        prefs.putFloat("ehighscore",ehighScore);
+    public boolean getEpilepsy() {
+        return epilepsy;
+    }
+
+    public void setEpilepsy(boolean epilepsy) {
+        this.epilepsy = epilepsy;
+        prefs.putBoolean("epilepsy", epilepsy);
         prefs.flush();
     }
-    public float geteHighScore(){
+
+    public void seteHighScore(float ehighScore) {
+        this.ehighScore = ehighScore;
+        prefs.putFloat("ehighscore", ehighScore);
+        prefs.flush();
+    }
+
+    public float geteHighScore() {
         return ehighScore;
     }
 

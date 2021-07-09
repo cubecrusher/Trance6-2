@@ -37,21 +37,24 @@ public class ScoreScreen extends ScreenAdapter {
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private Sprite scores;
-    private int height = TrJr.INSTANCE.getScrH();;
+    private int height = TrJr.INSTANCE.getScrH();
+    ;
     private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
     private Viewport viewport;
     private String rusdifftext;
-    int n=0, colored=10;
-    boolean a=true, isDone = false, hasfailed = false;
+    int n = 0, colored = 10;
+    boolean a = true, isDone = false, hasfailed = false;
     public ArrayList<String> highscoreList;
 
+    // Экран рекордов. Парсит json из лидерборды, высвечивает топ-10 по выбранной сложности.
+    // Если там совпадает никнейм с вашим, высвечивает голубым светом.
 
-    public ScoreScreen(OrthographicCamera camera){
+    public ScoreScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
-        this.viewport = new FitViewport(800,400, camera);
-        this.camera.position.set(new Vector3(width/2f, height/2f,0));
+        this.viewport = new FitViewport(800, 400, camera);
+        this.camera.position.set(new Vector3(width / 2f, height / 2f, 0));
         this.gameScreen = new GameScreen(camera);
         this.shapeRenderer = new ShapeRenderer();
         this.batch = new SpriteBatch();
@@ -341,7 +344,7 @@ public class ScoreScreen extends ScreenAdapter {
             if (width < 1080) {
                 TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
                 TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
-
+                // Это выглядит как спагетти.
                 if (colored==0) TrJr.INSTANCE.rfontCyan3.draw(batch, "0.    "+ highscoreList.get(0), width / 20f, height / 2f + 225);
                 else TrJr.INSTANCE.rfont3.draw(batch, "0.    "+ highscoreList.get(0), width / 20f, height / 2f + 225);
                 if (colored==1) TrJr.INSTANCE.rfontCyan3.draw(batch, "2.    "+ highscoreList.get(1), width / 20f, height / 2f + 175);
@@ -377,7 +380,7 @@ public class ScoreScreen extends ScreenAdapter {
                 TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
                 TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney(), 55, height - 28);
 
-                // This is what happens if you don't have a Google Play dev account. You get this atrocity.
+                // Вот что происходит когда в игре нет google-play'овской лидерборды. Денег нет!
                 if (colored==0) TrJr.INSTANCE.fontCyan2.draw(batch, "0.    "+ highscoreList.get(0), width / 20f, height / 2f + 375);
                 else TrJr.INSTANCE.font2.draw(batch, "0.    "+ highscoreList.get(0), width / 20f, height / 2f + 375);
                 if (colored==1) TrJr.INSTANCE.fontCyan2.draw(batch, "2.    "+ highscoreList.get(1), width / 20f, height / 2f + 325);
@@ -403,7 +406,7 @@ public class ScoreScreen extends ScreenAdapter {
                     if (settings.getNameSet())
                         TrJr.INSTANCE.rfontCyan2.draw(batch, "Ваш никнейм:  " + settings.getUsername(), width / 20f, height / 2f - 225);
                     if (!hasfailed)
-                        TrJr.INSTANCE.rfontCyan3.draw(batch, "Смените сложность для других рекордов", width / 20f, height / 2f - 325);
+                        TrJr.INSTANCE.rfontCyan2.draw(batch, "Смени сложность для других рекордов", width / 20f, height / 2f - 325);
                 } else {
                     TrJr.INSTANCE.fontCyan2.draw(batch, "Scores for " + settings.getDifficulty() + " difficulty", width / 20f, height / 2f + 450);
                     if (settings.getNameSet())

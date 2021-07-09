@@ -39,13 +39,15 @@ public class StatsScreen extends ScreenAdapter {
     private Settings settings;
     private int n = 0;
 
+    // Экран статистики. Показывается... статистика.
+    // Настройки из рекордов, никнейма, попыток, среднего времени, тд тп
 
-    public StatsScreen(OrthographicCamera camera){
+    public StatsScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
-        this.camera.position.set(new Vector3(width/2f, height/2f,0));
-        this.viewport = new FitViewport(800,400, camera);
+        this.camera.position.set(new Vector3(width / 2f, height / 2f, 0));
+        this.viewport = new FitViewport(800, 400, camera);
         this.batch = new SpriteBatch();
     }
 

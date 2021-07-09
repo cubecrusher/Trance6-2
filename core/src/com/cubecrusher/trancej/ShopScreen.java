@@ -35,22 +35,25 @@ public class ShopScreen extends ScreenAdapter {
     private int width = TrJr.INSTANCE.getScrW();
     private int pressn;
     private Settings settings;
-    int n=0;
+    int n = 0;
 
-    public ShopScreen(OrthographicCamera camera){
+    // Очевидно, это магаз. Здесь можно купить кастомизацию, апгрейды и сложности.
+    // Настройка getStoreInfo() хранит строку из девяти цифр, каждая из которых отвечает за товар из магазина.
+    // Коды расписаны в файле assets/codes.txt для удобства (вообще не удобно!)
+    // Она обновляется с помощью функции replacechar() и хранится в sharedpreferences.
+    public ShopScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
-        this.camera.position.set(new Vector3(width/2f, height/2f,0));
-        this.viewport = new FitViewport(800,400, camera);
+        this.camera.position.set(new Vector3(width / 2f, height / 2f, 0));
+        this.viewport = new FitViewport(800, 400, camera);
         this.shapeRenderer = new ShapeRenderer();
         this.batch = new SpriteBatch();
         this.pressn = 0; //   0 = default;    1-9 = button num
         this.shopstats = settings.getStoreinfo();
-        if (settings.getLanguage()==1) {
+        if (settings.getLanguage() == 1) {
             this.itemname = "Магазин";
             this.itemdesc = "Нажми на предмет для информации";
-        }
-        else {
+        } else {
             this.itemname = "Shop";
             this.itemdesc = "Tap on an item to inspect";
         }
@@ -155,28 +158,52 @@ public class ShopScreen extends ScreenAdapter {
             hdbtn.setPosition(width/2f - 111, height / 2f - 425);
             if (settings.getStoreinfo().charAt(5)=='0') hdbtn.getColor().a = .5f;
 
-            vdbtn.setPosition(width-100-223, height / 2f + 175);
-            if (settings.getStoreinfo().charAt(6)=='0') vdbtn.getColor().a = .5f;
+            vdbtn.setPosition(width - 100 - 223, height / 2f + 175);
+            if (settings.getStoreinfo().charAt(6) == '0') vdbtn.getColor().a = .5f;
 
-            money1btn.setPosition(width-100-223, height / 2f - 125);
-            if (settings.getStoreinfo().charAt(7)=='0') money1btn.getColor().a = .5f;
+            money1btn.setPosition(width - 100 - 223, height / 2f - 125);
+            if (settings.getStoreinfo().charAt(7) == '0') money1btn.getColor().a = .5f;
 
-            money2btn.setPosition(width-100-223, height / 2f - 425);
-            if (settings.getStoreinfo().charAt(8)=='0') money2btn.getColor().a = .5f;
+            money2btn.setPosition(width - 100 - 223, height / 2f - 425);
+            if (settings.getStoreinfo().charAt(8) == '0') money2btn.getColor().a = .5f;
 
             backbutton.setPosition(0, height / 24f);
-        } else {  // Shop WON'T work on small screens - this is unaligned
-            bluebtn.setPosition(-5, height / 2f);
-            bluebtn.setSize(width-80,height/12f);
+        } else {
+            bluebtn.setPosition(-140, height / 2f + 80);
+            bluebtn.setSize(width - 80, height / 12f);
+            if (settings.getStoreinfo().charAt(0) == '0') bluebtn.getColor().a = .5f;
 
-            redbtn.setPosition(-5, height / 2f - 100);
-            redbtn.setSize(width-80,height/12f);
+            redbtn.setPosition(-140, height / 2f - 80);
+            redbtn.setSize(width - 80, height / 12f);
+            if (settings.getStoreinfo().charAt(1) == '0') redbtn.getColor().a = .5f;
 
-            greenbtn.setPosition(-5, height / 2f - 200);
-            greenbtn.setSize(width-80,height/12f);
+            greenbtn.setPosition(-140, height / 2f - 240);
+            greenbtn.setSize(width - 80, height / 12f);
+            if (settings.getStoreinfo().charAt(2) == '0') greenbtn.getColor().a = .5f;
 
-            yellowbtn.setPosition(-5, height / 2f - 300);
-            yellowbtn.setSize(width-80,height/12f);
+            yellowbtn.setPosition(40, height / 2f + 80);
+            yellowbtn.setSize(width - 80, height / 12f);
+            if (settings.getStoreinfo().charAt(3) == '0') yellowbtn.getColor().a = .5f;
+
+            mdbtn.setPosition(40, height / 2f - 80);
+            mdbtn.setSize(width - 80, height / 12f);
+            if (settings.getStoreinfo().charAt(4) == '0') mdbtn.getColor().a = .5f;
+
+            hdbtn.setPosition(40, height / 2f - 240);
+            hdbtn.setSize(width - 80, height / 12f);
+            if (settings.getStoreinfo().charAt(5) == '0') hdbtn.getColor().a = .5f;
+
+            vdbtn.setPosition(220, height / 2f + 80);
+            vdbtn.setSize(width - 80, height / 12f);
+            if (settings.getStoreinfo().charAt(6) == '0') vdbtn.getColor().a = .5f;
+
+            money1btn.setPosition(220, height / 2f - 80);
+            money1btn.setSize(width - 80, height / 12f);
+            if (settings.getStoreinfo().charAt(7) == '0') money1btn.getColor().a = .5f;
+
+            money2btn.setPosition(220, height / 2f - 240);
+            money2btn.setSize(width - 80, height / 12f);
+            if (settings.getStoreinfo().charAt(8) == '0') money2btn.getColor().a = .5f;
 
             backbutton.setPosition(-20, height / 12f);
             backbutton.setSize(width / 4f, height / 12f);
@@ -414,17 +441,17 @@ public class ShopScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
-                /*if (pressn==8) {
+                if (pressn == 8) {
                     if (settings.getMoney() >= 500 && settings.getStoreinfo().charAt(7) != '1') {
                         settings.setMoney(settings.getMoney() - 500);
                         settings.setStoreinfo(replacechar(shopstats, 7, '1'));
                         shopstats = settings.getStoreinfo();
                     }
-                }*/
+                }
                 pressn=8;
                 if (settings.getLanguage()==1){
                     itemname = "Зарплата+";
-                    itemdesc = "Не работает";
+                    itemdesc = "500$ - +10$ за попытку";
                     if (settings.getStoreinfo().charAt(7)=='0') itemdesc2 = "";
                     else itemdesc2="";
                 } else {
@@ -441,13 +468,13 @@ public class ShopScreen extends ScreenAdapter {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
-                /*if (pressn==9) {
+                if (pressn == 9) {
                     if (settings.getMoney() >= 1500 && settings.getStoreinfo().charAt(8) != '1') {
                         settings.setMoney(settings.getMoney() - 1500);
                         settings.setStoreinfo(replacechar(shopstats, 8, '1'));
                         shopstats = settings.getStoreinfo();
                     }
-                }*/
+                }
                 pressn=9;
                 if (settings.getLanguage()==1){
                     itemname = "Зарплата++";
@@ -499,8 +526,6 @@ public class ShopScreen extends ScreenAdapter {
             shapeRenderer.end();
             n++;
         }
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
         batch.begin();
         shop.setPosition(width / 2f - 142, height - height / 4.5f);
         shop.draw(batch);
@@ -508,28 +533,32 @@ public class ShopScreen extends ScreenAdapter {
             TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
             TrJr.INSTANCE.font3.draw(batch, "" + settings.getMoney(), 35, height - 14);
 
-            if (settings.getLanguage()==1){
-                TrJr.INSTANCE.rfontCyan.draw(batch, itemname, 20, height / 2f - 425 - 50);
-                TrJr.INSTANCE.rfont2.draw(batch, itemdesc, 55, height / 2f - 425 - 75);
+            if (settings.getLanguage()==1) {
+                TrJr.INSTANCE.rfontCyan2.draw(batch, "" + itemname, 20, height / 2f - 425 + 100);
+                TrJr.INSTANCE.rfont3.draw(batch, "" + itemdesc, 20, height / 2f - 425 + 50);
+                TrJr.INSTANCE.rfont3.draw(batch, "" + itemdesc2, 20, height / 2f - 425 + 25);
             } else {
-                TrJr.INSTANCE.fontCyan.draw(batch, itemname, 20, height / 2f - 425 - 50);
-                TrJr.INSTANCE.font2.draw(batch, itemdesc, 55, height / 2f - 425 - 75);
+                TrJr.INSTANCE.fontCyan2.draw(batch, "" + itemname, 20, height / 2f - 425 + 100);
+                TrJr.INSTANCE.font3.draw(batch, "" + itemdesc, 20, height / 2f - 425 + 50);
+                TrJr.INSTANCE.font3.draw(batch, "" + itemdesc2, 20, height / 2f - 425 + 25);
             }
 
         } else {
             TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
             TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney(), 55, height - 28);
 
-            if (settings.getLanguage()==1){
-                TrJr.INSTANCE.rfontCyan.draw(batch, ""+itemname, 55, height / 2f - 425 - 50);
-                TrJr.INSTANCE.rfont2.draw(batch, ""+itemdesc, 55, height / 2f - 425 - 125);
-                TrJr.INSTANCE.rfont2.draw(batch, ""+itemdesc2, 55, height / 2f - 425 - 175);
+            if (settings.getLanguage() == 1) {
+                TrJr.INSTANCE.rfontCyan.draw(batch, "" + itemname, 55, height / 2f - 425 - 50);
+                TrJr.INSTANCE.rfont2.draw(batch, "" + itemdesc, 55, height / 2f - 425 - 125);
+                TrJr.INSTANCE.rfont2.draw(batch, "" + itemdesc2, 55, height / 2f - 425 - 175);
             } else {
-                TrJr.INSTANCE.fontCyan.draw(batch, ""+itemname, 55, height / 2f - 425 - 50);
-                TrJr.INSTANCE.font2.draw(batch, ""+itemdesc, 55, height / 2f - 425 - 125);
-                TrJr.INSTANCE.font2.draw(batch, ""+itemdesc2, 55, height / 2f - 425 - 175);
+                TrJr.INSTANCE.fontCyan.draw(batch, "" + itemname, 55, height / 2f - 425 - 50);
+                TrJr.INSTANCE.font2.draw(batch, "" + itemdesc, 55, height / 2f - 425 - 125);
+                TrJr.INSTANCE.font2.draw(batch, "" + itemdesc2, 55, height / 2f - 425 - 175);
             }
         }
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
         batch.end();
     }
 

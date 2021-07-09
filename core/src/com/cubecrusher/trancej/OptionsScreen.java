@@ -18,20 +18,23 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class OptionsScreen extends ScreenAdapter {
     private OrthographicCamera camera;
     private Stage stage;
     private Settings settings;
+    Viewport viewport;
     Texture optionstextt;
     Texture soundtexture;
     Texture musictexture;
     Texture backtexture;
     Texture creditstexture;
     Texture langtexture;
-    private TextureRegion soundtexturer, musictexturer, backtexturer, creditstexturer, langtexturer;
-    private TextureRegionDrawable soundtexturerd, musictexturerd, backtexturerd, creditstexturerd, langtexturerd;
-    private ImageButton soundbutton, musicbutton, backbutton, creditsbutton, langbutton;
+    Texture epilepsytexture;
+    private TextureRegion soundtexturer, musictexturer, backtexturer, creditstexturer, langtexturer, eptexturer;
+    private TextureRegionDrawable soundtexturerd, musictexturerd, backtexturerd, creditstexturerd, langtexturerd, eptexturerd;
+    private ImageButton soundbutton, musicbutton, backbutton, creditsbutton, langbutton, epbutton;
     private ShapeRenderer shapeRenderer;
     private SpriteBatch batch;
     private Sprite optionstext;
@@ -40,16 +43,18 @@ public class OptionsScreen extends ScreenAdapter {
     private int spritey = 0;
     int n = 0;
 
+    // Экран настроек. Тут можно вкл/выкл звук, музыку, мерцание и сменить язык если очень хочется.
+    // Текст может съезжать от кнопок, ибо ужасная адаптация - это ведь не текстурки
 
-    public OptionsScreen(OrthographicCamera camera){
+    public OptionsScreen(OrthographicCamera camera) {
         this.camera = camera;
-        this.camera.position.set(new Vector3(width/2f, height/2f,0));
+        this.camera.position.set(new Vector3(width / 2f, height / 2f, 0));
         this.batch = new SpriteBatch();
         this.shapeRenderer = new ShapeRenderer();
         this.settings = new Settings();
     }
 
-    public void create(){
+    public void create() {
         {
             optionstextt = new Texture(Gdx.files.internal("textures/optionstext.png"));
             optionstext = new Sprite(optionstextt);
@@ -58,24 +63,28 @@ public class OptionsScreen extends ScreenAdapter {
             backtexture = new Texture(Gdx.files.internal("textures/new/back.png"));
             creditstexture = new Texture(Gdx.files.internal("textures/new/credits.png"));
             langtexture = new Texture(Gdx.files.internal("textures/new/language.png"));
+            epilepsytexture = new Texture(Gdx.files.internal("textures/new/epilepsy.png"));
 
             soundtexturer = new TextureRegion(soundtexture);
             musictexturer = new TextureRegion(musictexture);
             backtexturer = new TextureRegion(backtexture);
             creditstexturer = new TextureRegion(creditstexture);
             langtexturer = new TextureRegion(langtexture);
+            eptexturer = new TextureRegion(epilepsytexture);
 
             soundtexturerd = new TextureRegionDrawable(soundtexturer);
             musictexturerd = new TextureRegionDrawable(musictexturer);
             backtexturerd = new TextureRegionDrawable(backtexturer);
             creditstexturerd = new TextureRegionDrawable(creditstexturer);
             langtexturerd = new TextureRegionDrawable(langtexturer);
+            eptexturerd = new TextureRegionDrawable(eptexturer);
 
             soundbutton = new ImageButton(soundtexturerd);
             musicbutton = new ImageButton(musictexturerd);
             backbutton = new ImageButton(backtexturerd);
             creditsbutton = new ImageButton(creditstexturerd);
             langbutton = new ImageButton(langtexturerd);
+            epbutton = new ImageButton(eptexturerd);
 
             stage = new Stage(new ScreenViewport());
             stage.addActor(soundbutton);
@@ -83,6 +92,7 @@ public class OptionsScreen extends ScreenAdapter {
             stage.addActor(backbutton);
             stage.addActor(creditsbutton);
             stage.addActor(langbutton);
+            stage.addActor(epbutton);
             Gdx.input.setInputProcessor(stage);
         }
     }
@@ -91,23 +101,27 @@ public class OptionsScreen extends ScreenAdapter {
     public void show(){
         create();
         //if (settings.isMusicOn()) Assets.playMusic(Assets.mainMenu);
-        soundbutton.setPosition(-20, height / 2f - 100 + height/12f);
-        soundbutton.setSize(width/4f,height/12f);
+        soundbutton.setPosition(0, height / 2f - 100 + height / 12f);
+        soundbutton.setSize(width / 4f, height / 12f);
 
-        langbutton.setPosition(-20, height / 2f - 150 - height/12f);
-        langbutton.setSize(width/4f,height/12f);
+        langbutton.setPosition(0, height / 2f - 150 - height / 12f);
+        langbutton.setSize(width / 4f, height / 12f);
         if (width>=1080) {
-            musicbutton.setPosition(-20, height / 2f + 75 - height/12f);
-            musicbutton.setSize(width/4f,height/12f);
+            musicbutton.setPosition(0, height / 2f + 75 - height / 12f);
+            musicbutton.setSize(width / 4f, height / 12f);
+            epbutton.setPosition(0, height / 2f - 150 - height / 12f - 225);
+            epbutton.setSize(width / 4f, height / 12f);
             backbutton.setPosition(0, height / 24f);
-            creditsbutton.setPosition(width - 250, height/24f);
+            creditsbutton.setPosition(width - 250, height / 24f);
         } else {
-            musicbutton.setPosition(-20, height / 2f - 20 - height/12f);
-            musicbutton.setSize(width/4f,height/12f);
-            backbutton.setPosition(-20, height / 12f);
+            musicbutton.setPosition(0, height / 2f - 20 - height / 12f);
+            musicbutton.setSize(width / 4f, height / 12f);
+            epbutton.setPosition(0, height / 2f - 280 - height / 12f);
+            epbutton.setSize(width / 4f, height / 12f);
+            backbutton.setPosition(0, height / 12f);
             backbutton.setSize(width / 4f, height / 12f);
-            creditsbutton.setPosition(width - width/4f+20, height/12f);
-            creditsbutton.setSize(width/4f,height/12f);
+            creditsbutton.setPosition(width - width / 4f + 20, height / 12f);
+            creditsbutton.setSize(width / 4f, height / 12f);
         }
         soundbutton.addListener(new ChangeListener() {
 
@@ -126,6 +140,16 @@ public class OptionsScreen extends ScreenAdapter {
             public void changed(ChangeEvent event, Actor actor) {
 
                 settings.setMusic(!settings.isMusicOn());
+                if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
+
+            }
+        });
+
+        epbutton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+
+                settings.setEpilepsy(!settings.getEpilepsy());
                 if (settings.isSoundOn()) Assets.playSound(Assets.blip1);
 
             }
@@ -201,26 +225,36 @@ public class OptionsScreen extends ScreenAdapter {
         if (width<1080) {
             if (settings.getLanguage()==1){
                 if (settings.isSoundOn())
-                    TrJr.INSTANCE.rfont2.draw(batch, "Звук ВКЛ", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
+                    TrJr.INSTANCE.rfontCyan2.draw(batch, "Звук ВКЛ", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
                 else
                     TrJr.INSTANCE.rfont2.draw(batch, "Звук ВЫКЛ", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
 
                 if (settings.isMusicOn())
-                    TrJr.INSTANCE.rfont2.draw(batch, "Музыка ВКЛ", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
+                    TrJr.INSTANCE.rfontCyan2.draw(batch, "Музыка ВКЛ", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
                 else
                     TrJr.INSTANCE.rfont2.draw(batch, "Музыка ВЫКЛ", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
+
+                if (settings.getEpilepsy())
+                    TrJr.INSTANCE.rfontCyan2.draw(batch, "Мерцание ВКЛ", width / 5f * 2, height / 2f - height / 12f * 2 - 105);
+                else
+                    TrJr.INSTANCE.rfont2.draw(batch, "Мерцание ВЫКЛ", width / 5f * 2, height / 2f - height / 12f * 2 - 105);
 
                 TrJr.INSTANCE.rfont2.draw(batch, "Русский", width / 5f * 2, height / 2f - height / 12f * 2 + 25);
             } else {
                 if (settings.isSoundOn())
-                    TrJr.INSTANCE.font2.draw(batch, "Sound ON", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
+                    TrJr.INSTANCE.fontCyan2.draw(batch, "Sound ON", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
                 else
                     TrJr.INSTANCE.font2.draw(batch, "Sound OFF", width / 5f * 2, height / 2f - 100 + height / 12f * 2 - 30);
 
                 if (settings.isMusicOn())
-                    TrJr.INSTANCE.font2.draw(batch, "Music ON", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
+                    TrJr.INSTANCE.fontCyan2.draw(batch, "Music ON", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
                 else
                     TrJr.INSTANCE.font2.draw(batch, "Music OFF", width / 5f * 2, height / 2f - height / 12f * 2 + 155);
+
+                if (settings.getEpilepsy())
+                    TrJr.INSTANCE.fontCyan2.draw(batch, "Flashing ON", width / 5f * 2, height / 2f - height / 12f * 2 - 105);
+                else
+                    TrJr.INSTANCE.font2.draw(batch, "Flashing OFF", width / 5f * 2, height / 2f - height / 12f * 2 - 105);
 
                 TrJr.INSTANCE.font2.draw(batch, "English", width / 5f * 2, height / 2f - height / 12f * 2 + 25);
             }
@@ -231,45 +265,63 @@ public class OptionsScreen extends ScreenAdapter {
         else {
             if (settings.getLanguage()==1) {
                 if (settings.isSoundOn())
-                    TrJr.INSTANCE.rfont.draw(batch, "Звук ВКЛ", width / 6f * 2, height / 2f + 210);
+                    TrJr.INSTANCE.rfontCyan.draw(batch, "Звук ВКЛ", width / 6f * 2, height / 2f + 210);
                 else
                     TrJr.INSTANCE.rfont.draw(batch, "Звук ВЫКЛ", width / 6f * 2, height / 2f + 210);
 
                 if (settings.isMusicOn())
-                    TrJr.INSTANCE.rfont.draw(batch, "Музыка ВКЛ", width / 6f * 2, height / 2f);
+                    TrJr.INSTANCE.rfontCyan.draw(batch, "Музыка ВКЛ", width / 6f * 2, height / 2f);
                 else
                     TrJr.INSTANCE.rfont.draw(batch, "Музыка ВЫКЛ", width / 6f * 2, height / 2f);
+
+                if (settings.getEpilepsy())
+                    TrJr.INSTANCE.rfontCyan.draw(batch, "Мерцание ВКЛ", width / 6f * 2, height / 2f - 450);
+                else
+                    TrJr.INSTANCE.rfont.draw(batch, "Мерцание ВЫКЛ", width / 6f * 2, height / 2f - 450);
 
                 TrJr.INSTANCE.rfont.draw(batch, "Русский", width / 6f * 2, height / 2f - 225);
             } else {
                 if (settings.isSoundOn())
-                    TrJr.INSTANCE.font.draw(batch, "Sound ON", width / 6f * 2, height / 2f + 210);
+                    TrJr.INSTANCE.fontCyan.draw(batch, "Sound ON", width / 6f * 2, height / 2f + 210);
                 else
                     TrJr.INSTANCE.font.draw(batch, "Sound OFF", width / 6f * 2, height / 2f + 210);
 
                 if (settings.isMusicOn())
-                    TrJr.INSTANCE.font.draw(batch, "Music ON", width / 6f * 2, height / 2f);
+                    TrJr.INSTANCE.fontCyan.draw(batch, "Music ON", width / 6f * 2, height / 2f);
                 else
                     TrJr.INSTANCE.font.draw(batch, "Music OFF", width / 6f * 2, height / 2f);
+
+                if (settings.getEpilepsy())
+                    TrJr.INSTANCE.fontCyan.draw(batch, "Flashing ON", width / 6f * 2, height / 2f - 450);
+                else
+                    TrJr.INSTANCE.font.draw(batch, "Flashing OFF", width / 6f * 2, height / 2f - 450);
 
                 TrJr.INSTANCE.font.draw(batch, "English", width / 6f * 2, height / 2f - 225);
             }
 
             TrJr.INSTANCE.fontCyan2.draw(batch, "$ ", 20, height - 28);
-            TrJr.INSTANCE.font2.draw(batch, ""+settings.getMoney(), 55, height - 28);
+            TrJr.INSTANCE.font2.draw(batch, "" + settings.getMoney(), 55, height - 28);
         }
         batch.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 
+    /*
     @Override
-    public void pause(){
+    public void resize(int width, int height){
+        viewport.update(width, height);
+        camera.position.set(width/2f, height, 0);
+    }
+     */
+
+    @Override
+    public void pause() {
 
     }
 
     @Override
-    public void dispose(){
+    public void dispose() {
 
     }
 

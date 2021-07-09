@@ -15,17 +15,19 @@ public class EpilepsyScreen extends ScreenAdapter {
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
     private Settings settings;
-    int n=0;
+    int n = 0;
 
-
-    public EpilepsyScreen(OrthographicCamera camera){
+    // Экран, предупреждающий о наличии в игре мерцаний. Длится 120 кадров и переходит в mainscreen
+    // Мерцание можно выключить в optionsscreen посредством настройки getEpilepsy()
+    public EpilepsyScreen(OrthographicCamera camera) {
         this.camera = camera;
-        this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW()/2f, TrJr.INSTANCE.getScrH()/2f,0));
+        this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW() / 2f, TrJr.INSTANCE.getScrH() / 2f, 0));
         this.mainScreen = new MainScreen(camera);
         this.batch = new SpriteBatch();
+        this.settings = new Settings();
     }
 
-    public void create(){
+    public void create() {
 
     }
 
@@ -42,7 +44,7 @@ public class EpilepsyScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
-            Gdx.input.setCatchKey(Input.Keys.BACK,true);
+            Gdx.input.setCatchKey(Input.Keys.BACK, true);
             TrJr.INSTANCE.setScreen(new MainScreen(camera));
         }
         update();
@@ -52,17 +54,29 @@ public class EpilepsyScreen extends ScreenAdapter {
         n++;
 
         if (TrJr.INSTANCE.getScrW() < 1080) {
-            TrJr.INSTANCE.font.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
-            TrJr.INSTANCE.font3.draw(batch, "This game contains flashing lights.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
-            TrJr.INSTANCE.font3.draw(batch, "Discretion is advised.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 50);
+            if (settings.getLanguage() == 1) {
+                TrJr.INSTANCE.rfontCyan.draw(batch, "ВНИМАНИЕ!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
+                TrJr.INSTANCE.rfont3.draw(batch, "Возможны эпилептические припадки.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
+                TrJr.INSTANCE.rfont3.draw(batch, "Будьте осторожны.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 50);
+            } else {
+                TrJr.INSTANCE.fontCyan.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
+                TrJr.INSTANCE.font3.draw(batch, "This game contains flashing lights.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
+                TrJr.INSTANCE.font3.draw(batch, "Discretion is advised.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 50);
+            }
         } else {
-            TrJr.INSTANCE.fontCyan.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
-            TrJr.INSTANCE.font2.draw(batch, "This game contains flashing lights.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
-            TrJr.INSTANCE.font2.draw(batch, "Discretion is advised.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 25);
+            if (settings.getLanguage() == 1) {
+                TrJr.INSTANCE.rfontCyan.draw(batch, "ВНИМАНИЕ!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
+                TrJr.INSTANCE.rfont2.draw(batch, "Возможны эпилептические припадки.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
+                TrJr.INSTANCE.rfont2.draw(batch, "Будьте осторожны.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 50);
+            } else {
+                TrJr.INSTANCE.fontCyan.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
+                TrJr.INSTANCE.font2.draw(batch, "This game contains flashing lights.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
+                TrJr.INSTANCE.font2.draw(batch, "Discretion is advised.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 50);
+            }
         }
-        batch.end();
+        batch.end(); // special thanks to Foch from amongus for being an ukra
 
-        if (n>=120) TrJr.INSTANCE.setScreen(new MainScreen(camera));
+        if (n >= 120) TrJr.INSTANCE.setScreen(new MainScreen(camera));
     }
 
     @Override

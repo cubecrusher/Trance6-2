@@ -4,12 +4,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Polygon;
 import com.cubecrusher.trancej.GameScreen;
+import com.cubecrusher.trancej.Settings;
 import com.cubecrusher.trancej.TrJr;
 
 public class Obstacle3 {
     protected float x, y;
     protected int speed;
     public float velocity;
+    protected Settings settings;
     protected GameScreen gameScreen;
     public Polygon polygon;
     protected ShapeRenderer shapeRenderer;
@@ -19,6 +21,7 @@ public class Obstacle3 {
     protected int pos;
 
     public Obstacle3(GameScreen gameScreen){
+        this.settings = new Settings();
         this.x = 0;
         this.y = TrJr.INSTANCE.getScrH()+100;
 
@@ -91,8 +94,10 @@ public class Obstacle3 {
                 shapeRenderer.rect(x - 50, y, TrJr.INSTANCE.getScrW() / 5f, TrJr.INSTANCE.getScrW() / 5f);
             }
             shapeRenderer.setColor(Color.WHITE);
-            shapeRenderer.rect(x, y, TrJr.INSTANCE.getScrW() / 5f, y + TrJr.INSTANCE.getScrW() / 5f);
-            //shapeRenderer.rect(x,y,TrJr.INSTANCE.getScrW()/5f, TrJr.INSTANCE.getScrW()/5f);
+            if (settings.getEpilepsy())
+                shapeRenderer.rect(x, y, TrJr.INSTANCE.getScrW() / 5f, y + TrJr.INSTANCE.getScrW() / 5f);
+            else
+                shapeRenderer.rect(x, y, TrJr.INSTANCE.getScrW() / 5f, TrJr.INSTANCE.getScrW() / 5f);
             shapeRenderer.end();
         } else {
             shapeRenderer.setAutoShapeType(true);

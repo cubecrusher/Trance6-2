@@ -35,15 +35,19 @@ public class CreditsScreen extends ScreenAdapter {
     private int height = TrJr.INSTANCE.getScrH();
     private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
-    int n=0;
+    int n = 0;
 
-
-    public CreditsScreen(OrthographicCamera camera){
+    // Экран где расписывается название музыки и её авторы.
+    // Довольно простенько, но необходимо, т.к. CC-BY-SA, агась
+    // Её можно использовать если упомянуть автора и/или спросить разрешения у автора на использование.
+    // Я это всё сделал, так что всё законно и хорошо.
+    // Пришлось ухудшить качество ибо игра весила 40мб из-за неё - сейчас 15мб, но битрейт расстроился
+    public CreditsScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
-        this.camera.position.set(new Vector3(width/2f, height/2f,0));
-        this.viewport = new FitViewport(800,400, camera);
+        this.camera.position.set(new Vector3(width / 2f, height / 2f, 0));
+        this.viewport = new FitViewport(800, 400, camera);
         this.optionsScreen = new OptionsScreen(camera);
         this.batch = new SpriteBatch();
     }
@@ -182,8 +186,8 @@ public class CreditsScreen extends ScreenAdapter {
                 //TrJr.INSTANCE.font3.draw(batch, "Per CC-BY-SA", width / 5f, 80);
                 //TrJr.INSTANCE.font3.draw(batch, "or usage permission.", width / 5f, 40);
 
-                TrJr.INSTANCE.fontCyan3.draw(batch, "$", 20, height - 14);
-                TrJr.INSTANCE.font3.draw(batch, "" + settings.getMoney(), 30, height - 20);
+                TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
+                TrJr.INSTANCE.font3.draw(batch, "" + settings.getMoney(), 35, height - 14);
             } else {
                 TrJr.INSTANCE.fontCyan.draw(batch, "Music used", width / 25f, height / 2f + 450);
                 TrJr.INSTANCE.font2.draw(batch, "TMM43 - Ultimate Destruction", width / 25f, height / 2f + 325);

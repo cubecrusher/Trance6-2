@@ -40,25 +40,25 @@ public class NameScreen extends ScreenAdapter {
     private SpriteBatch batch;
     private int height = Gdx.graphics.getHeight();
     private int width = Gdx.graphics.getWidth();
-    private TextInputListener listener = new TextInputListener();
     private Settings settings;
     private TextField textField;
     private TextField.TextFieldStyle textFieldStyle;
-    int n=0;
-    boolean a=true, existing=false, isDone=false, hasfailed=false;
+    int n = 0;
+    boolean a = true, existing = false, isDone = false, hasfailed = false;
     public ArrayList<String> highscoreList;
     private String currentUsername, matchingUsername;
 
-
-    public NameScreen(OrthographicCamera camera){
+    // Экран, появляющийся, пока игрок не подтвердит свой никнейм. Т.е. один раз.
+    // Далее сменить никнейм невозможно. Никнейм хранится в настройке getUsername()
+    public NameScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
-        this.camera.position.set(new Vector3(width/2f, height/2f,0));
-        this.viewport = new FitViewport(800,400, camera);
+        this.camera.position.set(new Vector3(width / 2f, height / 2f, 0));
+        this.viewport = new FitViewport(800, 400, camera);
         this.gameScreen = new GameScreen(camera);
         this.shapeRenderer = new ShapeRenderer();
         this.batch = new SpriteBatch();
-        this.textFieldStyle = new TextField.TextFieldStyle(TrJr.INSTANCE.fontCyan, Color.WHITE,null, null,null);
+        this.textFieldStyle = new TextField.TextFieldStyle(TrJr.INSTANCE.fontCyan, Color.WHITE, null, null, null);
         this.textField = new TextField("Nickname", textFieldStyle);
         matchingUsername = "Nickname";
         this.highscoreList = new ArrayList<>();

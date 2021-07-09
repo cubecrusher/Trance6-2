@@ -33,14 +33,18 @@ public class TutorialScreen extends ScreenAdapter {
     private int height = TrJr.INSTANCE.getScrH();
     private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
-    int n=0;
+    int n = 0;
 
+    // Экран обучения. Чрезвычайно прост - текст и одна кнопка.
+    // Появляется один раз и почти никем не читается.
+    // Да и нужен он не особо, народ ведь быстро сам смекает что к чему
+    // Он остаётся здесь, так как кто-то его всё равно читает.
 
-    public TutorialScreen(OrthographicCamera camera){
+    public TutorialScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
-        this.camera.position.set(new Vector3(width/2f, height/2f,0));
-        this.viewport = new FitViewport(800,400, camera);
+        this.camera.position.set(new Vector3(width / 2f, height / 2f, 0));
+        this.viewport = new FitViewport(800, 400, camera);
         this.gameScreen = new GameScreen(camera);
         this.shapeRenderer = new ShapeRenderer();
         this.batch = new SpriteBatch();

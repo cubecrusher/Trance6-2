@@ -45,10 +45,13 @@ public class EndScreen extends ScreenAdapter {
     private int spritey = 0, spritey2 = 0;
     int a = 0, newMoney = 0;
 
-    public String replacechar(String str, int index, char replace){
-        if(str==null){
+    // Экран проигрыша. Берётся рекорд по выбранной сложности и последнее время из gamescreen'а.
+    // Рандомно прописывается текст-дразнилка, коих есть 10 штук; остальные - глупые идеи
+
+    public String replacechar(String str, int index, char replace) {
+        if (str == null) {
             return str;
-        }else if(index<0 || index>=str.length()){
+        } else if (index < 0 || index >= str.length()) {
             return str;
         }
         char[] chars = str.toCharArray();
@@ -261,7 +264,7 @@ public class EndScreen extends ScreenAdapter {
 
                 @Override
                 public void failed(Throwable t) {
-                    System.out.println("(!!!) submitCursedScore() FAILED: ");
+                    System.out.println("(!!!)-=- submitCursedScore() FAILED: ");
                     t.printStackTrace();
                 }
 

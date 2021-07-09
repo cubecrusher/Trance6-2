@@ -9,49 +9,52 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public class TrJr extends Game {
-	private int scrW, scrH;
-	public static final TrJr INSTANCE = new TrJr();
-	private OrthographicCamera camera;
-	public AssetManager manager;
-	public BitmapFont font, font2, font3, fontBig, fontCyan, fontCyan2, fontCyan3, fontCyanBig;
-	public BitmapFont rfont, rfont2, rfont3, rfontBig, rfontCyan, rfontCyan2, rfontCyan3, rfontCyanBig;
+    private int scrW, scrH;
+    public static final TrJr INSTANCE = new TrJr();
+    private OrthographicCamera camera;
+    public AssetManager manager;
+    public BitmapFont font, font2, font3, fontBig, fontCyan, fontCyan2, fontCyan3, fontCyanBig;
+    public BitmapFont rfont, rfont2, rfont3, rfontBig, rfontCyan, rfontCyan2, rfontCyan3, rfontCyanBig;
 
-	TrJr(){
-	}
+    TrJr() {
+    }
+    // Этот класс генерирует шрифты, определяет размер экрана, и переносит в EpilepsyScreen после загрузки всего.
+    // Всё это впоследствии используется на всех экранах.
 
-	public void create () {
-		System.out.println("INFO: Trance.create() called");
-		manager = new AssetManager();
-		this.font = new BitmapFont();
-		this.font2 = new BitmapFont();
-		this.font3 = new BitmapFont();
-		this.fontBig = new BitmapFont();
-		this.fontCyanBig = new BitmapFont();
-		this.rfont = new BitmapFont();
-		this.rfont2 = new BitmapFont();
-		this.rfont3 = new BitmapFont();
-		this.rfontBig = new BitmapFont();
-		this.rfontCyanBig = new BitmapFont();
-		Assets.load();
-		this.scrW = Gdx.graphics.getWidth();
-		this.scrH = Gdx.graphics.getHeight();
-		makeFont();
-		this.camera = new OrthographicCamera();
-		this.camera.setToOrtho(false, scrW, scrH);
-		setScreen(new MainScreen(camera));
-	}
+    public void create() {
+        System.out.println("INFO: Trance.create() called");
+        manager = new AssetManager();
+        this.font = new BitmapFont();
+        this.font2 = new BitmapFont();
+        this.font3 = new BitmapFont();
+        this.fontBig = new BitmapFont();
+        this.fontCyanBig = new BitmapFont();
+        this.rfont = new BitmapFont();
+        this.rfont2 = new BitmapFont();
+        this.rfont3 = new BitmapFont();
+        this.rfontBig = new BitmapFont();
+        this.rfontCyanBig = new BitmapFont();
+        Assets.load();
+        this.scrW = Gdx.graphics.getWidth();
+        this.scrH = Gdx.graphics.getHeight();
+        makeFont();
+        this.camera = new OrthographicCamera();
+        this.camera.setToOrtho(false, scrW, scrH);
+        setScreen(new EpilepsyScreen(camera));
+    }
 
-	public void makeFont(){
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/gui.ttf"));
-		FreeTypeFontGenerator rgenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/guinew.ttf"));
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		FreeTypeFontGenerator.FreeTypeFontParameter parameterBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
-		FreeTypeFontGenerator.FreeTypeFontParameter parameterCyanBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
+	public void makeFont() {
+        // Генерация шрифтов из файла. Занимает больше времени при запуске, но не хранит их в физ. памяти. Может это и к худшему, но так было проще.
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/gui.ttf"));
+        FreeTypeFontGenerator rgenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/guinew.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameterBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan2 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameterCyan3 = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        FreeTypeFontGenerator.FreeTypeFontParameter parameterCyanBig = new FreeTypeFontGenerator.FreeTypeFontParameter();
 
 		FreeTypeFontGenerator.FreeTypeFontParameter rparameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		FreeTypeFontGenerator.FreeTypeFontParameter rparameter2 = new FreeTypeFontGenerator.FreeTypeFontParameter();

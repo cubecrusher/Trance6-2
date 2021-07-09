@@ -45,20 +45,25 @@ public class GameScreen extends ScreenAdapter {
     protected int musicDur; //in seconds
     protected int musicPos;
     protected int musicN;
+    String acinfo;
 
     public boolean hasCollided;
     protected int n, plays;
     protected int pattern;
     protected boolean isOut;
 
+    // Непосредственно, экран игрового процесса.
+    // Мякотка в том, что тут *почти* идеальная адаптация интерфейса - кнопок нет, всё намного проще.
+    // Используются настройки рекордов и цвета треугольника.
+    // С другой стороны, можно считать кадры вместо секунд, но секунды ведь интереснее!
 
-    public GameScreen(OrthographicCamera camera){
+    public GameScreen(OrthographicCamera camera) {
         this.camerag = camera;
         this.settings = new Settings();
-        this.camerag.position.set(new Vector3(width/2f, height/2f,0));
+        this.camerag.position.set(new Vector3(width / 2f, height / 2f, 0));
         this.batch = new SpriteBatch();
         this.n = 1;
-        this.pattern = (int)(Math.random()*10);
+        this.pattern = (int) (Math.random() * 10);
         this.player = new Player(this);
         this.obstacle = new Obstacle(this);
         this.obstacle2 = new Obstacle2(this);
@@ -74,17 +79,29 @@ public class GameScreen extends ScreenAdapter {
         this.chighScoreg = settings.getcHighScore();
         this.plays = settings.getPlays();
         this.totalTime = settings.getTotal();
+        this.acinfo = settings.getAcinfo();
     }
 
     @Override
-    public void show(){
+    public void show() {
         plays++;
 
     }
 
-    public void update(){
+    public String replacechar(String str, int index, char replace) {
+        if (str == null) {
+            return str;
+        } else if (index < 0 || index >= str.length()) {
+            return str;
+        }
+        char[] chars = str.toCharArray();
+        chars[index] = replace;
+        return String.valueOf(chars);
+    }
+
+    public void update() {
         Assets.stopMusic(Assets.mainMenu);
-        if (playTime>=0) {
+        if (playTime >= 0) {
             if (settings.isMusicOn()) {
                 if (rng <= 0.1) {
                     Assets.fireAura.play();
@@ -421,6 +438,7 @@ public class GameScreen extends ScreenAdapter {
                         settings.setPlays(plays);
                         EndScreen.time = strDouble;
                         totalTime += strDouble;
+                        if (strDouble < 1) settings.setAcinfo(replacechar(acinfo, 7, '1'));
                         settings.setTotal(totalTime);
                         if (settings.getDifficulty().equals("Beginner")) {
                             if (playTime > this.ehighScoreg) {

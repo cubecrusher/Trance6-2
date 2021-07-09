@@ -33,13 +33,16 @@ public class DifficultyScreen extends ScreenAdapter {
     private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
     Vector3 touchpt = new Vector3();
-    int n=0;
+    int n = 0;
 
-    public DifficultyScreen(OrthographicCamera camera){
+    // Экран выбора сложности. Сначала видна только одна, а по мере того как народ покупает новые,
+    // Их тут будет больше, вплоть до 4-х. Настройка getDifficulty()
+
+    public DifficultyScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
-        this.camera.position.set(new Vector3(width/2f, height/2f,0));
+        this.camera.position.set(new Vector3(width / 2f, height / 2f, 0));
         this.batch = new SpriteBatch();
         this.nameset = settings.getNameSet();
         if (settings.getDifficulty().equals("Beginner")) rusdifftext = "Новичок";

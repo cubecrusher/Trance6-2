@@ -36,13 +36,15 @@ public class MainScreen extends ScreenAdapter {
     private int height = TrJr.INSTANCE.getScrH();
     private int width = TrJr.INSTANCE.getScrW();
     private Settings settings;
-    int n=0;
+    int n = 0;
 
-    public MainScreen(OrthographicCamera camera){
+
+    // Главный экран. Как бы отправная точка. Отсюда можно попасть куда угодно, откуда угодно [источник?]
+    public MainScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
-        this.camera.position.set(new Vector3(width/2f, height/2f,0));
+        this.camera.position.set(new Vector3(width / 2f, height / 2f, 0));
         this.batch = new SpriteBatch();
         this.nameset = settings.getNameSet();
         this.isScoreSent = false;
@@ -122,46 +124,59 @@ public class MainScreen extends ScreenAdapter {
     }
 
     @Override
-    public void show(){
+    public void show() {
         if (settings.isMusicOn()) Assets.playMusic(Assets.mainMenu);
-            create();
-
+        create();
+        if (width >= 1080) {
+            // Это *феноменально* глупо. Но необходимо, ибо Viewport'ы не сработали.
+            // Вьюпорты должны скейлить размер всего на экране, и в + и в -, но нет!
+            // Скорее всего, из-за того что дефолт разрешение - FHD+, а это хорошо не кончается.
+            // Это значит что я вообще не парился с разрешениями ниже HD, и с 4:3 вообще,
+            // ибо тогда пришлось бы прописывать этот хлам вручную для каждого разрешения.
+            // Я этого делать, очевидно, не стал. Это просто глупо.
+            // Очевидно, есть другой способ, но я такого не нашёл. Будет вот так, как есть.
             playbutton.setPosition(-5, height / 2f);
-            playbutton.setSize(width-80,height/12f);
-
-            difficultybutton.setPosition(-5, height / 2f - 175);
-            difficultybutton.setSize(width-80,height/12f);
+            playbutton.setSize(width - 80, height / 12f);
 
             shopbutton.setPosition(-5, height / 2f - 350);
-            shopbutton.setSize(width-80,height/12f);
+            shopbutton.setSize(width - 80, height / 12f);
 
-            if (width>=1080) {
-                difficultybutton.setPosition(-5, height / 2f - 175);
-                difficultybutton.setSize(width-80,height/12f);
+            difficultybutton.setPosition(0, height / 2f - 175);
+            difficultybutton.setSize(width - 80, height / 12f);
 
-                optbutton.setPosition(0, height / 24f);
+            optbutton.setPosition(0, height / 24f);
 
-                statsbutton.setPosition(-20, height/24f+150);
-                statsbutton.setSize(width/4f,height/12f);
+            statsbutton.setPosition(-10, height / 24f + 150);
+            statsbutton.setSize(width / 4f, height / 12f);
 
-                milebutton.setPosition(-20, height/24f+325);
-                milebutton.setSize(width/4f,height/12f);
+            milebutton.setPosition(-10, height / 24f + 325);
+            milebutton.setSize(width / 4f, height / 12f);
 
                 exitbutton.setPosition(width - 250, height/24f);
             }
             else {
-                difficultybutton.setPosition(-5, height / 2f - 200);
-                difficultybutton.setSize(width-80,height/12f);
+            // Здесь так же. Да и *везде* так же. Адаптацию интерфейса - никак не успею.
+            playbutton.setPosition(-5, height / 2f + 20);
+            playbutton.setSize(width - 80, height / 12f);
 
-                optbutton.setPosition(-20, height / 12f);
-                optbutton.setSize(width / 4f, height / 12f);
+            difficultybutton.setPosition(-5, height / 2f - 80);
+            difficultybutton.setSize(width - 80, height / 12f);
 
-                statsbutton.setPosition(-20, height / 12f * 2.5f);
-                statsbutton.setSize(width / 4f, height / 12f);
+            shopbutton.setPosition(-5, height / 2f - 180);
+            shopbutton.setSize(width - 80, height / 12f);
 
-                exitbutton.setPosition(width - width/4f+20, height/12f);
-                exitbutton.setSize(width/4f,height/12f);
-            }
+            optbutton.setPosition(0, height / 12f);
+            optbutton.setSize(width / 4f, height / 12f);
+
+            statsbutton.setPosition(0, height / 12f * 2.1f);
+            statsbutton.setSize(width / 4f, height / 12f);
+
+            milebutton.setPosition(0, height / 12f * 3.2f);
+            milebutton.setSize(width / 4f, height / 12f);
+
+            exitbutton.setPosition(width - width / 4f + 20, height / 12f);
+            exitbutton.setSize(width / 4f, height / 12f);
+        }
             playbutton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -389,23 +404,25 @@ public class MainScreen extends ScreenAdapter {
         batch.begin();
         if (width<1080) {
             TrJr.INSTANCE.fontCyan3.draw(batch, "$", 15, height - 14);
-            TrJr.INSTANCE.font3.draw(batch, ""+settings.getMoney(), 35, height - 14);
-            gamelogos.setPosition(width/2f-282, height/6f*3.5f);
+            TrJr.INSTANCE.font3.draw(batch, "" + settings.getMoney(), 35, height - 14);
+            gamelogos.setPosition(width / 2f - 282, height / 6f * 3.8f);
             if (!settings.getScoreSent() && settings.getLaunch()) {
                 if (settings.getLanguage()==1){
                     if (!sendFailed)
-                        TrJr.INSTANCE.rfontCyan3.draw(batch, "Отправляем результаты...", 20, height / 2f + 125);
+                        TrJr.INSTANCE.rfontCyan3.draw(batch, "Отправляем результаты...", 20, height / 2f + 150);
                     else
-                        TrJr.INSTANCE.rfontCyan3.draw(batch, "Произошла ошибка. Попробуйте позже.", 20, height / 2f + 125);
+                        TrJr.INSTANCE.rfontCyan3.draw(batch, "Произошла ошибка. Попробуйте позже.", 20, height / 2f + 150);
                 } else {
                     if (!sendFailed)
-                        TrJr.INSTANCE.fontCyan3.draw(batch, "Sending your scores...", 20, height / 2f + 125);
+                        TrJr.INSTANCE.fontCyan3.draw(batch, "Sending your scores...", 20, height / 2f + 150);
                     else
-                        TrJr.INSTANCE.fontCyan3.draw(batch, "Failed to send scores. Retry later.", 20, height / 2f + 125);
+                        TrJr.INSTANCE.fontCyan3.draw(batch, "Failed to send scores. Retry later.", 20, height / 2f + 150);
                 }
             }
-            if (settings.getLanguage()==1) TrJr.INSTANCE.rfont3.draw(batch, "Сложность: " + rusdifftext, 20, height / 2f + 35);
-            else TrJr.INSTANCE.font3.draw(batch, "Difficulty: " + settings.getDifficulty(), 20, height / 2f + 35);
+            if (settings.getLanguage() == 1)
+                TrJr.INSTANCE.rfont3.draw(batch, "Сложность: " + rusdifftext, 20, height / 2f + 170);
+            else
+                TrJr.INSTANCE.font3.draw(batch, "Difficulty: " + settings.getDifficulty(), 20, height / 2f + 170);
 
             TrJr.INSTANCE.font3.draw(batch, "1.2.0a", 20, 40);
         }
