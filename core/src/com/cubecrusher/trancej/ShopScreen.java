@@ -37,10 +37,13 @@ public class ShopScreen extends ScreenAdapter {
     private Settings settings;
     int n = 0;
 
-    // Очевидно, это магаз. Здесь можно купить кастомизацию, апгрейды и сложности.
+
+    // Это магаз. Здесь можно купить кастомизацию, апгрейды и сложности.
     // Настройка getStoreInfo() хранит строку из девяти цифр, каждая из которых отвечает за товар из магазина.
     // Коды расписаны в файле assets/codes.txt для удобства (вообще не удобно!)
     // Она обновляется с помощью функции replacechar() и хранится в sharedpreferences.
+
+
     public ShopScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
@@ -169,6 +172,9 @@ public class ShopScreen extends ScreenAdapter {
 
             backbutton.setPosition(0, height / 24f);
         } else {
+
+            // Потенциальные траблы здесь!
+
             bluebtn.setPosition(-140, height / 2f + 80);
             bluebtn.setSize(width - 80, height / 12f);
             if (settings.getStoreinfo().charAt(0) == '0') bluebtn.getColor().a = .5f;

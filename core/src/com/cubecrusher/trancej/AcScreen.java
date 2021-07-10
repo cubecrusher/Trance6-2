@@ -202,6 +202,7 @@ public class AcScreen extends ScreenAdapter {
 
             backbutton.setPosition(0, height / 24f);
         } else {
+            // Потенциальные траблы здесь!
 
             ac1kbtn.setPosition(-140, height / 2f + 80);
             ac1kbtn.setSize(width - 80, height / 12f);

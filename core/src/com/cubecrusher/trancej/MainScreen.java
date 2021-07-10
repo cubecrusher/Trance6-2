@@ -40,6 +40,8 @@ public class MainScreen extends ScreenAdapter {
 
 
     // Главный экран. Как бы отправная точка. Отсюда можно попасть куда угодно, откуда угодно [источник?]
+
+
     public MainScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
@@ -128,13 +130,9 @@ public class MainScreen extends ScreenAdapter {
         if (settings.isMusicOn()) Assets.playMusic(Assets.mainMenu);
         create();
         if (width >= 1080) {
+
             // Это *феноменально* глупо. Но необходимо, ибо Viewport'ы не сработали.
-            // Вьюпорты должны скейлить размер всего на экране, и в + и в -, но нет!
-            // Скорее всего, из-за того что дефолт разрешение - FHD+, а это хорошо не кончается.
-            // Это значит что я вообще не парился с разрешениями ниже HD, и с 4:3 вообще,
-            // ибо тогда пришлось бы прописывать этот хлам вручную для каждого разрешения.
-            // Я этого делать, очевидно, не стал. Это просто глупо.
-            // Очевидно, есть другой способ, но я такого не нашёл. Будет вот так, как есть.
+
             playbutton.setPosition(-5, height / 2f);
             playbutton.setSize(width - 80, height / 12f);
 

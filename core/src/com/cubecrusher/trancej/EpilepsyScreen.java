@@ -56,7 +56,7 @@ public class EpilepsyScreen extends ScreenAdapter {
         if (TrJr.INSTANCE.getScrW() < 1080) {
             if (settings.getLanguage() == 1) {
                 TrJr.INSTANCE.rfontCyan.draw(batch, "ВНИМАНИЕ!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
-                TrJr.INSTANCE.rfont3.draw(batch, "Возможны эпилептические припадки.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
+                TrJr.INSTANCE.rfont3.draw(batch, "Присутствует мерцание.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
                 TrJr.INSTANCE.rfont3.draw(batch, "Будьте осторожны.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 50);
             } else {
                 TrJr.INSTANCE.fontCyan.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
@@ -66,7 +66,7 @@ public class EpilepsyScreen extends ScreenAdapter {
         } else {
             if (settings.getLanguage() == 1) {
                 TrJr.INSTANCE.rfontCyan.draw(batch, "ВНИМАНИЕ!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
-                TrJr.INSTANCE.rfont2.draw(batch, "Возможны эпилептические припадки.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
+                TrJr.INSTANCE.rfont2.draw(batch, "Присутствует мерцание.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 100);
                 TrJr.INSTANCE.rfont2.draw(batch, "Будьте осторожны.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 50);
             } else {
                 TrJr.INSTANCE.fontCyan.draw(batch, "WARNING!", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 200);
@@ -74,7 +74,7 @@ public class EpilepsyScreen extends ScreenAdapter {
                 TrJr.INSTANCE.font2.draw(batch, "Discretion is advised.", TrJr.INSTANCE.getScrW() / 20f, TrJr.INSTANCE.getScrH() / 2f + 50);
             }
         }
-        batch.end(); // special thanks to Foch from amongus for being an ukra
+        batch.end();
 
         if (n >= 120) TrJr.INSTANCE.setScreen(new MainScreen(camera));
     }

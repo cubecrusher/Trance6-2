@@ -38,7 +38,7 @@ public class TutorialScreen extends ScreenAdapter {
     // Экран обучения. Чрезвычайно прост - текст и одна кнопка.
     // Появляется один раз и почти никем не читается.
     // Да и нужен он не особо, народ ведь быстро сам смекает что к чему
-    // Он остаётся здесь, так как кто-то его всё равно читает.
+    // Но пусть будет.
 
     public TutorialScreen(OrthographicCamera camera) {
         this.settings = new Settings();

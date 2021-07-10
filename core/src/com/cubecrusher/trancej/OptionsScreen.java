@@ -43,7 +43,7 @@ public class OptionsScreen extends ScreenAdapter {
     private int spritey = 0;
     int n = 0;
 
-    // Экран настроек. Тут можно вкл/выкл звук, музыку, мерцание и сменить язык если очень хочется.
+    // Экран настроек. Тут можно вкл/выкл звук, музыку, мерцание и сменить язык.
     // Текст может съезжать от кнопок, ибо ужасная адаптация - это ведь не текстурки
 
     public OptionsScreen(OrthographicCamera camera) {
