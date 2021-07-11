@@ -309,23 +309,53 @@ public class EndScreen extends ScreenAdapter {
         }
 
     if (!moneyAdded) {
-        if (settings.getDifficulty().equals("Beginner")) {  // Lazy to do this for everything else for today
-            settings.setMoney(settings.getMoney() + (Math.round(time)) / 2);
-            newMoney+=Math.round(time)/2;
+        if (settings.getDifficulty().equals("Beginner")) {
+            if (settings.getStoreinfo().charAt(7) == '0' && settings.getStoreinfo().charAt(8) == '0')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) / 2);
+            else if (settings.getStoreinfo().charAt(7) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) / 2 + 10);
+            else if (settings.getStoreinfo().charAt(8) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) / 2 + 25);
+            else if (settings.getStoreinfo().charAt(7) == '1' && settings.getStoreinfo().charAt(8) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) / 2 + 35);
+            newMoney += Math.round(time) / 2;
         }
         if (settings.getDifficulty().equals("Medium")) {
-            settings.setMoney(settings.getMoney() + (Math.round(time)));
-            newMoney+=Math.round(time);
+            if (settings.getStoreinfo().charAt(7) == '0' && settings.getStoreinfo().charAt(8) == '0')
+                settings.setMoney(settings.getMoney() + (Math.round(time)));
+            else if (settings.getStoreinfo().charAt(7) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) + 10);
+            else if (settings.getStoreinfo().charAt(8) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) + 25);
+            else if (settings.getStoreinfo().charAt(7) == '1' && settings.getStoreinfo().charAt(8) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) + 35);
+            newMoney += Math.round(time);
         }
         if (settings.getDifficulty().equals("Expert")) {
-            settings.setMoney(settings.getMoney() + (Math.round(time)) * 2);
-            newMoney+=Math.round(time)*2;
+            if (settings.getStoreinfo().charAt(7) == '0' && settings.getStoreinfo().charAt(8) == '0')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) * 2);
+            else if (settings.getStoreinfo().charAt(7) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) * 2 + 10);
+            else if (settings.getStoreinfo().charAt(8) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) * 2 + 25);
+            else if (settings.getStoreinfo().charAt(7) == '1' && settings.getStoreinfo().charAt(8) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) * 2 + 35);
+            newMoney += Math.round(time) * 2;
         }
         if (settings.getDifficulty().equals("Cursed")) {
-            settings.setMoney(settings.getMoney() + (Math.round(time)) * 4);
-            newMoney+=Math.round(time)*4;
+            if (settings.getStoreinfo().charAt(7) == '0' && settings.getStoreinfo().charAt(8) == '0')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) * 4);
+            else if (settings.getStoreinfo().charAt(7) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) * 4 + 10);
+            else if (settings.getStoreinfo().charAt(8) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) * 4 + 25);
+            else if (settings.getStoreinfo().charAt(7) == '1' && settings.getStoreinfo().charAt(8) == '1')
+                settings.setMoney(settings.getMoney() + (Math.round(time)) * 4 + 35);
+            newMoney += Math.round(time) * 4;
         }
-        moneyAdded=true;
+        if (settings.getStoreinfo().charAt(7) == '1') newMoney += 10;
+        if (settings.getStoreinfo().charAt(8) == '1') newMoney += 25;
+        moneyAdded = true;
     }
 
         update();

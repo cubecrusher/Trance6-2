@@ -462,7 +462,7 @@ public class ShopScreen extends ScreenAdapter {
                     else itemdesc2="";
                 } else {
                     itemname = "Money+";
-                    itemdesc = "Does not work";
+                    itemdesc = "500$ - +10$ per attempt";
                     if (settings.getStoreinfo().charAt(7)=='0') itemdesc2 = "";
                     else itemdesc2="";
                 }
@@ -484,12 +484,12 @@ public class ShopScreen extends ScreenAdapter {
                 pressn=9;
                 if (settings.getLanguage()==1){
                     itemname = "Зарплата++";
-                    itemdesc = "Не работает";
+                    itemdesc = "750$ - +25$ за попытку";
                     if (settings.getStoreinfo().charAt(8)=='0') itemdesc2 = "";
                     else itemdesc2="";
                 } else {
                     itemname = "Money++";
-                    itemdesc = "Does not work";
+                    itemdesc = "750$ - +25$ per attempt";
                     if (settings.getStoreinfo().charAt(8)=='0') itemdesc2 = "";
                     else itemdesc2="";
                 }
