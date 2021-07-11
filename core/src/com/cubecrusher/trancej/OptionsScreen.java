@@ -101,15 +101,15 @@ public class OptionsScreen extends ScreenAdapter {
     public void show(){
         create();
         //if (settings.isMusicOn()) Assets.playMusic(Assets.mainMenu);
-        soundbutton.setPosition(0, height / 2f - 100 + height / 12f);
+        soundbutton.setPosition(-20, height / 2f - 100 + height / 12f);
         soundbutton.setSize(width / 4f, height / 12f);
 
-        langbutton.setPosition(0, height / 2f - 150 - height / 12f);
+        langbutton.setPosition(-20, height / 2f - 150 - height / 12f);
         langbutton.setSize(width / 4f, height / 12f);
         if (width>=1080) {
-            musicbutton.setPosition(0, height / 2f + 75 - height / 12f);
+            musicbutton.setPosition(-20, height / 2f + 75 - height / 12f);
             musicbutton.setSize(width / 4f, height / 12f);
-            epbutton.setPosition(0, height / 2f - 150 - height / 12f - 225);
+            epbutton.setPosition(-20, height / 2f - 150 - height / 12f - 225);
             epbutton.setSize(width / 4f, height / 12f);
             backbutton.setPosition(0, height / 24f);
             creditsbutton.setPosition(width - 250, height / 24f);
@@ -204,13 +204,7 @@ public class OptionsScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        shapeRenderer.setAutoShapeType(true);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.WHITE);
-        shapeRenderer.rect(0, height-height/25f, width, 10);
-        shapeRenderer.end();
-
-        if (n<=2) {
+        if (n <= 2 && settings.getEpilepsy()) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(Color.DARK_GRAY);

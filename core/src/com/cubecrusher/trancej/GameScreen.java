@@ -165,7 +165,7 @@ public class GameScreen extends ScreenAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             Gdx.input.setCatchKey(Input.Keys.BACK,true);
             TrJr.INSTANCE.setScreen(new MainScreen(camerag));
-            if (n<=2) {
+            if (n <= 2 && settings.getEpilepsy()) {
                 shapeRenderer.setAutoShapeType(true);
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                 shapeRenderer.setColor(Color.DARK_GRAY);

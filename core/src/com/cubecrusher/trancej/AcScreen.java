@@ -402,13 +402,7 @@ public class AcScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        shapeRenderer.setAutoShapeType(true);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.WHITE);
-        shapeRenderer.rect(0, height-height/25f, width, 10);
-        shapeRenderer.end();
-
-        if (n<=2) {
+        if (n <= 2 && settings.getEpilepsy()) {
             shapeRenderer.setAutoShapeType(true);
             shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
             shapeRenderer.setColor(Color.DARK_GRAY);

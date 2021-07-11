@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -410,13 +409,7 @@ public class EndScreen extends ScreenAdapter {
             uishown=true;
             }
         batch.end();
-        if (uishown) {
-            shapeRenderer.setAutoShapeType(true);
-            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-            shapeRenderer.setColor(Color.WHITE);
-            shapeRenderer.rect(0, height - height / 25f, width, 10);
-            shapeRenderer.end();
-        }
+
     }
 
     @Override
