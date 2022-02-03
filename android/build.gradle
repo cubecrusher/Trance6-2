@@ -1,3 +1,5 @@
+apply plugin: 'com.google.gms.google-services'
+
 android {
     buildToolsVersion "30.0.3"
     compileSdkVersion 30
@@ -87,6 +89,11 @@ task run(type: Exec) {
 
     def adb = path + "/platform-tools/adb"
     commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.cubecrusher.trancej/com.cubecrusher.trancej.AndroidLauncher'
+}
+
+dependencies {
+    implementation 'com.google.android.gms:play-services-games:22.0.1'
+    implementation 'com.google.android.gms:play-services-auth:20.0.1'
 }
 
 eclipse.project.name = appName + "-android"

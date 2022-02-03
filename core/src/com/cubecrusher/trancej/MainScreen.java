@@ -38,10 +38,6 @@ public class MainScreen extends ScreenAdapter {
     private Settings settings;
     int n = 0;
 
-
-    // Главный экран. Как бы отправная точка. Отсюда можно попасть куда угодно, откуда угодно [источник?]
-
-
     public MainScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;

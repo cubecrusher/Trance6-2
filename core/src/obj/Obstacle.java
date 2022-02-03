@@ -20,9 +20,6 @@ public class Obstacle {
     protected boolean isOut = true;
     protected int pos;
 
-    // Класс препятствия. В геймскрине - если хитбокс (polygon) пересекает треугольник = проигрыш
-    // Этот и другие классы obstacle - одинаковые по коду.
-
     public Obstacle(GameScreen gameScreen) {
         this.settings = new Settings();
         this.x = 0;

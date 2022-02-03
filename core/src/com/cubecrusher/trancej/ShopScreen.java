@@ -37,13 +37,6 @@ public class ShopScreen extends ScreenAdapter {
     private Settings settings;
     int n = 0;
 
-
-    // Это магаз. Здесь можно купить кастомизацию, апгрейды и сложности.
-    // Настройка getStoreInfo() хранит строку из девяти цифр, каждая из которых отвечает за товар из магазина.
-    // Коды расписаны в файле assets/codes.txt для удобства (вообще не удобно!)
-    // Она обновляется с помощью функции replacechar() и хранится в sharedpreferences.
-
-
     public ShopScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;

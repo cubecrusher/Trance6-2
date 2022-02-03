@@ -36,11 +36,6 @@ public class AcScreen extends ScreenAdapter {
     private Settings settings;
     int n = 0;
 
-    // В очень узких кругах (в котором состою только я) этот экран именуется "Магаз 2",
-    // Т.к. код просто скопирован оттуда и изменён под достижения.
-    // Опять же, похожая схема хранения достижений - 9 цифр.
-    // Коды в assets/codes.txt, чтобы понять что за что отвечает
-
     public String replacechar(String str, int index, char replace) {
         if (str == null) {
             return str;

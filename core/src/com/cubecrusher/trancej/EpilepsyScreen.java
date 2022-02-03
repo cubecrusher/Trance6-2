@@ -17,8 +17,6 @@ public class EpilepsyScreen extends ScreenAdapter {
     private Settings settings;
     int n = 0;
 
-    // Экран, предупреждающий о наличии в игре мерцаний. Длится 120 кадров и переходит в mainscreen
-    // Мерцание можно выключить в optionsscreen посредством настройки getEpilepsy()
     public EpilepsyScreen(OrthographicCamera camera) {
         this.camera = camera;
         this.camera.position.set(new Vector3(TrJr.INSTANCE.getScrW() / 2f, TrJr.INSTANCE.getScrH() / 2f, 0));

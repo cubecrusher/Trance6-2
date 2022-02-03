@@ -21,10 +21,6 @@ public class Settings {
     private int language; //  0:eng  1:rus
     private String username, difficulty;
 
-    // Экран настроек! Это самая вкусная часть игры. Если знать что делать, можно сразу пройти игру
-    // Не играя в неё. Powered by SharedPreferences.
-
-
     // Достижения
     private String acinfo;
 

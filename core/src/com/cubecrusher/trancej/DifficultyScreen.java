@@ -35,8 +35,6 @@ public class DifficultyScreen extends ScreenAdapter {
     Vector3 touchpt = new Vector3();
     int n = 0;
 
-    // Экран выбора сложности. Сначала видна только одна, а по мере того как народ покупает новые,
-    // Их тут будет больше, вплоть до 4-х. Настройка getDifficulty()
 
     public DifficultyScreen(OrthographicCamera camera) {
         this.settings = new Settings();

@@ -44,8 +44,6 @@ public class EndScreen extends ScreenAdapter {
     private int spritey = 0, spritey2 = 0;
     int a = 0, newMoney = 0;
 
-    // Экран проигрыша. Берётся рекорд по выбранной сложности и последнее время из gamescreen'а.
-    // Рандомно прописывается текст-дразнилка, коих есть 10 штук; остальные - глупые идеи
 
     public String replacechar(String str, int index, char replace) {
         if (str == null) {

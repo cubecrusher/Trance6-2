@@ -52,11 +52,6 @@ public class GameScreen extends ScreenAdapter {
     protected int pattern;
     protected boolean isOut;
 
-    // Непосредственно, экран игрового процесса.
-    // Мякотка в том, что тут *почти* идеальная адаптация интерфейса - кнопок нет, всё намного проще.
-    // Используются настройки рекордов и цвета треугольника.
-    // С другой стороны, можно считать кадры вместо секунд, но секунды ведь интереснее!
-
     public GameScreen(OrthographicCamera camera) {
         this.camerag = camera;
         this.settings = new Settings();

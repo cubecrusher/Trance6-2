@@ -6,9 +6,6 @@ import com.badlogic.gdx.audio.Music;
 public class Assets {
     public static Music archetype, chaozFantasy, fireAura, fireFly, basementFloor, harmfatal, tireDmg, shinyTech, uD, mainMenu, blip1, blip2, gameOver;
 
-    // Класс, где прописывается музыка и звуковые эффекты. Он же отвечает за функции, их проигрывающие.
-    // Используется почти везде.
-
     public static void load() {
         archetype = Gdx.audio.newMusic(Gdx.files.internal("audio/ogg/Az8Tn.ogg")); //160bpm
         archetype.setLooping(true);

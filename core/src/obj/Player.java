@@ -21,8 +21,6 @@ public class Player {
     public int nn = 0;
     public boolean white = true, oob = false;
 
-    // Класс треугольника. Всё довольно просто.
-
     public Player(GameScreen gameScreen) {
         this.settings = new Settings();
         this.x = TrJr.INSTANCE.getScrW() / 2f;

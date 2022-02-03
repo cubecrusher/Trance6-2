@@ -48,8 +48,7 @@ public class NameScreen extends ScreenAdapter {
     public ArrayList<String> highscoreList;
     private String currentUsername, matchingUsername;
 
-    // Экран, появляющийся, пока игрок не подтвердит свой никнейм. Т.е. один раз.
-    // Далее сменить никнейм невозможно. Никнейм хранится в настройке getUsername()
+
     public NameScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;

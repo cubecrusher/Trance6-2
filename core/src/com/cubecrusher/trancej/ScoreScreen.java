@@ -47,9 +47,6 @@ public class ScoreScreen extends ScreenAdapter {
     boolean a = true, isDone = false, hasfailed = false;
     public ArrayList<String> highscoreList;
 
-    // Экран рекордов. Парсит json из лидерборды, высвечивает топ-10 по выбранной сложности.
-    // Если там совпадает никнейм с вашим, высвечивает голубым светом.
-
     public ScoreScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;

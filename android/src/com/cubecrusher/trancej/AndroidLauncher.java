@@ -8,9 +8,6 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 public class AndroidLauncher extends AndroidApplication {
 
-	// А вот здесь прописывается, чтобы не было видно статусбара, баттонбара и прочей чепухи.
-	// Депрекейтед, но другого способа просто нет (?)
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		View decorView = getWindow().getDecorView();

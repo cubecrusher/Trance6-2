@@ -18,8 +18,6 @@ public class TrJr extends Game {
 
     TrJr() {
     }
-    // Этот класс генерирует шрифты, определяет размер экрана, и переносит в EpilepsyScreen после загрузки всего.
-    // Всё это впоследствии используется на всех экранах.
 
     public void create() {
         System.out.println("INFO: Trance.create() called");
@@ -44,7 +42,6 @@ public class TrJr extends Game {
     }
 
 	public void makeFont() {
-        // Генерация шрифтов из файла. Занимает больше времени при запуске, но не хранит их в физ. памяти. Может это и к худшему, но так было проще.
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/gui.ttf"));
         FreeTypeFontGenerator rgenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/guinew.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();

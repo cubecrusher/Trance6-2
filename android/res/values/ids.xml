@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_id">62030607478</string>
+    <string name="ac_quickdeath">Slowpoke</string>
+    <string name="ac_easytime">Passed the ABC\'s</string>
+    <string name="ac_mediumtime">Above Average</string>
+    <string name="ac_hardtime">Certified Expert</string>
+    <string name="ac_cursedtime">The Trollge</string>
+    <string name="ac_10kbucks">Getting There</string>
+    <string name="ac_100kbucks">Dead Inside</string>
+    <string name="ac_1kdeaths">Domination</string>
+
+    <string name="lb_easy">Beginner</string>
+    <string name="lb_normal">Normal</string>
+    <string name="lb_hard">Expert</string>
+    <string name="lb_cursed">Cursed</string>
+</resources>

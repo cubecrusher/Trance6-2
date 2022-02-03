@@ -37,11 +37,6 @@ public class CreditsScreen extends ScreenAdapter {
     private Settings settings;
     int n = 0;
 
-    // Экран где расписывается название музыки и её авторы.
-    // Довольно простенько, но необходимо, т.к. CC-BY-SA, агась
-    // Её можно использовать если упомянуть автора и/или спросить разрешения у автора на использование.
-    // Я это всё сделал, так что всё законно и хорошо.
-    // Пришлось ухудшить качество ибо игра весила 40мб из-за неё - сейчас 15мб, но битрейт расстроился
     public CreditsScreen(OrthographicCamera camera) {
         this.settings = new Settings();
         this.camera = camera;
