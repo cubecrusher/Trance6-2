@@ -127,8 +127,6 @@ public class MainScreen extends ScreenAdapter {
         create();
         if (width >= 1080) {
 
-            // Это *феноменально* глупо. Но необходимо, ибо Viewport'ы не сработали.
-
             playbutton.setPosition(-5, height / 2f);
             playbutton.setSize(width - 80, height / 12f);
 
@@ -149,7 +147,7 @@ public class MainScreen extends ScreenAdapter {
                 exitbutton.setPosition(width - 250, height/24f);
             }
             else {
-            // Здесь так же. Да и *везде* так же. Адаптацию интерфейса - никак не успею.
+            
             playbutton.setPosition(-5, height / 2f + 20);
             playbutton.setSize(width - 80, height / 12f);
 
@@ -244,7 +242,7 @@ public class MainScreen extends ScreenAdapter {
     public void submitEasyScore(){
         if (!settings.getScoreSent()){
             int bestScore = (int) (settings.geteHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/BN0B0ZjSlk2snBWFvcTOQgwXJdz69dhk2pQRiN4-CquQ/add/" + settings.getUsername() + "/" + bestScore + "/";
+            String urlReqString = "leaderboard url";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             httpRequest.setTimeOut(0);
@@ -276,7 +274,7 @@ public class MainScreen extends ScreenAdapter {
     public void submitMediumScore(){
         if (!settings.getScoreSent()){
             int bestScore = (int) (settings.getnHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore + "/";
+            String urlReqString = "leaderboard url";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             httpRequest.setTimeOut(0);
@@ -308,7 +306,7 @@ public class MainScreen extends ScreenAdapter {
     public void submitHardScore(){
         if (!settings.getScoreSent()){
             int bestScore = (int) (settings.gethHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/QJNYhELT6kum8gnBlxvuNALo_R2Fa2UUClZd3A5E0N1Q/add/" + settings.getUsername() + "/" + bestScore + "/";
+            String urlReqString = "leaderboard url";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             httpRequest.setTimeOut(0);
@@ -340,7 +338,7 @@ public class MainScreen extends ScreenAdapter {
     public void submitCursedScore(){
         if (!settings.getScoreSent()){
             int bestScore = (int) (settings.getcHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/5JdylXUUXky8NJN8X6O8iwncyP4oBIQE25bWj-CYrFvQ/add/" + settings.getUsername() + "/" + bestScore + "/";
+            String urlReqString = "leaderboard url";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             httpRequest.setTimeOut(0);
