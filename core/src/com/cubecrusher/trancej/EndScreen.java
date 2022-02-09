@@ -154,7 +154,7 @@ public class EndScreen extends ScreenAdapter {
         if (newBest) netNewBest = true;
         if (netNewBest){
             int bestScore = (int) (settings.geteHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/BN0B0ZjSlk2snBWFvcTOQgwXJdz69dhk2pQRiN4-CquQ/add/" + settings.getUsername() + "/" + bestScore + "/";
+            String urlReqString = "leaderboard url";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             httpRequest.setTimeOut(0);
@@ -185,7 +185,7 @@ public class EndScreen extends ScreenAdapter {
         if (newBest) netNewBest = true;
         if (netNewBest){
             int bestScore = (int) (settings.getnHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/RgmW1USbOUGLxputvY42UgxmTCP95THkW4TfGUvJItLw/add/" + settings.getUsername() + "/" + bestScore + "/";
+            String urlReqString = "leaderboard url";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             httpRequest.setTimeOut(0);
@@ -216,7 +216,7 @@ public class EndScreen extends ScreenAdapter {
         if (newBest) netNewBest = true;
         if (netNewBest){
             int bestScore = (int) (settings.gethHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/QJNYhELT6kum8gnBlxvuNALo_R2Fa2UUClZd3A5E0N1Q/add/" + settings.getUsername() + "/" + bestScore + "/";
+            String urlReqString = "leaderboard url";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             httpRequest.setTimeOut(0);
@@ -247,7 +247,7 @@ public class EndScreen extends ScreenAdapter {
         if (newBest) netNewBest = true;
         if (netNewBest){
             int bestScore = (int) (settings.getcHighScore()*100);
-            String urlReqString = "http://dreamlo.com/lb/5JdylXUUXky8NJN8X6O8iwncyP4oBIQE25bWj-CYrFvQ/add/" + settings.getUsername() + "/" + bestScore + "/";
+            String urlReqString = "leaderboard url";
             HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
             Net.HttpRequest httpRequest = requestBuilder.newRequest().method(Net.HttpMethods.GET).url(urlReqString).build();
             httpRequest.setTimeOut(0);
